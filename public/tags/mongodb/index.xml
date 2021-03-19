@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>MongoDB on 行百里者半九十</title>
+    <link>https://xblzbjs.cn/tags/mongodb/</link>
+    <description>Recent content in MongoDB on 行百里者半九十</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-Hans</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;xblzbjs&lt;/a&gt;</copyright>
+    <lastBuildDate>Wed, 17 Mar 2021 11:21:44 +0800</lastBuildDate><atom:link href="https://xblzbjs.cn/tags/mongodb/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>MongoDB｜介绍与安装</title>
+      <link>https://xblzbjs.cn/articles/mongodb%E4%BB%8B%E7%BB%8D%E4%B8%8E%E5%AE%89%E8%A3%85/</link>
+      <pubDate>Wed, 17 Mar 2021 11:21:44 +0800</pubDate>
+      
+      <guid>https://xblzbjs.cn/articles/mongodb%E4%BB%8B%E7%BB%8D%E4%B8%8E%E5%AE%89%E8%A3%85/</guid>
+      <description>MongoDB介绍 MongoDB安装 使用docker安装（推荐） docker pull mongo	# 默认最新 docker pull mongo:4.0 # 指定安装MongoDB4.0版本 # 使用test数据库 &amp;gt; use test switched to db test # 查看test数据库中的集合 &amp;gt; show collections	# 现在test数据库里还没有集合 &amp;gt; </description>
+    </item>
+    
+  </channel>
+</rss>

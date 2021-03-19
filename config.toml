@@ -1,0 +1,85 @@
+# Dir Config
+contentdir   = "content"
+layoutdir    = "layouts"
+publishdir   = "public"
+# Url
+baseurl      = "https://xblzbjs.cn"
+title        = "xblzbjs Blog"
+languageCode = "zh-Hans"
+# Template
+theme        = "hello-friend-ng"
+paginate     = 10
+
+[params]
+  author          = "xblzbjs"
+  dateform        = "Jan 2, 2006"
+  dateformShort   = "Jan 2"
+  dateformNum     = "2006-01-02"
+  dateformNumTime = "2006-01-02 15:04"
+
+  # 主页副标题
+  homeSubtitle = "詩云：『行百里者半於九十。』此言末路之難也。"
+
+  # 在构建的时候是否需要将草稿打包进去,默认 false
+  disableReadOtherPosts = false
+
+  # Enable sharing buttons, if you like
+  enableSharingButtons = true
+
+  # Metadata mostly used in document's head
+  description = "xblzbjs的个人博客"
+  keywords = "homepage, blog"
+  images = [""]
+
+[taxonomies]
+    category = "blog"
+    tag      = "tags"
+    series   = "series"
+
+[languages]
+  [languages.en]
+    title = "行百里者半九十"
+    subtitle = "A simple theme for Hugo"
+    keywords = ""
+    copyright = '<a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">xblzbjs</a>'
+    readOtherPosts = "Read other posts"
+
+    [languages.en.params.logo]
+      logoText = "xblzbjs"
+      logoHomeLink = "/"
+    # or
+    #
+    # path = "/img/your-example-logo.svg"
+    # alt = "Your example logo alt text"
+
+  # Social
+  [[params.social]]
+    name = "email"
+    url  = "mailto:t710255295@gmail.com"
+  [[params.social]]
+    name = "github"
+    url  = "https://github.com/xblzbjs"
+  [[params.social]]
+    name = "twitter"
+    url  = "https://github.com/xblzbjs"
+  [[params.social]]
+    name = "stackoverflow"
+    url  = "https://github.com/xblzbjs"
+  
+# Head
+[[menu.main]]
+  identifier = "about"
+  name       = "关于"
+  url        = "/about"
+[[menu.main]]
+  identifier = "book-list"
+  name       = "书单"
+  url        = "/book-list"
+[[menu.main]]
+  identifier = "articles"
+  name       = "文章"
+  url        = "/articles"
+[[menu.main]]
+  identifier = "home"
+  name       = "主页"
+  url        = "/"

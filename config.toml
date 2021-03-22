@@ -26,7 +26,6 @@ enableEmoji    = true
 disableRSS     = false
 disableSitemap = false
 disable404     = false
-disableHugoGeneratorInject = true
 
   
 [permalinks]
@@ -71,7 +70,6 @@ disableHugoGeneratorInject = true
     msapplication = "#1b1c1d"
     theme = "#1b1c1d"
 
-  
 
 [languages]
   [languages.zh-cn]

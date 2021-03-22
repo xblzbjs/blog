@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on 行百里者半九十</title>
+    <link>https://xblzbjs.cn/tags/</link>
+    <description>Recent content in Tags on 行百里者半九十</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;xblzbjs&lt;/a&gt;</copyright>
+    <lastBuildDate>Sat, 20 Mar 2021 13:45:56 +0800</lastBuildDate><atom:link href="https://xblzbjs.cn/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>python</title>
+      <link>https://xblzbjs.cn/tags/python/</link>
+      <pubDate>Sat, 20 Mar 2021 13:45:56 +0800</pubDate>
+      
+      <guid>https://xblzbjs.cn/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>zsh</title>
+      <link>https://xblzbjs.cn/tags/zsh/</link>
+      <pubDate>Fri, 19 Mar 2021 13:24:17 +0800</pubDate>
+      
+      <guid>https://xblzbjs.cn/tags/zsh/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>git</title>
+      <link>https://xblzbjs.cn/tags/git/</link>
+      <pubDate>Fri, 19 Mar 2021 11:41:13 +0800</pubDate>
+      
+      <guid>https://xblzbjs.cn/tags/git/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>MongoDB</title>
+      <link>https://xblzbjs.cn/tags/mongodb/</link>
+      <pubDate>Wed, 17 Mar 2021 11:26:44 +0800</pubDate>
+      
+      <guid>https://xblzbjs.cn/tags/mongodb/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>centos</title>
+      <link>https://xblzbjs.cn/tags/centos/</link>
+      <pubDate>Wed, 17 Mar 2021 10:13:27 +0800</pubDate>
+      
+      <guid>https://xblzbjs.cn/tags/centos/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>django</title>
+      <link>https://xblzbjs.cn/tags/django/</link>
+      <pubDate>Wed, 17 Mar 2021 10:13:27 +0800</pubDate>
+      
+      <guid>https://xblzbjs.cn/tags/django/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

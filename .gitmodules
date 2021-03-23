@@ -1,0 +1,6 @@
+[submodule "public"]
+	path = public
+	url = git@github.com:xblzbjs/xblzbjs.github.io.git
+[submodule "thems/hello-friend-ng"]
+	path = thems/hello-friend-ng
+	url = git@github.com:xblzbjs/hugo-theme-hello-friend-ng.git

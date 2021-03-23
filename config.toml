@@ -27,6 +27,8 @@ disableRSS     = false
 disableSitemap = false
 disable404     = false
 
+
+
   
 [permalinks]
   # 文章url
@@ -49,7 +51,7 @@ disable404     = false
   dateformShort   = "Jan 2"
   dateformNum     = "2006-01-02"
   dateformNumTime = "2006-01-02 15:04"
-
+  defaultTheme    = "dark"
 
 
   # 在构建的时候是否需要将草稿打包进去,默认 false
@@ -62,8 +64,6 @@ disable404     = false
   description = "xblzbjs的个人博客"
   keywords = "homepage, blog"
   images = [""]
-  # 主页副标题
-  homeSubtitle = "詩云：『行百里者半於九十。』此言末路之難也。"
   # enableSharingButtons = true
   [params.favicon.color]
     mask = "#1b1c1d"
@@ -74,6 +74,8 @@ disable404     = false
 [languages]
   [languages.zh-cn]
     title = "行百里者半九十"
+    # 主页副标题
+    homeSubtitle = "詩云：『行百里者半於九十。』此言末路之難也。"
     keywords = ""
     copyright = '<a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">xblzbjs</a>'
     readOtherPosts = "Read other posts"
@@ -87,19 +89,19 @@ disable404     = false
     # alt = "Your example logo alt text"
 
   # Social
-  [[params.social]]
-    name = "email"
-    url  = "mailto:t710255295@gmail.com"
-  [[params.social]]
-    name = "github"
-    url  = "https://github.com/xblzbjs"
-  # [[params.social]]
-  #   name = "twitter"
-  #   url  = "https://github.com/xblzbjs"
-  # [[params.social]]
-  #   name = "stackoverflow"
-  #   url  = "https://github.com/xblzbjs"
-  
+[[params.social]]
+  name = "email"
+  url  = "mailto:t710255295@gmail.com"
+[[params.social]]
+  name = "github"
+  url  = "https://github.com/xblzbjs"
+# [[params.social]]
+#   name = "twitter"
+#   url  = "https://github.com/xblzbjs"
+# [[params.social]]
+#   name = "stackoverflow"
+#   url  = "https://github.com/xblzbjs"
+
 # Head
 [[menu.main]]
   identifier = "about"

@@ -22,7 +22,7 @@ tags: ["python"]
 
 ### 1.工厂模式
 
-什么是工厂模式：
+解决了什么问题：
 
 - 解决对象创建问题
 - 解耦对象的创建和使用
@@ -94,3 +94,5 @@ assert c1 is c2	# c1, c2是同一个实例
 
  
 
+## 参考:
+https://design-patterns.readthedocs.io/zh_CN/latest/creational_patterns/creational.html

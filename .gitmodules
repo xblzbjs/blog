@@ -4,3 +4,6 @@
 [submodule "thems/hello-friend-ng"]
 	path = thems/hello-friend-ng
 	url = git@github.com:xblzbjs/hugo-theme-hello-friend-ng.git
+[submodule "themes/hugo-theme-stack"]
+	path = themes/hugo-theme-stack
+	url = https://github.com/CaiJimmy/hugo-theme-stack/

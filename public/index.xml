@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>行百里者半九十</title>
+    <link>https://xblzbjs.cn/</link>
+    <description>Recent content on 行百里者半九十</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;xblzbjs&lt;/a&gt;</copyright>
+    <lastBuildDate>Wed, 24 Mar 2021 11:13:12 +0800</lastBuildDate><atom:link href="https://xblzbjs.cn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go｜testing.M</title>
+      <link>https://xblzbjs.cn/article/2021/03/gotesting.m/</link>
+      <pubDate>Wed, 24 Mar 2021 11:13:12 +0800</pubDate>
+      
+      <guid>https://xblzbjs.cn/article/2021/03/gotesting.m/</guid>
+      <description>因何而生❓ 有时测试程序需要在测试之前或之后进行额外的设置或拆卸。有时测试还需要控制哪些代码在主线程上运行。为了支持这些和其他情况, testing 包提供了 TestMain 函数 :
+func TestMain(m *testing.M) 有什么作用🤔 如果测试文件中包含该函数，那么生成的测试将调用 TestMain(m)，而不是直接运行测试。TestMain 运行在主 goroutine 中 , 可以在调用 m.Run 前后做任何设置和拆卸。m. Run将返回可能传递给的退出代码操作系统退出. 如果TestMain返回，测试包装器将m.Run的结果传递给操作系统退出它自己
+调用TestMain时，flag.解析尚未运行。如果TestMain依赖于命令行标志，包括测试包的标志，那么它应该调用flag.解析明确地。命令行标志总是由运行的时间测试或基准函数来解析
+因此，当您需要为测试执行一些全局设置/删除时，这可能会很方便
+举个🌰 简单 // file name: demo_test.go package tests import ( &amp;#34;testing&amp;#34; &amp;#34;os&amp;#34; ) func TestMain(m *testing.M) { log.Println(&amp;#34;Do stuff BEFORE the tests!&amp;#34;) exitVal := m.Run() log.Println(&amp;#34;Do stuff AFTER the tests!&amp;#34;) os.Exit(exitVal) } func TestA(t *testing.T) { log.Println(&amp;#34;TestA running&amp;#34;) } func TestB(t *testing.T) { log.Println(&amp;#34;TestB running&amp;#34;) } 输出 $ go test -v demo_test.</description>
+    </item>
+    
+    <item>
+      <title>Python｜创建型设计模式</title>
+      <link>https://xblzbjs.cn/article/2021/03/python%E5%88%9B%E5%BB%BA%E5%9E%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Sat, 20 Mar 2021 13:45:56 +0800</pubDate>
+      
+      <guid>https://xblzbjs.cn/article/2021/03/python%E5%88%9B%E5%BB%BA%E5%9E%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</guid>
+      <description>常见创建型设计模式：  工厂模式（Factory）：解决对象创建问题 构造模式（Builder）：控制复杂对象的创建 原型模式（Prototype）：通过原型的克隆创建新的实例 单例（Borg/Singleton）：一个类只能创建同一个对象 对象池模式（Pool）：预先分配同一类型的一组实例 惰性计算模式（Lazy Evaluation）：延迟计算（python的property）  1.工厂模式 解决了什么问题：
+ 解决对象创建问题 解耦对象的创建和使用 包括工厂方法和抽象工厂  # 工厂方法 class DogToy: def speak(self): print(&amp;#34;wang wang&amp;#34;) class CatToy: def speak(self): print(&amp;#34;miao miao&amp;#34;) def toy_factory(toy_type): if toy_type == &amp;#39;dog&amp;#39;: return DogToy() elif toy_type == &amp;#39;cat&amp;#39;: return CatToy() 2.构造模式 什么是构造模式：
+ 用来控制复杂对象的构造 创建和表示分离。比如你要买电脑，工厂模式直接给你需要的电脑 但是构造模式允许你自己定义电脑的配置，组装完成后给你  3.原型模式 什么是原型模式：
+ 通过克隆原型来创建新的实例 可以通过相同的原型，通过修改部分属性来创建新的实例 用途：对于一些创建实例开销比较高的地方可以用原型模式  4.单例模式（重点） 单例模式的实现由多种方式
+ 单例模式：一个类创建出来的对象都是同一个 Python的模块其实就是单例的，只会导入一次（import） 使用共享同一个实例的方式来创建单例模式  # 单例模式 class Singleton: def __new__(cls, *args, **kwargs): if not hasattr(cls, &amp;#39;_instance&amp;#39;): _instance = super().</description>
+    </item>
+    
+    <item>
+      <title>Python｜结构型设计模式</title>
+      <link>https://xblzbjs.cn/article/2021/03/python%E7%BB%93%E6%9E%84%E5%9E%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Sat, 20 Mar 2021 13:45:56 +0800</pubDate>
+      
+      <guid>https://xblzbjs.cn/article/2021/03/python%E7%BB%93%E6%9E%84%E5%9E%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</guid>
+      <description>结构型模式 常见的结构型设计模式：
+ 工厂模式（Factory）：解决对象创建问题 构造模式（Builder）：控制复杂对象的创建 原型模式（Prototype）：通过原型的克隆创建新的实例 单例（Borg/Singleton）：一个类只能创建同一个对象 对象池模式（Pool）：预先分配同一类型的一组实例 惰性计算模式（Lazy Evaluation）：延迟计算（python的property）  装饰器模式 什么是装饰器（Decorator）
+ Python中一切皆对象，函数也可以当作参数传递 装饰器是接受函数作为参数，添加功能后返回一个新函数的函数（类） 通过@使用装饰器  import time def log_time(func):	# 接受一个函数作为参数 def _log(*args, **kwargs): beg = time.time() res = func(*args, **kwargs) print(&amp;#39;use time:{}&amp;#39;.format(time.time()-beg)) return res return _log @log_time # @:装饰器语法糖 def mysleep(): time.sleep(1) newsleep = log_time(mysleep) # 等价于mysleep() newsleep() mysleep() import time # 装饰器类实现 class LogTime: def __init__(self, use_int=False): self.use_int = use_int	# 增加参数 def __call__(self,func):	def _log(*args, **kwargs): beg = time.</description>
+    </item>
+    
+    <item>
+      <title>Python｜行为型设计模式</title>
+      <link>https://xblzbjs.cn/article/2021/03/python%E8%A1%8C%E4%B8%BA%E5%9E%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Sat, 20 Mar 2021 13:45:56 +0800</pubDate>
+      
+      <guid>https://xblzbjs.cn/article/2021/03/python%E8%A1%8C%E4%B8%BA%E5%9E%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</guid>
+      <description>常见学习行为型设计模式  迭代器模式（Iterator）：通过统一的接口迭代对象 观察者模式（Observer）：对象发生改变的时候，观察者执行相应动作 策略模式（Strategy）：针对不同规模输入使用不同的策略  迭代器模式  Python内置对迭代器模式的支持 可用for遍历各种Iterable的数据类型 可以实现__next__和__iter__实现迭代器  class Stack(object): # 使用组合的例子 def __init__(self): self._deque = deque() def push(self, value): return self._deque.append(value) def pop(self): return self._deque.pop() def empty(self): return len(self._deque) == 0 def __iter__(self): res = [] for i in self._deque: res.append(i) for i in reversed(res): yield i s = Stack() s.push(1) s.push(2) for i in s: print(i) 观察者模式  发布订阅是一种最常用的实现方式 发布订阅用于解耦逻辑 可以通过回调等方式实现，当发生事件，执行回调函数  ==TODO：代码实现==
+策略模式  根据不同的输入采用不同的策略 对外暴露统一的接口，内部采用不同的策略计算  ==TODO：代码实现==</description>
+    </item>
+    
+    <item>
+      <title>2021</title>
+      <link>https://xblzbjs.cn/book-list/2021/</link>
+      <pubDate>Sat, 20 Mar 2021 13:44:38 +0800</pubDate>
+      
+      <guid>https://xblzbjs.cn/book-list/2021/</guid>
+      <description>技术类： Golang  《The way to Go》 《Go高级编程》 《Go专家编程》(任洪彩著)  Python 其他  《启示录:打造用户喜爱的产品》(Marty Cagan著)(强烈推荐) 《软技能:代码之外的生存指南》(John Z.Sonmez著) 《高效程序员的45个习惯:敏捷开发修炼之道》(Andy Hunt/Venkat Subramaniam著)    </description>
+    </item>
+    
+    <item>
+      <title>zsh｜主题</title>
+      <link>https://xblzbjs.cn/article/2021/03/zsh%E4%B8%BB%E9%A2%98/</link>
+      <pubDate>Fri, 19 Mar 2021 13:24:17 +0800</pubDate>
+      
+      <guid>https://xblzbjs.cn/article/2021/03/zsh%E4%B8%BB%E9%A2%98/</guid>
+      <description>zsh Themes(主题) 所有主题 我喜欢的自带主题： agnoster amuse awesomepanda clean crcandy frisk jonathan linuxonly（只能运行在linux） nanotech philips pmcgee xiong-chiamiov 额外的主题 powerlevel10k spaceship-prompt </description>
+    </item>
+    
+    <item>
+      <title>关于</title>
+      <link>https://xblzbjs.cn/page/about/</link>
+      <pubDate>Fri, 19 Mar 2021 13:24:17 +0800</pubDate>
+      
+      <guid>https://xblzbjs.cn/page/about/</guid>
+      <description>一个不知名的Golang/Python后端工程师，目前正在往全栈工程师方向前进。</description>
+    </item>
+    
+    <item>
+      <title>Git｜合并分支</title>
+      <link>https://xblzbjs.cn/article/2021/03/git%E5%90%88%E5%B9%B6%E5%88%86%E6%94%AF/</link>
+      <pubDate>Fri, 19 Mar 2021 11:41:13 +0800</pubDate>
+      
+      <guid>https://xblzbjs.cn/article/2021/03/git%E5%90%88%E5%B9%B6%E5%88%86%E6%94%AF/</guid>
+      <description>首先查看当前项目有哪些分支git branch -a等同于 git branch -all
+git branch -a 输入后会看到当前项目的所有分支（其中带*的分支为当前分支）
+dev *main 假设你需要在dev分支上进行开发，则需要切换到该分支
+git checkout dev 这个时候再使用git branch -a命令就会发现当前分支为dev分支
+*dev main 在dev分支上进行开发，提交测试没有问题想合并到main分支上，需要进行以下几步:
+  查看当前分支的状态并
+git status   添加更改文件push到当前分支上
+git add . &amp;amp;&amp;amp; git commit -m &amp;#34;update&amp;#34;   将dev分支合并到main分支
+git merge dev   检查main分支是否和dev分支的区别（当前处于div分支）
+git diff main   </description>
+    </item>
+    
+    <item>
+      <title>MongoDB｜CRUD操作</title>
+      <link>https://xblzbjs.cn/article/2021/03/mongodbcrud%E6%93%8D%E4%BD%9C/</link>
+      <pubDate>Wed, 17 Mar 2021 11:26:44 +0800</pubDate>
+      
+      <guid>https://xblzbjs.cn/article/2021/03/mongodbcrud%E6%93%8D%E4%BD%9C/</guid>
+      <description>MongoDB的CRUD操作 Create(创建) insertOne()方法 ### insertOne()方法 # 参数含义 db.collection·insertOne() db.&amp;lt;collection&amp;gt;·insertOne( &amp;lt;document&amp;gt; writeConcern：&amp;lt;document&amp;gt;	# &amp;lt;collection&amp;gt;表示写入的集合 # &amp;lt;document&amp;gt;要替换成要写入的文档本身 # writeConcern：&amp;lt;document&amp;gt;定义了本次文档创建操作的安全写级别 ) # 简单来说，安全写级别用来判断一次数据库写入操作是否成功 安全写级别越高，丢失数据的风险就越低，然而写入操作的延迟也可能更高。如果不提供writeconcern文档，用默认的安全写级别。 # 创建单个文档 &amp;gt; db.accounts.insertOne(	# 虽然没有创建过accounts的集合，但该命令会自动创建相应的集合 ... { ... _id: &amp;#34;account1&amp;#34;, ... name: &amp;#34;alice&amp;#34;, ... balance: 100, ... } ... ) { &amp;#34;acknowledged&amp;#34; : true, &amp;#34;insertedId&amp;#34; : &amp;#34;account1&amp;#34; } # &amp;#34;acknowledged&amp;#34;: true表示安全写级别被启用 # 由于在db.collection.insertone()命令中没有提供writeConcern文档，这里显示的是默认的安全写级别启用状态 # &amp;#34;insertedId&amp;#34;显示了被写入的文档的_id # 重复_id创建一个新文档及相对应的报错信息 &amp;gt; db.accounts.insertOne( ... { ... _id: &amp;#34;account1&amp;#34;, ... name: &amp;#34;bob&amp;#34;, ... balance: 50 .</description>
+    </item>
+    
+    <item>
+      <title>MongoDB｜介绍与安装</title>
+      <link>https://xblzbjs.cn/article/2021/03/mongodb%E4%BB%8B%E7%BB%8D%E4%B8%8E%E5%AE%89%E8%A3%85/</link>
+      <pubDate>Wed, 17 Mar 2021 11:21:44 +0800</pubDate>
+      
+      <guid>https://xblzbjs.cn/article/2021/03/mongodb%E4%BB%8B%E7%BB%8D%E4%B8%8E%E5%AE%89%E8%A3%85/</guid>
+      <description>MongoDB介绍 MongoDB安装 使用docker安装（推荐） docker pull mongo	# 默认最新 docker pull mongo:4.0 # 指定安装MongoDB4.0版本 # 使用test数据库 &amp;gt; use test switched to db test # 查看test数据库中的集合 &amp;gt; show collections	# 现在test数据库里还没有集合 &amp;gt; </description>
+    </item>
+    
+  </channel>
+</rss>

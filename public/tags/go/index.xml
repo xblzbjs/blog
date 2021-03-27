@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>go on 行百里者半九十</title>
+    <link>https://xblzbjs.cn/tags/go/</link>
+    <description>Recent content in go on 行百里者半九十</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;xblzbjs&lt;/a&gt;</copyright>
+    <lastBuildDate>Wed, 24 Mar 2021 11:13:12 +0800</lastBuildDate><atom:link href="https://xblzbjs.cn/tags/go/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go｜testing.M</title>
+      <link>https://xblzbjs.cn/article/2021/03/gotesting.m/</link>
+      <pubDate>Wed, 24 Mar 2021 11:13:12 +0800</pubDate>
+      
+      <guid>https://xblzbjs.cn/article/2021/03/gotesting.m/</guid>
+      <description>因何而生❓ 有时测试程序需要在测试之前或之后进行额外的设置或拆卸。有时测试还需要控制哪些代码在主线程上运行。为了支持这些和其他情况, testing 包提供了 TestMain 函数 :
+func TestMain(m *testing.M) 有什么作用🤔 如果测试文件中包含该函数，那么生成的测试将调用 TestMain(m)，而不是直接运行测试。TestMain 运行在主 goroutine 中 , 可以在调用 m.Run 前后做任何设置和拆卸。m. Run将返回可能传递给的退出代码操作系统退出. 如果TestMain返回，测试包装器将m.Run的结果传递给操作系统退出它自己
+调用TestMain时，flag.解析尚未运行。如果TestMain依赖于命令行标志，包括测试包的标志，那么它应该调用flag.解析明确地。命令行标志总是由运行的时间测试或基准函数来解析
+因此，当您需要为测试执行一些全局设置/删除时，这可能会很方便
+举个🌰 简单 // file name: demo_test.go package tests import ( &amp;#34;testing&amp;#34; &amp;#34;os&amp;#34; ) func TestMain(m *testing.M) { log.Println(&amp;#34;Do stuff BEFORE the tests!&amp;#34;) exitVal := m.Run() log.Println(&amp;#34;Do stuff AFTER the tests!&amp;#34;) os.Exit(exitVal) } func TestA(t *testing.T) { log.Println(&amp;#34;TestA running&amp;#34;) } func TestB(t *testing.T) { log.Println(&amp;#34;TestB running&amp;#34;) } 输出 $ go test -v demo_test.</description>
+    </item>
+    
+  </channel>
+</rss>

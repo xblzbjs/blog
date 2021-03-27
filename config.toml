@@ -3,6 +3,7 @@ baseurl      = "https://xblzbjs.cn"
 title        = "xblzbjs"
 languageCode = "zh-cn"
 theme        = "hello-friend-ng"
+
 # Dir Config
 archetypeDir   = "archetypes"
 contentDir   = "content"
@@ -27,12 +28,11 @@ disableRSS     = false
 disableSitemap = false
 disable404     = false
 
-
-
-  
 [permalinks]
   # 文章url
-  articles = "/articles/:year/:month/:title/"
+  article = "/article/:year/:month/:title/"
+  about = "/page/about/"
+  archives = "/page/archives/"
 
 [taxonomies]
     tag      = "tags"
@@ -104,18 +104,23 @@ disable404     = false
 
 # Head
 [[menu.main]]
-  identifier = "about"
+  identifier = "/page/about"
   name       = "关于"
-  url        = "/about"
+  url        = "/page/about/"
 [[menu.main]]
   identifier = "book-list"
   name       = "书单"
   url        = "/book-list"
 [[menu.main]]
-  identifier = "articles"
-  name       = "文章"
-  url        = "/articles"
+  identifier = "/page/archives"
+  name       = "归档"
+  url        = "/page/archives/"
+
 [[menu.main]]
-  identifier = "home"
-  name       = "主页"
-  url        = "/"
+  identifier = "article"
+  name       = "文章"
+  url        = "/article"
+# [[menu.main]]
+#   identifier = "home"
+#   name       = "主页"
+#   url        = "/"

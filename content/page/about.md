@@ -1,7 +1,10 @@
----
-title: "关于"
-date: 2021-03-19T13:24:17+08:00
-draft: false
-author: "[xblzbjs]"
----
-一个不知名的Golang/Python后端工程师，目前正在往全栈工程师方向前进。
++++
+title = "关于"
+date = 2021-03-19
+aliases = ["about-me","about","contact"]
+draft = false
+[ author ]
+  name = "xblzbjs"
++++
+
+一个技术爱好者。

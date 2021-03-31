@@ -3,8 +3,7 @@ title: "Python｜行为型设计模式"
 date: 2021-03-20T13:45:56+08:00
 draft: false
 author: "[xblzbjs]"
-categories: ["设计模式"]
-tags: ["python"]
+categories: ["Python设计模式"]
 ---
 
 ### 常见学习行为型设计模式

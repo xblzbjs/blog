@@ -3,8 +3,7 @@ title: "Python｜深拷贝与浅拷贝"
 date: 2020-03-19T13:36:28+08:00
 draft: false
 author: "[xblzbjs]"
-categories: ["编程语言"]
-tags: ["python"]
+categories: ["Python设计模式"]
 ---
 
 

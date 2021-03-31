@@ -3,8 +3,7 @@ title: "Go｜testing.M"
 date: 2021-03-24T11:13:12+08:00
 draft: false
 author: "[xblzbjs]"
-categories: ["编程语言"]
-tags: ["go","go test"] 
+categories: ["Golang"]
 ---
 
 ## 因何而生❓

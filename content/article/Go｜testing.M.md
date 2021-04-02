@@ -1,9 +1,16 @@
 ---
+author:
+  name: "xblzbjs"
 title: "Go｜testing.M"
-date: 2021-03-24T11:13:12+08:00
+date: 2021-03-24
+linktitle: Go-testing.M
 draft: false
-author: "[xblzbjs]"
+type:
+- article
+- articles
 categories: ["Golang"]
+series:
+- Go单元测试
 ---
 
 ## 因何而生❓

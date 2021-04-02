@@ -1,11 +1,17 @@
 ---
+author:
+  name: "xblzbjs"
 title: "Go｜testing.T"
-date: 2021-03-24T11:13:12+08:00
-draft: true
-author: "[xblzbjs]"
+date: 2021-03-24
+linktitle: Go-testing.T
+draft: false
+type:
+- article
+- articles
 categories: ["Golang"]
+series:
+- Go单元测试
 ---
-
 ## 因何而生❓
 
 有时测试程序需要在测试之前或之后进行额外的设置或拆卸。有时测试还需要控制哪些代码在主线程上运行。为了支持这些和其他情况, `testing` 包提供了 `TestMain` 函数 :

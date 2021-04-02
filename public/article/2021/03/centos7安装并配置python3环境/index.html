@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="[xblzbjs]">
+<meta name="description" content="环境：腾讯云CentOS7.5 64位
+1. 查看Python的位置并安装相关依赖 [root@centos ~]# whereis python python2: /usr/bin/python2 /usr/bin/python2.7 /usr/lib/python2.7 /usr/lib64/python2.7 /usr/include/python2.7 /usr/share/man/man1/python2.1.gz python指向的是python2，python2指向的是python2.7，因此我们可以装个python3，然后将python指向python3，然后python2指向python2.7，那么两个版本的python就能共存了。
+yum install zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gcc make 2. 使用wget下载Python3源码包 wget http://npm.taobao.org/mirrors/python/3.7.9/Python-3.7.9.tar.xz # 如果提示wget未找到命令, 那么就先使用yum安装wget yum -y install wget 3. 编译Python3源码包 #解压 xz -d Python-3.7.9.tar.xz tar -xf Python-3.7.9.tar #进入解压后的目录，依次执行下面命令进行手动编译 cd Python-3.7.9 ./configure prefix=/usr/local/python3 make &amp;amp;&amp;amp; make install # 如果出现can&amp;#39;t decompress data; zlib not available这个错误，则需要安装相关库 #安装依赖zlib、zlib-devel yum install zlib zlib yum install zlib zlib-devel 4." />
+<meta name="keywords" content=", centos, python" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="" />
+<link rel="canonical" href="https://xblzbjs.cn/article/2021/03/centos7%E5%AE%89%E8%A3%85%E5%B9%B6%E9%85%8D%E7%BD%AEpython3%E7%8E%AF%E5%A2%83/" />
+
+
+    <title>
+        
+            CentOS7安装并配置Python3环境 :: 行百里者半九十 
+        
+    </title>
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://xblzbjs.cn/main.d7bdd8ee18bfbf4c605488a7e5b1b92cd980dfeed2bdaeab4dd5e931a7a78bc0.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://xblzbjs.cn/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://xblzbjs.cn/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://xblzbjs.cn/favicon-16x16.png">
+    <link rel="manifest" href="https://xblzbjs.cn/site.webmanifest">
+    <link rel="mask-icon" href="https://xblzbjs.cn/safari-pinned-tab.svg" color="#1b1c1d">
+    <link rel="shortcut icon" href="https://xblzbjs.cn/favicon.ico">
+    <meta name="msapplication-TileColor" content="#1b1c1d">
+    <meta name="theme-color" content="#1b1c1d">
+
+
+
+<meta itemprop="name" content="CentOS7安装并配置Python3环境">
+<meta itemprop="description" content="环境：腾讯云CentOS7.5 64位
+1. 查看Python的位置并安装相关依赖 [root@centos ~]# whereis python python2: /usr/bin/python2 /usr/bin/python2.7 /usr/lib/python2.7 /usr/lib64/python2.7 /usr/include/python2.7 /usr/share/man/man1/python2.1.gz python指向的是python2，python2指向的是python2.7，因此我们可以装个python3，然后将python指向python3，然后python2指向python2.7，那么两个版本的python就能共存了。
+yum install zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gcc make 2. 使用wget下载Python3源码包 wget http://npm.taobao.org/mirrors/python/3.7.9/Python-3.7.9.tar.xz # 如果提示wget未找到命令, 那么就先使用yum安装wget yum -y install wget 3. 编译Python3源码包 #解压 xz -d Python-3.7.9.tar.xz tar -xf Python-3.7.9.tar #进入解压后的目录，依次执行下面命令进行手动编译 cd Python-3.7.9 ./configure prefix=/usr/local/python3 make &amp;&amp; make install # 如果出现can&#39;t decompress data; zlib not available这个错误，则需要安装相关库 #安装依赖zlib、zlib-devel yum install zlib zlib yum install zlib zlib-devel 4."><meta itemprop="datePublished" content="2021-03-17T10:13:27&#43;08:00" />
+<meta itemprop="dateModified" content="2021-03-17T10:13:27&#43;08:00" />
+<meta itemprop="wordCount" content="225"><meta itemprop="image" content="https://xblzbjs.cn"/>
+<meta itemprop="keywords" content="centos,python," />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://xblzbjs.cn"/>
+
+<meta name="twitter:title" content="CentOS7安装并配置Python3环境"/>
+<meta name="twitter:description" content="环境：腾讯云CentOS7.5 64位
+1. 查看Python的位置并安装相关依赖 [root@centos ~]# whereis python python2: /usr/bin/python2 /usr/bin/python2.7 /usr/lib/python2.7 /usr/lib64/python2.7 /usr/include/python2.7 /usr/share/man/man1/python2.1.gz python指向的是python2，python2指向的是python2.7，因此我们可以装个python3，然后将python指向python3，然后python2指向python2.7，那么两个版本的python就能共存了。
+yum install zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gcc make 2. 使用wget下载Python3源码包 wget http://npm.taobao.org/mirrors/python/3.7.9/Python-3.7.9.tar.xz # 如果提示wget未找到命令, 那么就先使用yum安装wget yum -y install wget 3. 编译Python3源码包 #解压 xz -d Python-3.7.9.tar.xz tar -xf Python-3.7.9.tar #进入解压后的目录，依次执行下面命令进行手动编译 cd Python-3.7.9 ./configure prefix=/usr/local/python3 make &amp;&amp; make install # 如果出现can&#39;t decompress data; zlib not available这个错误，则需要安装相关库 #安装依赖zlib、zlib-devel yum install zlib zlib yum install zlib zlib-devel 4."/>
+
+
+
+
+    <meta property="og:title" content="CentOS7安装并配置Python3环境" />
+<meta property="og:description" content="环境：腾讯云CentOS7.5 64位
+1. 查看Python的位置并安装相关依赖 [root@centos ~]# whereis python python2: /usr/bin/python2 /usr/bin/python2.7 /usr/lib/python2.7 /usr/lib64/python2.7 /usr/include/python2.7 /usr/share/man/man1/python2.1.gz python指向的是python2，python2指向的是python2.7，因此我们可以装个python3，然后将python指向python3，然后python2指向python2.7，那么两个版本的python就能共存了。
+yum install zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gcc make 2. 使用wget下载Python3源码包 wget http://npm.taobao.org/mirrors/python/3.7.9/Python-3.7.9.tar.xz # 如果提示wget未找到命令, 那么就先使用yum安装wget yum -y install wget 3. 编译Python3源码包 #解压 xz -d Python-3.7.9.tar.xz tar -xf Python-3.7.9.tar #进入解压后的目录，依次执行下面命令进行手动编译 cd Python-3.7.9 ./configure prefix=/usr/local/python3 make &amp;&amp; make install # 如果出现can&#39;t decompress data; zlib not available这个错误，则需要安装相关库 #安装依赖zlib、zlib-devel yum install zlib zlib yum install zlib zlib-devel 4." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xblzbjs.cn/article/2021/03/centos7%E5%AE%89%E8%A3%85%E5%B9%B6%E9%85%8D%E7%BD%AEpython3%E7%8E%AF%E5%A2%83/" /><meta property="og:image" content="https://xblzbjs.cn"/><meta property="article:section" content="article" />
+<meta property="article:published_time" content="2021-03-17T10:13:27&#43;08:00" />
+<meta property="article:modified_time" content="2021-03-17T10:13:27&#43;08:00" /><meta property="og:site_name" content="行百里者半九十" />
+
+
+
+
+
+    <meta property="article:section" content="服务器" />
+
+
+
+    <meta property="article:published_time" content="2021-03-17 10:13:27 &#43;0800 CST" />
+
+
+
+
+
+
+
+
+    </head>
+
+    
+        <body>
+    
+    
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://xblzbjs.cn/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">xblzbjs</span>
+            <span class="logo__cursor" style=
+                  "
+                   
+                   ">
+            </span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://xblzbjs.cn/book-list">书单</a></li><li><a href="https://xblzbjs.cn/page/about/">关于</a></li><li><a href="https://xblzbjs.cn/page/archives/">归档</a></li><li><a href="https://xblzbjs.cn/article">文章</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            
+            </p>
+        </div>
+
+        <article>
+            <h2 class="post-title"><a href="https://xblzbjs.cn/article/2021/03/centos7%E5%AE%89%E8%A3%85%E5%B9%B6%E9%85%8D%E7%BD%AEpython3%E7%8E%AF%E5%A2%83/">CentOS7安装并配置Python3环境</a></h2>
+
+            
+            
+            
+
+            <div class="post-content">
+                <p>环境：腾讯云CentOS7.5 64位</p>
+<h2 id="1-查看python的位置并安装相关依赖">1. 查看Python的位置并安装相关依赖</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>root@centos ~<span style="color:#f92672">]</span><span style="color:#75715e"># whereis python</span>
+
+python2: /usr/bin/python2 /usr/bin/python2.7 /usr/lib/python2.7 /usr/lib64/python2.7 /usr/include/python2.7 /usr/share/man/man1/python2.1.gz
+</code></pre></div><p>python指向的是python2，python2指向的是python2.7，因此我们可以装个python3，然后将python指向python3，然后python2指向python2.7，那么两个版本的python就能共存了。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">yum install zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gcc make 
+</code></pre></div><h2 id="2-使用wget下载python3源码包">2. 使用wget下载Python3源码包</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">wget http://npm.taobao.org/mirrors/python/3.7.9/Python-3.7.9.tar.xz
+
+<span style="color:#75715e"># 如果提示wget未找到命令, 那么就先使用yum安装wget</span>
+yum -y install wget
+</code></pre></div><h2 id="3-编译python3源码包">3. 编译Python3源码包</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e">#解压</span>
+xz -d Python-3.7.9.tar.xz
+tar -xf Python-3.7.9.tar
+ 
+<span style="color:#75715e">#进入解压后的目录，依次执行下面命令进行手动编译</span>
+cd Python-3.7.9
+./configure prefix<span style="color:#f92672">=</span>/usr/local/python3
+make <span style="color:#f92672">&amp;&amp;</span> make install
+ 
+<span style="color:#75715e"># 如果出现can&#39;t decompress data; zlib not available这个错误，则需要安装相关库</span>
+<span style="color:#75715e">#安装依赖zlib、zlib-devel</span>
+yum install zlib zlib
+yum install zlib zlib-devel
+</code></pre></div><h2 id="4-添加软链接">4. 添加软链接</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e">#将原来的链接备份</span>
+mv /usr/bin/python /usr/bin/python.bak
+ 
+<span style="color:#75715e">#添加python3的软链接</span>
+ln -s /usr/local/python3/bin/python3.7 /usr/bin/python
+ 
+<span style="color:#75715e">#测试是否安装成功了</span>
+python -V
+
+
+</code></pre></div><p>此时会出现一个问题，yum命令报错。因为其要用到python2才能执行，否则会导致yum不能正常使用</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>root@centos ~<span style="color:#f92672">]</span><span style="color:#75715e"># yum</span>
+  File <span style="color:#e6db74">&#34;/usr/bin/yum&#34;</span>, line <span style="color:#ae81ff">30</span>
+    except KeyboardInterrupt, e:
+</code></pre></div><h2 id="5-更改yum配置">5. 更改yum配置</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">vi /usr/bin/yum
+把#! /usr/bin/python修改为#! /usr/bin/python2
+ 
+vi /usr/libexec/urlgrabber-ext-down
+把#! /usr/bin/python 修改为#! /usr/bin/python2
+</code></pre></div><h2 id="6-测试python2python3yum">6. 测试python2、python3、yum</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#f92672">[</span>root@centos ~<span style="color:#f92672">]</span><span style="color:#75715e"># python</span>
+Python 3.7.9 <span style="color:#f92672">(</span>default, Dec <span style="color:#ae81ff">23</span> 2020, 10:50:06<span style="color:#f92672">)</span> 
+<span style="color:#f92672">[</span>GCC 4.8.5 <span style="color:#ae81ff">20150623</span> <span style="color:#f92672">(</span>Red Hat 4.8.5-44<span style="color:#f92672">)]</span> on linux
+Type <span style="color:#e6db74">&#34;help&#34;</span>, <span style="color:#e6db74">&#34;copyright&#34;</span>, <span style="color:#e6db74">&#34;credits&#34;</span> or <span style="color:#e6db74">&#34;license&#34;</span> <span style="color:#66d9ef">for</span> more information.
+&gt;&gt;&gt; 
+
+<span style="color:#f92672">[</span>root@centos ~<span style="color:#f92672">]</span><span style="color:#75715e"># python2</span>
+Python 2.7.5 <span style="color:#f92672">(</span>default, Apr  <span style="color:#ae81ff">2</span> 2020, 13:16:51<span style="color:#f92672">)</span> 
+<span style="color:#f92672">[</span>GCC 4.8.5 <span style="color:#ae81ff">20150623</span> <span style="color:#f92672">(</span>Red Hat 4.8.5-39<span style="color:#f92672">)]</span> on linux2
+Type <span style="color:#e6db74">&#34;help&#34;</span>, <span style="color:#e6db74">&#34;copyright&#34;</span>, <span style="color:#e6db74">&#34;credits&#34;</span> or <span style="color:#e6db74">&#34;license&#34;</span> <span style="color:#66d9ef">for</span> more information.
+&gt;&gt;&gt; 
+
+<span style="color:#f92672">[</span>root@centos ~<span style="color:#f92672">]</span><span style="color:#75715e"># yum</span>
+Loaded plugins: fastestmirror, langpacks
+You need to give some command
+Usage: yum <span style="color:#f92672">[</span>options<span style="color:#f92672">]</span> COMMAND
+
+List of Commands:
+......
+
+</code></pre></div><h2 id="7-配置pip3和pip">7. 配置pip3和pip</h2>
+<p>python3 中自带有pip3，因此只需要添加pip3的软链接即可。</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 添加pip3的软连接</span>
+ln -s /usr/local/python3/bin/pip3  /usr/bin/pip3
+<span style="color:#75715e"># pip3 更新</span>
+pip3 install --upgrade pip3
+</code></pre></div><p>pip安装</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># 安装源</span>
+yum -y install epel-release
+<span style="color:#75715e"># 安装pip</span>
+yum install python-pip
+<span style="color:#75715e"># 对安装好的pip进行升级</span>
+pip install --upgrade pip
+</code></pre></div>
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+            
+    <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg>
+
+        <span class="tag"><a href="https://xblzbjs.cn/tags/centos/">centos</a></span>
+        <span class="tag"><a href="https://xblzbjs.cn/tags/python/">python</a></span>
+        
+    </p>
+
+            
+    <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder meta-icon"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+
+        <span class="tag"><a href="https://xblzbjs.cn/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/">服务器</a></span>
+        
+    </p>
+
+  		</div>
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>&copy; 2021</span>
+            
+            <span><a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">xblzbjs</a></span><span><a href="https://xblzbjs.cn/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+    <div class="footer__inner">
+        <div class="footer__content">
+            
+            
+            <span>粤ICP备2021007187号-1</span>
+          </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+<script type="text/javascript" src="https://xblzbjs.cn/bundle.min.2ce64ea6ea44a72b13dd812fc2eb5cca3efe878cce258a47c137c17edf46e0602a05e422b618a5b80b5939c731b7a293351c2f2222a21f6ee27e54a8448dd20e.js" integrity="sha512-LOZOpupEpysT3YEvwutcyj7&#43;h4zOJYpHwTfBft9G4GAqBeQithiluAtZOccxt6KTNRwvIiKiH27iflSoRI3SDg=="></script>
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-192697137-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+
+
+    </body>
+</html>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Vim on 行百里者半九十</title>
+    <link>https://xblzbjs.cn/series/vim/</link>
+    <description>Recent content in Vim on 行百里者半九十</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;xblzbjs&lt;/a&gt;</copyright>
+    <lastBuildDate>Wed, 31 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://xblzbjs.cn/series/vim/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Vim｜补全</title>
+      <link>https://xblzbjs.cn/article/2021/03/vim%E8%A1%A5%E5%85%A8/</link>
+      <pubDate>Wed, 31 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/article/2021/03/vim%E8%A1%A5%E5%85%A8/</guid>
+      <description>常用 补全单词：  control + n control + p  补全文件名:  control + x control + f  补全代码(需要开启文件类型检查，安装插件):  control + x control + o  </description>
+    </item>
+    
+    <item>
+      <title>Vim｜搜索替换</title>
+      <link>https://xblzbjs.cn/article/2021/03/vim%E6%90%9C%E7%B4%A2%E6%9B%BF%E6%8D%A2/</link>
+      <pubDate>Wed, 31 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/article/2021/03/vim%E6%90%9C%E7%B4%A2%E6%9B%BF%E6%8D%A2/</guid>
+      <description>单个文件搜索替换操作 :[range]s[ubsitute]/{pattern}/{string}/[flags]
+参数：  range: 表示范围。比如:10,20代表10-20行， %代表全部。 pattern: 替换的模式. string: 替换后的文本。 flags: 替换的标志。g表示全局范围内执行；c表示确认，可以确认或者拒绝修改；n报告匹配到的次数而不替换，可以用来查询匹配次数  举个🌰 # 把文件中world全部替换成WORLD:% s/world/WORLD/g# 统计1-20行 world单词出现的个数:1,5 s/world//n# 正则表达式精确匹配:% s/\&amp;lt;world\&amp;gt;/WORLD/</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,13 +1,10 @@
 ---
-title: "2019"
+title: "Python"
 date: 2019-12-30
 draft: false
 author: "[xblzbjs]"
 ---
 
-## 2019
-### 技术类
 
-#### Python
+
 - 《Python编程:从入门到实践》(Eric Matthes著)
-- 《流畅的Python》(Luciano Ramalho著)

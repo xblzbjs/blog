@@ -29,10 +29,10 @@ disableSitemap = false
 disable404     = false
 
 [permalinks]
-  # 文章url
   article = "/article/:year/:month/:title/"
   about = "/page/about/"
   archives = "/page/archives/"
+  book-list = "/book-list/:year/:title/"
 
 [taxonomies]
     tag      = "tags"

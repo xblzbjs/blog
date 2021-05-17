@@ -5,10 +5,21 @@ draft: false
 author: "[xblzbjs]"
 ---
 
-## 分类
+## Categories
+
+### Web Framework
+
+- [Django]({{< ref "/tags/django/" >}})
+
+### Server
+
 - [Golang]({{< ref "/categories/golang/" >}})
+- [Nginx]({{< ref "/categories/golang/" >}})
+- [Vim]({{< ref "/tags/vim/" >}})
 - [Python设计模式]({{< ref "/categories/Python设计模式/" >}})
+
+## Tags
+
+- [Markdown]({{< ref "/tags/markdown/" >}})
 - [读书笔记]({{< ref "/categories/读书笔记/" >}})
-
-## 标签
-
+- [Git]({{< ref "/tags/git/" >}})

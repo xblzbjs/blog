@@ -1,14 +1,15 @@
 ---
-title: "Python｜创建型设计模式"
+title: "创建型设计模式"
 date: 2021-03-20T13:45:56+08:00
 draft: false
 author: "[xblzbjs]"
-categories: ["Python设计模式"]
+categories: ["Design-Patterns"]
+tags: ["python", "golang"]
 ---
 
  
 
-## 常见创建型设计模式：
+## 常见创建型设计模式
 
 1. 工厂模式（Factory）：解决对象创建问题
 2. 构造模式（Builder）：控制复杂对象的创建
@@ -16,8 +17,6 @@ categories: ["Python设计模式"]
 4. 单例（Borg/Singleton）：一个类只能创建同一个对象
 5. 对象池模式（Pool）：预先分配同一类型的一组实例
 6. 惰性计算模式（Lazy Evaluation）：延迟计算（python的property）
-
-
 
 ### 1.工厂模式
 
@@ -45,7 +44,6 @@ def toy_factory(toy_type):
         
 ```
 
-
 ## 2.构造模式
 
 什么是构造模式：
@@ -54,8 +52,6 @@ def toy_factory(toy_type):
 - 创建和表示分离。比如你要买电脑，工厂模式直接给你需要的电脑
 - 但是构造模式允许你自己定义电脑的配置，组装完成后给你
 
-
-
 ## 3.原型模式
 
 什么是原型模式：
@@ -63,8 +59,6 @@ def toy_factory(toy_type):
 1. 通过克隆原型来创建新的实例
 2. 可以通过相同的原型，通过修改部分属性来创建新的实例
 3. 用途：对于一些创建实例开销比较高的地方可以用原型模式
-
-
 
 ## 4.单例模式（重点）
 
@@ -77,21 +71,20 @@ def toy_factory(toy_type):
 ```python
 # 单例模式
 class Singleton:
-	def __new__(cls, *args, **kwargs):
-		if not hasattr(cls, '_instance'):
-			_instance = super().__new__(cls, *args, **kwargs)
-			cls.instance = _instance
-		return cls._instance
+    def __new__(cls, *args, **kwargs):
+        if not hasattr(cls, '_instance'):
+            _instance = super().__new__(cls, *args, **kwargs)
+            cls.instance = _instance
+            return cls._instance
 
 class MyClass(Singleton):
-	pass
-	
+    pass
+
 c1 = MyClass()
 c2 = MyClass()
-assert c1 is c2	# c1, c2是同一个实例
+assert c1 is c2 # c1, c2是同一个实例
 ```
 
- 
+## 参考
 
-## 参考:
-https://design-patterns.readthedocs.io/zh_CN/latest/creational_patterns/creational.html
+<https://design-patterns.readthedocs.io/zh_CN/latest/creational_patterns/creational.html>

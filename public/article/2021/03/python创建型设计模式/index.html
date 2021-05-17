@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="[xblzbjs]">
+<meta name="description" content="常见创建型设计模式：  工厂模式（Factory）：解决对象创建问题 构造模式（Builder）：控制复杂对象的创建 原型模式（Prototype）：通过原型的克隆创建新的实例 单例（Borg/Singleton）：一个类只能创建同一个对象 对象池模式（Pool）：预先分配同一类型的一组实例 惰性计算模式（Lazy Evaluation）：延迟计算（python的property）  1.工厂模式 解决了什么问题：
+ 解决对象创建问题 解耦对象的创建和使用 包括工厂方法和抽象工厂  # 工厂方法 class DogToy: def speak(self): print(&amp;#34;wang wang&amp;#34;) class CatToy: def speak(self): print(&amp;#34;miao miao&amp;#34;) def toy_factory(toy_type): if toy_type == &amp;#39;dog&amp;#39;: return DogToy() elif toy_type == &amp;#39;cat&amp;#39;: return CatToy() 2.构造模式 什么是构造模式：
+ 用来控制复杂对象的构造 创建和表示分离。比如你要买电脑，工厂模式直接给你需要的电脑 但是构造模式允许你自己定义电脑的配置，组装完成后给你  3.原型模式 什么是原型模式：
+ 通过克隆原型来创建新的实例 可以通过相同的原型，通过修改部分属性来创建新的实例 用途：对于一些创建实例开销比较高的地方可以用原型模式  4.单例模式（重点） 单例模式的实现由多种方式
+ 单例模式：一个类创建出来的对象都是同一个 Python的模块其实就是单例的，只会导入一次（import） 使用共享同一个实例的方式来创建单例模式  # 单例模式 class Singleton: def __new__(cls, *args, **kwargs): if not hasattr(cls, &amp;#39;_instance&amp;#39;): _instance = super()." />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="" />
+<link rel="canonical" href="https://xblzbjs.cn/article/2021/03/python%E5%88%9B%E5%BB%BA%E5%9E%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" />
+
+
+    <title>
+        
+            Python｜创建型设计模式 :: 行百里者半九十 
+        
+    </title>
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="https://xblzbjs.cn/main.d7bdd8ee18bfbf4c605488a7e5b1b92cd980dfeed2bdaeab4dd5e931a7a78bc0.css">
+
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="https://xblzbjs.cn/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://xblzbjs.cn/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://xblzbjs.cn/favicon-16x16.png">
+    <link rel="manifest" href="https://xblzbjs.cn/site.webmanifest">
+    <link rel="mask-icon" href="https://xblzbjs.cn/safari-pinned-tab.svg" color="#1b1c1d">
+    <link rel="shortcut icon" href="https://xblzbjs.cn/favicon.ico">
+    <meta name="msapplication-TileColor" content="#1b1c1d">
+    <meta name="theme-color" content="#1b1c1d">
+
+
+
+<meta itemprop="name" content="Python｜创建型设计模式">
+<meta itemprop="description" content="常见创建型设计模式：  工厂模式（Factory）：解决对象创建问题 构造模式（Builder）：控制复杂对象的创建 原型模式（Prototype）：通过原型的克隆创建新的实例 单例（Borg/Singleton）：一个类只能创建同一个对象 对象池模式（Pool）：预先分配同一类型的一组实例 惰性计算模式（Lazy Evaluation）：延迟计算（python的property）  1.工厂模式 解决了什么问题：
+ 解决对象创建问题 解耦对象的创建和使用 包括工厂方法和抽象工厂  # 工厂方法 class DogToy: def speak(self): print(&#34;wang wang&#34;) class CatToy: def speak(self): print(&#34;miao miao&#34;) def toy_factory(toy_type): if toy_type == &#39;dog&#39;: return DogToy() elif toy_type == &#39;cat&#39;: return CatToy() 2.构造模式 什么是构造模式：
+ 用来控制复杂对象的构造 创建和表示分离。比如你要买电脑，工厂模式直接给你需要的电脑 但是构造模式允许你自己定义电脑的配置，组装完成后给你  3.原型模式 什么是原型模式：
+ 通过克隆原型来创建新的实例 可以通过相同的原型，通过修改部分属性来创建新的实例 用途：对于一些创建实例开销比较高的地方可以用原型模式  4.单例模式（重点） 单例模式的实现由多种方式
+ 单例模式：一个类创建出来的对象都是同一个 Python的模块其实就是单例的，只会导入一次（import） 使用共享同一个实例的方式来创建单例模式  # 单例模式 class Singleton: def __new__(cls, *args, **kwargs): if not hasattr(cls, &#39;_instance&#39;): _instance = super()."><meta itemprop="datePublished" content="2021-03-20T13:45:56&#43;08:00" />
+<meta itemprop="dateModified" content="2021-03-20T13:45:56&#43;08:00" />
+<meta itemprop="wordCount" content="96"><meta itemprop="image" content="https://xblzbjs.cn"/>
+<meta itemprop="keywords" content="" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://xblzbjs.cn"/>
+
+<meta name="twitter:title" content="Python｜创建型设计模式"/>
+<meta name="twitter:description" content="常见创建型设计模式：  工厂模式（Factory）：解决对象创建问题 构造模式（Builder）：控制复杂对象的创建 原型模式（Prototype）：通过原型的克隆创建新的实例 单例（Borg/Singleton）：一个类只能创建同一个对象 对象池模式（Pool）：预先分配同一类型的一组实例 惰性计算模式（Lazy Evaluation）：延迟计算（python的property）  1.工厂模式 解决了什么问题：
+ 解决对象创建问题 解耦对象的创建和使用 包括工厂方法和抽象工厂  # 工厂方法 class DogToy: def speak(self): print(&#34;wang wang&#34;) class CatToy: def speak(self): print(&#34;miao miao&#34;) def toy_factory(toy_type): if toy_type == &#39;dog&#39;: return DogToy() elif toy_type == &#39;cat&#39;: return CatToy() 2.构造模式 什么是构造模式：
+ 用来控制复杂对象的构造 创建和表示分离。比如你要买电脑，工厂模式直接给你需要的电脑 但是构造模式允许你自己定义电脑的配置，组装完成后给你  3.原型模式 什么是原型模式：
+ 通过克隆原型来创建新的实例 可以通过相同的原型，通过修改部分属性来创建新的实例 用途：对于一些创建实例开销比较高的地方可以用原型模式  4.单例模式（重点） 单例模式的实现由多种方式
+ 单例模式：一个类创建出来的对象都是同一个 Python的模块其实就是单例的，只会导入一次（import） 使用共享同一个实例的方式来创建单例模式  # 单例模式 class Singleton: def __new__(cls, *args, **kwargs): if not hasattr(cls, &#39;_instance&#39;): _instance = super()."/>
+
+
+
+
+    <meta property="og:title" content="Python｜创建型设计模式" />
+<meta property="og:description" content="常见创建型设计模式：  工厂模式（Factory）：解决对象创建问题 构造模式（Builder）：控制复杂对象的创建 原型模式（Prototype）：通过原型的克隆创建新的实例 单例（Borg/Singleton）：一个类只能创建同一个对象 对象池模式（Pool）：预先分配同一类型的一组实例 惰性计算模式（Lazy Evaluation）：延迟计算（python的property）  1.工厂模式 解决了什么问题：
+ 解决对象创建问题 解耦对象的创建和使用 包括工厂方法和抽象工厂  # 工厂方法 class DogToy: def speak(self): print(&#34;wang wang&#34;) class CatToy: def speak(self): print(&#34;miao miao&#34;) def toy_factory(toy_type): if toy_type == &#39;dog&#39;: return DogToy() elif toy_type == &#39;cat&#39;: return CatToy() 2.构造模式 什么是构造模式：
+ 用来控制复杂对象的构造 创建和表示分离。比如你要买电脑，工厂模式直接给你需要的电脑 但是构造模式允许你自己定义电脑的配置，组装完成后给你  3.原型模式 什么是原型模式：
+ 通过克隆原型来创建新的实例 可以通过相同的原型，通过修改部分属性来创建新的实例 用途：对于一些创建实例开销比较高的地方可以用原型模式  4.单例模式（重点） 单例模式的实现由多种方式
+ 单例模式：一个类创建出来的对象都是同一个 Python的模块其实就是单例的，只会导入一次（import） 使用共享同一个实例的方式来创建单例模式  # 单例模式 class Singleton: def __new__(cls, *args, **kwargs): if not hasattr(cls, &#39;_instance&#39;): _instance = super()." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xblzbjs.cn/article/2021/03/python%E5%88%9B%E5%BB%BA%E5%9E%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" /><meta property="og:image" content="https://xblzbjs.cn"/><meta property="article:section" content="article" />
+<meta property="article:published_time" content="2021-03-20T13:45:56&#43;08:00" />
+<meta property="article:modified_time" content="2021-03-20T13:45:56&#43;08:00" /><meta property="og:site_name" content="行百里者半九十" />
+
+
+
+
+
+    <meta property="article:section" content="Python设计模式" />
+
+
+
+    <meta property="article:published_time" content="2021-03-20 13:45:56 &#43;0800 CST" />
+
+
+
+
+
+
+
+
+    </head>
+
+    
+        <body>
+    
+    
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="https://xblzbjs.cn/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">行百里者半九十</span>
+            <span class="logo__cursor" style=
+                  "
+                   
+                   ">
+            </span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="https://xblzbjs.cn/book-list">书单</a></li><li><a href="https://xblzbjs.cn/page/about/">关于</a></li><li><a href="https://xblzbjs.cn/page/archives/">归档</a></li><li><a href="https://xblzbjs.cn/article">随笔</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            
+            </p>
+        </div>
+
+        <article>
+            <h2 class="post-title"><a href="https://xblzbjs.cn/article/2021/03/python%E5%88%9B%E5%BB%BA%E5%9E%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">Python｜创建型设计模式</a></h2>
+
+            
+            
+            
+
+            <div class="post-content">
+                <h2 id="常见创建型设计模式">常见创建型设计模式：</h2>
+<ol>
+<li>工厂模式（Factory）：解决对象创建问题</li>
+<li>构造模式（Builder）：控制复杂对象的创建</li>
+<li>原型模式（Prototype）：通过原型的克隆创建新的实例</li>
+<li>单例（Borg/Singleton）：一个类只能创建同一个对象</li>
+<li>对象池模式（Pool）：预先分配同一类型的一组实例</li>
+<li>惰性计算模式（Lazy Evaluation）：延迟计算（python的property）</li>
+</ol>
+<h3 id="1工厂模式">1.工厂模式</h3>
+<p>解决了什么问题：</p>
+<ul>
+<li>解决对象创建问题</li>
+<li>解耦对象的创建和使用</li>
+<li>包括工厂方法和抽象工厂</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># 工厂方法</span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DogToy</span>:
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">speak</span>(self):
+        <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;wang wang&#34;</span>)
+        
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CatToy</span>:
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">speak</span>(self):
+        <span style="color:#66d9ef">print</span>(<span style="color:#e6db74">&#34;miao miao&#34;</span>)
+        
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">toy_factory</span>(toy_type):
+    <span style="color:#66d9ef">if</span> toy_type <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;dog&#39;</span>:
+        <span style="color:#66d9ef">return</span> DogToy()
+    <span style="color:#66d9ef">elif</span> toy_type <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;cat&#39;</span>:
+        <span style="color:#66d9ef">return</span> CatToy()
+        
+</code></pre></div><h2 id="2构造模式">2.构造模式</h2>
+<p>什么是构造模式：</p>
+<ul>
+<li>用来控制复杂对象的构造</li>
+<li>创建和表示分离。比如你要买电脑，工厂模式直接给你需要的电脑</li>
+<li>但是构造模式允许你自己定义电脑的配置，组装完成后给你</li>
+</ul>
+<h2 id="3原型模式">3.原型模式</h2>
+<p>什么是原型模式：</p>
+<ol>
+<li>通过克隆原型来创建新的实例</li>
+<li>可以通过相同的原型，通过修改部分属性来创建新的实例</li>
+<li>用途：对于一些创建实例开销比较高的地方可以用原型模式</li>
+</ol>
+<h2 id="4单例模式重点">4.单例模式（重点）</h2>
+<p>单例模式的实现由多种方式</p>
+<ul>
+<li>单例模式：一个类创建出来的对象都是同一个</li>
+<li>Python的模块其实就是单例的，只会导入一次（import）</li>
+<li>使用共享同一个实例的方式来创建单例模式</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># 单例模式</span>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Singleton</span>:
+	<span style="color:#66d9ef">def</span> __new__(cls, <span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs):
+		<span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> hasattr(cls, <span style="color:#e6db74">&#39;_instance&#39;</span>):
+			_instance <span style="color:#f92672">=</span> super()<span style="color:#f92672">.</span>__new__(cls, <span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs)
+			cls<span style="color:#f92672">.</span>instance <span style="color:#f92672">=</span> _instance
+		<span style="color:#66d9ef">return</span> cls<span style="color:#f92672">.</span>_instance
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyClass</span>(Singleton):
+	<span style="color:#66d9ef">pass</span>
+	
+c1 <span style="color:#f92672">=</span> MyClass()
+c2 <span style="color:#f92672">=</span> MyClass()
+<span style="color:#66d9ef">assert</span> c1 <span style="color:#f92672">is</span> c2	<span style="color:#75715e"># c1, c2是同一个实例</span>
+</code></pre></div><h2 id="参考">参考:</h2>
+<p><a href="https://design-patterns.readthedocs.io/zh_CN/latest/creational_patterns/creational.html">https://design-patterns.readthedocs.io/zh_CN/latest/creational_patterns/creational.html</a></p>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+            
+            
+    <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-folder meta-icon"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+
+        <span class="tag"><a href="https://xblzbjs.cn/categories/python%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">Python设计模式</a></span>
+        
+    </p>
+
+  		</div>
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>&copy; 2021</span>
+            <span><a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">xblzbjs</a></span><span><a href="https://xblzbjs.cn/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a></span>
+        </div>
+    </div>
+    <div class="footer__inner">
+        <div class="footer__content">
+            <span>粤ICP备2021007187号-1</span>
+          </div>
+    </div>
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+<script type="text/javascript" src="https://xblzbjs.cn/bundle.min.2ce64ea6ea44a72b13dd812fc2eb5cca3efe878cce258a47c137c17edf46e0602a05e422b618a5b80b5939c731b7a293351c2f2222a21f6ee27e54a8448dd20e.js" integrity="sha512-LOZOpupEpysT3YEvwutcyj7&#43;h4zOJYpHwTfBft9G4GAqBeQithiluAtZOccxt6KTNRwvIiKiH27iflSoRI3SDg=="></script>
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-192697137-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+
+    </body>
+</html>

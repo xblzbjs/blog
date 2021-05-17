@@ -16,7 +16,6 @@ author: "[xblzbjs]"
 - [Golang]({{< ref "/categories/golang/" >}})
 - [Nginx]({{< ref "/categories/golang/" >}})
 - [Vim]({{< ref "/tags/vim/" >}})
-- [Python设计模式]({{< ref "/categories/Python设计模式/" >}})
 
 ## Tags
 

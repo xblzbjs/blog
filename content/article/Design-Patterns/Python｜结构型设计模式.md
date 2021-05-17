@@ -52,14 +52,14 @@ import time
 class LogTime:
     
     def __init__(self, use_int=False):
-        self.use_int = use_int	# 增加参数
+        self.use_int = use_int # 增加参数
     
-	def __call__(self,func):	
+    def __call__(self,func):
         def _log(*args, **kwargs):
             beg = time.time()
             res = func(*args, **kwargs)
             if self.use_int:
-            	print('use time:{}'.format(int(time.time()-beg))
+                print('use time:{}'.format(int(time.time()-beg))
             else:
                 print('use time:{}'.format(time.time()-beg)
             return res
@@ -72,8 +72,6 @@ def mysleep():
 mysleep()
 ```
 
-
-
 ### 2. 代理模式
 
 什么是代理模式（Proxy）
@@ -84,21 +82,18 @@ mysleep()
 
 ```python
 class Stack(object): # 使用组合的例子
-	
-	def __init__(self):
-		self._deque = deque()
-	
-	def push(self, value):
-		return self._deque.append(value)
-		
-	def pop(self):
-		return self._deque.pop()
-	
-	def empty(self):
-		return len(self._deque) == 0
+    def __init__(self):
+        self._deque = deque()
+    
+    def push(self, value):
+        return self._deque.append(value)
+
+    def pop(self):
+        return self._deque.pop()
+ 
+    def empty(self):
+        return len(self._deque) == 0
 ```
-
-
 
 ### 3. 适配器模式
 

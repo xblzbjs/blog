@@ -81,28 +81,28 @@ disable404     = false
     readOtherPosts = "Read other posts"
 
     [languages.zh-cn.params.logo]
-      logoText = "xblzbjs"
+      logoText = "行百里者半九十"
       logoHomeLink = "/"
-    # or
-    #
-    # path = "/img/your-example-logo.svg"
-    # alt = "Your example logo alt text"
 
-  # Social
+
+ # 社交图标
 [[params.social]]
   name = "email"
   url  = "mailto:t710255295@gmail.com"
 [[params.social]]
   name = "github"
   url  = "https://github.com/xblzbjs"
-# [[params.social]]
-#   name = "twitter"
-#   url  = "https://github.com/xblzbjs"
-# [[params.social]]
-#   name = "stackoverflow"
-#   url  = "https://github.com/xblzbjs"
 
-# Head
+
+# 导航栏
+[[menu.main]]
+  identifier = "article"
+  name       = "随笔"
+  url        = "/article"
+[[menu.main]]
+  identifier = "/page/archives"
+  name       = "归档"
+  url        = "/page/archives/"
 [[menu.main]]
   identifier = "/page/about"
   name       = "关于"
@@ -111,16 +111,3 @@ disable404     = false
   identifier = "book-list"
   name       = "书单"
   url        = "/book-list"
-[[menu.main]]
-  identifier = "/page/archives"
-  name       = "归档"
-  url        = "/page/archives/"
-
-[[menu.main]]
-  identifier = "article"
-  name       = "文章"
-  url        = "/article"
-# [[menu.main]]
-#   identifier = "home"
-#   name       = "主页"
-#   url        = "/"

@@ -5,7 +5,6 @@ draft: false
 author: "[xblzbjs]"
 ---
 
-## Categories
 
 ### Web Framework
 
@@ -20,5 +19,5 @@ author: "[xblzbjs]"
 ## Tags
 
 - [Markdown]({{< ref "/tags/markdown/" >}})
-- [读书笔记]({{< ref "/categories/读书笔记/" >}})
+- [读书笔记]({{< ref "/tags/book-notes/" >}})
 - [Git]({{< ref "/tags/git/" >}})

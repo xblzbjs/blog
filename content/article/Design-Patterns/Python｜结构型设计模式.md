@@ -28,7 +28,7 @@ categories: ["Python设计模式"]
 ```python
 import time
 
-def log_time(func):	# 接受一个函数作为参数
+def log_time(func): # 接受一个函数作为参数
     def _log(*args, **kwargs):
         beg = time.time()
         res = func(*args, **kwargs)
@@ -104,34 +104,33 @@ class Stack(object): # 使用组合的例子
 
 ```python
 class Dog(object):
-	def __init__(self):
-		self.name = "Dog"
-		
-	def bark(self):
-		return "woof!"
+    def __init__(self):
+        self.name = "Dog"
+
+    def bark(self):
+        return "woof!"
 
 class Cat(object):
-	def __init__(self):
-		self.name = "Cat"
-		
-	def meow(self):
-		return "meow!"
+    def __init__(self):
+        self.name = "Cat"
+
+    def meow(self):
+        return "meow!"
 
 class Adapter:
-	def __init__(self, obj, **adapted_methods):
-		self.obj = obj
-		self.__idct__.update(adapted_methods)
-		
-	def __getattr__(self, attr):
-		return getattr(self.obj, attr)
-		
+    def __init__(self, obj, **adapted_methods):
+        self.obj = obj
+        self.__idct__.update(adapted_methods)
+
+    def __getattr__(self, attr):
+        return getattr(self.obj, attr)
+
 objects = []
 dog = Dog()
 objects.append(Adapter(dog, make_noise=dog.bark))
 cat = Cat()
 objects.append(Adapter(cat, make_noise=cat.meow))
 for obj in objects:
-	# make_noise() 作为统一接口
-	print("A {0} goes {1}".format(obj.name, obj.make_noise()))
+    # make_noise() 作为统一接口
+    print("A {0} goes {1}".format(obj.name, obj.make_noise()))
 ```
-

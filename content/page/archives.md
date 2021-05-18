@@ -21,3 +21,4 @@ author: "[xblzbjs]"
 - [Markdown]({{< ref "/tags/markdown/" >}})
 - [读书笔记]({{< ref "/tags/book-notes/" >}})
 - [Git]({{< ref "/tags/git/" >}})
+- [CentOS]({{< ref "/tags/git/" >}})

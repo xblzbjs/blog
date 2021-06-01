@@ -1,0 +1,15 @@
+---
+author:
+  name: "xblzbjs"
+title: "Go Tips | Array and Slice"
+date: 2021-05-25
+linktitle: Go Tips Array and Slice
+draft: true
+type:
+- article
+- articles
+categories: ["Golang"]
+slug : "Go Tips Array and Slice"
+series:
+- Go Tips
+---

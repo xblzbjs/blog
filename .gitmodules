@@ -1,10 +1,10 @@
 [submodule "themes/hello-friend-ng"]
 	path = themes/hello-friend-ng
 	url = git@github.com:xblzbjs/hugo-theme-hello-friend-ng.git
-[submodule "themes/hugo-theme-stack"]
-	path = themes/hugo-theme-stack
-	url = https://github.com/CaiJimmy/hugo-theme-stack/
 [submodule "public"]
 	path = public
-	url = https://github.com:xblzbjs/xblzbjs.github.io.git
+	url = git@github.com:xblzbjs/xblzbjs.github.io.git
 	branch = main
+[submodule "themes/PaperMod"]
+	path = themes/PaperMod
+	url = https://github.com/adityatelange/hugo-PaperMod.git

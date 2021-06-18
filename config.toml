@@ -8,7 +8,7 @@ paginate = 20
 enableEmoji = true
 pygmentsCodeFences = true
 pygmentsCodeFencesGuessSyntax = true
-pygmentsStyle = "bw"
+pygmentsStyle = "solarized-dark256"
 
 [params]
 author = "行百里者半九十"
@@ -31,7 +31,7 @@ maxSeeAlsoItems = 5
 # Enable Twemoji
 enableTwemoji = false
 # Custom CSS
-customCSS = []
+customCSS = ["syntax.css"]
 # Custom SCSS
 customSCSS = []
 # Custom JS
@@ -118,3 +118,4 @@ other = "Page Not Found"
 
 [page_does_not_exist]
 other = "Sorry, this page does not exist."
+

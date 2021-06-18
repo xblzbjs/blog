@@ -1,113 +1,120 @@
-# Url
-baseurl      = "https://xblzbjs.cn"
-title        = "xblzbjs"
+baseurl = "https://xblzbjs.cn"
+title = "行百里者半九十"
+theme = "hugo-coder"
 languageCode = "zh-cn"
-theme        = "hello-friend-ng"
-
-# Dir Config
-archetypeDir   = "archetypes"
-contentDir   = "content"
-dataDir      = "data"
-layoutDir    = "layouts"
-publishDir   = "public"
-# Build
-buildDrafts = false   # 草稿
-buildFuture = false   # 已过期的内容
-buildExpired = false  # 将来包含publishdate的内容。
-canonifyURLs = true   # 允许将相对url转换成绝对url
-# Template
-paginate     = 15
-rssLimit     = 10 
-# Language
 defaultContentLanguage = "zh-cn"
-# Google analytics
-googleAnalytics = "UA-192697137-1"
+paginate = 20
 
-enableEmoji    = true
-disableRSS     = false
-disableSitemap = false
-disable404     = false
-
-[permalinks]
-  article = "/article/:year/:month/:title/"
-  about = "/page/about/"
-  archives = "/page/archives/"
-  book-list = "/book-list/:year/:title/"
-
-[taxonomies]
-    tag      = "tags"
-    category = "categories"
-    series   = "series"
-
-# [frontmatter]
-# date = ["date", "publishDate", "lastmod"]
-# lastmod = [":git", "lastmod", "date", "publishDate"]
-# publishDate = ["publishDate", "date"]
-# expiryDate = ["expiryDate"]
+enableEmoji = true
+pygmentsCodeFences = true
+pygmentsCodeFencesGuessSyntax = true
+pygmentsStyle = "bw"
 
 [params]
-  author          = "xblzbjs"
-  dateform        = "Jan 2, 2006"
-  dateformShort   = "Jan 2"
-  dateformNum     = "2006-01-02"
-  dateformNumTime = "2006-01-02 15:04"
-  defaultTheme    = "dark"
+author = "行百里者半九十"
+# avatarURL = "images/avatar.jpg"
+colorScheme = "auto"
+dateFormat = "January 2, 2006"
+description = "xblzbjs的个人博客"
+footerContent = "Enter a text here."
+hideCopyright = false
+hideCredits = false
+hideFooter = false
+info = "詩云：『行百里者半於九十。』此言末路之難也。"
+keywords = "blog,developer,personal"
+rtl = false
+since = 2020
+# Hide the toggle button, along with the associated vertical divider
+hideColorSchemeToggle = false
+# Series see also post count
+maxSeeAlsoItems = 5
+# Enable Twemoji
+enableTwemoji = false
+# Custom CSS
+customCSS = []
+# Custom SCSS
+customSCSS = []
+# Custom JS
+customJS = []
+
+[params.googleTagManager]
+id = "UA-192697137-1"
+
+[taxonomies]
+author = "authors"
+category = "categories"
+series = "series"
+tag = "tags"
 
 
-  # 在构建的时候是否需要将草稿打包进去,默认 false
-  disableReadOtherPosts = false
-
-  # Enable sharing buttons, if you like
-  enableSharingButtons = true
-
-  # Metadata mostly used in document's head
-  description = "xblzbjs的个人博客"
-  keywords = "homepage, blog"
-  images = [""]
-  # enableSharingButtons = true
-  [params.favicon.color]
-    mask = "#1b1c1d"
-    msapplication = "#1b1c1d"
-    theme = "#1b1c1d"
-
-
-[languages]
-  [languages.zh-cn]
-    title = "行百里者半九十"
-    # 主页副标题
-    homeSubtitle = "詩云：『行百里者半於九十。』此言末路之難也。"
-    keywords = ""
-    copyright = '<a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">xblzbjs</a>'
-    readOtherPosts = "Read other posts"
-
-    [languages.zh-cn.params.logo]
-      logoText = "行百里者半九十"
-      logoHomeLink = "/"
+[params.csp]
+childsrc = ["'self'"]
+fontsrc = ["'self'", "https://fonts.gstatic.com", "https://cdn.jsdelivr.net/"]
+formaction = ["'self'"]
+framesrc = ["'self'"]
+imgsrc = ["'self'"]
+objectsrc = ["'none'"]
+stylesrc = [
+  "'self'",
+  "'unsafe-inline'",
+  "https://fonts.googleapis.com/",
+  "https://cdn.jsdelivr.net/"
+]
+scriptsrc = ["'self'", "'unsafe-inline'", "https://www.google-analytics.com"]
+prefetchsrc = ["'self'"]
+# connect-src directive – defines valid targets for to XMLHttpRequest (AJAX), WebSockets or EventSource
+connectsrc = ["'self'", "https://www.google-analytics.com"]
 
 
- # 社交图标
 [[params.social]]
-  name = "email"
-  url  = "mailto:t710255295@gmail.com"
+icon = "fa fa-github"
+name = "Github"
+url = "https://github.com/xblzbjs/"
+weight = 1
+
 [[params.social]]
-  name = "github"
-  url  = "https://github.com/xblzbjs"
+icon = "fa fa-gitlab"
+name = "Gitlab"
+url = "https://gitlab.com/xblzbjs/"
+weight = 2
+
+[[params.social]]
+icon = "fa fa-linkedin"
+name = "LinkedIn"
+url = "https://www.linkedin.com/in/xblzbjs/"
+weight = 3
+
+[[params.social]]
+icon = "fa fa-rss"
+name = "RSS"
+rel = "alternate"
+type = "application/rss+xml"
+url = "https://xblzbjs.cn/index.xml"
+weight = 4
+
+[[languages.zh-cn.menu.main]]
+name = "随笔"
+weight = 1
+url = "posts/"
+
+[[languages.zh-cn.menu.main]]
+name = "归档"
+weight = 2
+url = "archive/"
+
+[[languages.zh-cn.menu.main]]
+name = "关于"
+weight = 3
+url = "about/"
+
+[[languages.zh-cn.menu.main]]
+name = "学习资料"
+weight = 4
+url = "learning-materials/"
 
 
-# 导航栏
-[[menu.main]]
-  identifier = "article"
-  name       = "随笔"
-  url        = "/article"
-[[menu.main]]
-  identifier = "/page/archives"
-  name       = "归档"
-  url        = "/page/archives/"
-[[menu.main]]
-  identifier = "/page/about"
-  name       = "关于"
-  url        = "/page/about/"
-[[menu.main]]
-  identifier = "book-list"
-  name       = "书单"
-  url        = "/book-list"
+[page_not_found]
+other = "Page Not Found"
+
+[page_does_not_exist]
+other = "Sorry, this page does not exist."

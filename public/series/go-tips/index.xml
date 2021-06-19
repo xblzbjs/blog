@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>go-tips on 行百里者半九十</title>
+    <link>https://xblzbjs.cn/series/go-tips/</link>
+    <description>Recent content in go-tips on 行百里者半九十</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Tue, 25 May 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://xblzbjs.cn/series/go-tips/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go Tips | Map</title>
+      <link>https://xblzbjs.cn/posts/go-tips/go-tips-map/</link>
+      <pubDate>Tue, 25 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/go-tips/go-tips-map/</guid>
+      <description>Tip1 初始化方式    func TestTestInitMap(t *testing.T) { // 方法一（字面量初始化） 	m1 := map[string]int{&amp;#34;Go&amp;#34;: 1, &amp;#34;Java&amp;#34;: 2, &amp;#34;Python&amp;#34;: 3} m2 := map[int]int{} // 方法二（使用内置函数make初始化） 	m3 := make(map[int]int, 10) // 使用len函数打印map的长度, 不能用cap打印容量 	t.Logf(&amp;#34;len m1=%d&amp;#34;, len(m1)) m2[4] = 16 t.Logf(&amp;#34;len m2=%d&amp;#34;, len(m2)) t.Logf(&amp;#34;len m3=%d&amp;#34;, len(m3)) } 以上两者同样是初始化一个Map，有什么不同？
+ 方法二提前分配了Map的容量，减少内存分配的次数，相比方法一而言性能更好，但是可扩展性更差。  Tip2 增删查改（Create、Delete、Read、Update）    func TestMapCRUD(t *testing.T) { m := make(map[string]int, 10) m[&amp;#34;other&amp;#34;] = 0 // Create 	m[&amp;#34;go&amp;#34;] = 1 t.</description>
+    </item>
+    
+    <item>
+      <title>Go Tips | Test</title>
+      <link>https://xblzbjs.cn/posts/go-tips/go-tips-test/</link>
+      <pubDate>Tue, 25 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/go-tips/go-tips-test/</guid>
+      <description>因何而生❓    有时测试程序需要在测试之前或之后进行额外的设置或拆卸。有时测试还需要控制哪些代码在主线程上运行。为了支持这些和其他情况, testing 包提供了 TestMain 函数 :
+func TestMain(m *testing.M) 有什么作用🤔    如果测试文件中包含该函数，那么生成的测试将调用 TestMain(m)，而不是直接运行测试。TestMain 运行在主 goroutine 中 , 可以在调用 m.Run 前后做任何设置和拆卸。m. Run将返回可能传递给的退出代码操作系统退出. 如果TestMain返回，测试包装器将m.Run的结果传递给操作系统退出它自己
+调用TestMain时，flag.解析尚未运行。如果TestMain依赖于命令行标志，包括测试包的标志，那么它应该调用flag.解析明确地。命令行标志总是由运行的时间测试或基准函数来解析
+因此，当您需要为测试执行一些全局设置/删除时，这可能会很方便
+举个🌰    简单    // file name: demo_test.go package tests import ( &amp;#34;testing&amp;#34; &amp;#34;os&amp;#34; ) func TestMain(m *testing.M) { log.Println(&amp;#34;Do stuff BEFORE the tests!&amp;#34;) exitVal := m.Run() log.Println(&amp;#34;Do stuff AFTER the tests!&amp;#34;) os.Exit(exitVal) } func TestA(t *testing.</description>
+    </item>
+    
+  </channel>
+</rss>

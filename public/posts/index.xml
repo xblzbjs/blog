@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on 行百里者半九十</title>
+    <link>https://xblzbjs.cn/posts/</link>
+    <description>Recent content in Posts on 行百里者半九十</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 19 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://xblzbjs.cn/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Git｜分支规范</title>
+      <link>https://xblzbjs.cn/posts/git/git-%E5%88%86%E6%94%AF%E8%A7%84%E8%8C%83/</link>
+      <pubDate>Sat, 19 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/git/git-%E5%88%86%E6%94%AF%E8%A7%84%E8%8C%83/</guid>
+      <description>工作中为规范开发，保持代码提交记录以及git分支结构和commit message整体清晰易读、方便维护，公司一般都会根据不同的项目规格置顶不同的Git分支规范。
+命名规范    在A successful Git branching model文中有一图展示了常见的分支管理规范
+![img](/Users/xblzbjs/Desktop/Go Tips/Git | 分支规范.assets/git-model@2x.png)
+从上图（自右向左）分别为
+ master：主分支。负责管理发布的状态，提交时使用标签记录发布版本号。 hotfix-修复的问题：紧急修复分支。发布的产品需要紧急修正时，就直接从master主分支切出一个分支紧急修改，通常会加上hotfix-前缀，改好后再合并到master分支和develop分支上。 release-版本：预发布分支。开发人员在develop分支开发到了感觉可以发布的状态会创建release分支，为release做最后的bug修正。当感觉release分支上没有问题时，就会将release分支合并到master分支上正式发布。通常一个项目会有多个release分支，例如release-1.0，release-2.0等 develop：开发分支。开发人员的日常开发分支。 feature-功能：功能分支。从develop分支分叉出来的针对新功能的开发分支，通常会有多个feature分支并行开发。完成功能的开发后就把分支合并回develop分支（通常来说，feature分支大多会保留，并不会merge之后就删除原分支）  日志规范     在一个团队协作的项目中，开发人员需要经常提交一些代码去修复bug或者实现新的feature。而项目中的文件和实现什么功能、解决什么问题都会渐渐淡忘，最后需要浪费时间去阅读代码。但是好的日志规范commit messages编写有帮助到我们，它也反映了一个开发人员是否是良好的协作者。
+ 编写良好的Commit messages的好处：
+ 加快review的流程 编写良好的版本发布日志 让之后的维护者了解代码里出现特定变化和feature被添加的原因  当前业界应用的比较广泛的是 Angular Git Commit Template
+具体格式为:
+&amp;lt;type&amp;gt;(&amp;lt;scope&amp;gt;): &amp;lt;subject&amp;gt; &amp;lt;body&amp;gt; &amp;lt;footer&amp;gt; 复制代码  type: 本次 commit 的类型  feat: 添加新特性 fix: 修复bug docs: 仅仅修改了文档 style: 仅仅修改了空格、格式缩进、都好等等，不改变代码逻辑 refactor: 代码重构，没有加新功能或者修复bug perf: 增加代码进行性能测试 test: 增加测试用例 chore: 改变构建流程、或者增加依赖库、工具等   scope: 本次 commit 波及的范围，例如Compiler, ElementInjector等。 subject: 简明扼要的阐述下本次 commit 的主旨。 body: 包括改变的动机，并将其与以前的行为进行对比。 footer: 描述下与之关联的 issue 或 break change。  Commit messages格式要求    # 标题行：50个字符以内，描述主要变更内容 # # 主体内容：更详细的说明文本，建议72个字符以内。 需要描述的信息包括: # # * 为什么这个变更是必须的?</description>
+    </item>
+    
+    <item>
+      <title>Go Tips | Map</title>
+      <link>https://xblzbjs.cn/posts/go-tips/go-tips-map/</link>
+      <pubDate>Tue, 25 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/go-tips/go-tips-map/</guid>
+      <description>Tip1 初始化方式    func TestTestInitMap(t *testing.T) { // 方法一（字面量初始化） 	m1 := map[string]int{&amp;#34;Go&amp;#34;: 1, &amp;#34;Java&amp;#34;: 2, &amp;#34;Python&amp;#34;: 3} m2 := map[int]int{} // 方法二（使用内置函数make初始化） 	m3 := make(map[int]int, 10) // 使用len函数打印map的长度, 不能用cap打印容量 	t.Logf(&amp;#34;len m1=%d&amp;#34;, len(m1)) m2[4] = 16 t.Logf(&amp;#34;len m2=%d&amp;#34;, len(m2)) t.Logf(&amp;#34;len m3=%d&amp;#34;, len(m3)) } 以上两者同样是初始化一个Map，有什么不同？
+ 方法二提前分配了Map的容量，减少内存分配的次数，相比方法一而言性能更好，但是可扩展性更差。  Tip2 增删查改（Create、Delete、Read、Update）    func TestMapCRUD(t *testing.T) { m := make(map[string]int, 10) m[&amp;#34;other&amp;#34;] = 0 // Create 	m[&amp;#34;go&amp;#34;] = 1 t.</description>
+    </item>
+    
+    <item>
+      <title>Go Tips | Test</title>
+      <link>https://xblzbjs.cn/posts/go-tips/go-tips-test/</link>
+      <pubDate>Tue, 25 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/go-tips/go-tips-test/</guid>
+      <description>因何而生❓    有时测试程序需要在测试之前或之后进行额外的设置或拆卸。有时测试还需要控制哪些代码在主线程上运行。为了支持这些和其他情况, testing 包提供了 TestMain 函数 :
+func TestMain(m *testing.M) 有什么作用🤔    如果测试文件中包含该函数，那么生成的测试将调用 TestMain(m)，而不是直接运行测试。TestMain 运行在主 goroutine 中 , 可以在调用 m.Run 前后做任何设置和拆卸。m. Run将返回可能传递给的退出代码操作系统退出. 如果TestMain返回，测试包装器将m.Run的结果传递给操作系统退出它自己
+调用TestMain时，flag.解析尚未运行。如果TestMain依赖于命令行标志，包括测试包的标志，那么它应该调用flag.解析明确地。命令行标志总是由运行的时间测试或基准函数来解析
+因此，当您需要为测试执行一些全局设置/删除时，这可能会很方便
+举个🌰    简单    // file name: demo_test.go package tests import ( &amp;#34;testing&amp;#34; &amp;#34;os&amp;#34; ) func TestMain(m *testing.M) { log.Println(&amp;#34;Do stuff BEFORE the tests!&amp;#34;) exitVal := m.Run() log.Println(&amp;#34;Do stuff AFTER the tests!&amp;#34;) os.Exit(exitVal) } func TestA(t *testing.</description>
+    </item>
+    
+    <item>
+      <title>HTTP | 常见的返回状态码</title>
+      <link>https://xblzbjs.cn/posts/http/http-%E5%B8%B8%E8%A7%81%E7%9A%84%E8%BF%94%E5%9B%9E%E7%8A%B6%E6%80%81%E7%A0%81/</link>
+      <pubDate>Sun, 23 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/http/http-%E5%B8%B8%E8%A7%81%E7%9A%84%E8%BF%94%E5%9B%9E%E7%8A%B6%E6%80%81%E7%A0%81/</guid>
+      <description>状态码的类别    实际上经常使用的大概只有十几种
+    类别 原因     1XX Informational（信息性状态码） 接收的请求正在处理   2XX Success（成功状态码） 请求正常处理完毕   3XX Redirection（重定向状态码） 需要进行附加操作以完成请求   4XX Client Error（客户端错误状态码） 服务器无法处理请求   5XX Server Error（服务器错误状态码） 服务器处理请求出错    常用2XX状态码（表明请求被正常处理）        说明     200 OK 正常处理   204 No Content 请求处理成功！但没有资源可返回   206 Partial Content 成功执行范围请求，响应报文中包含由 Content-Range 指定范围的实体内容。    常用3XX状态码（表明浏览器需要执行某些特殊的处理以正确处理）        说明     301 Moved Permanently 永久性重定向。当指定资源路径（例如http://example.</description>
+    </item>
+    
+    <item>
+      <title>Go &amp; Python｜深拷贝与浅拷贝</title>
+      <link>https://xblzbjs.cn/posts/design-patterns/go-python%E6%B7%B1%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B5%85%E6%8B%B7%E8%B4%9D/</link>
+      <pubDate>Wed, 24 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/design-patterns/go-python%E6%B7%B1%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B5%85%E6%8B%B7%E8%B4%9D/</guid>
+      <description>背景：    在开发中，经常涉及到数据的传递。在数据传递使用过程中，可能会发生数据被修改的问题。为了防止数据被修改，就需要再传递一个副本，即使副本被修改，也不会影响原数据的使用。为了生成这个副本，就产生了拷贝。
+概念：    Python拷贝会涉及到Python中对象、可变类型、引用3个概念，下面一一介绍
+ 对象：Python对象都拥有三个属性：身份、类型、值。  &amp;gt;&amp;gt;&amp;gt; name = &amp;#34;xblzbjs&amp;#34;	# name对象，值为&amp;#39;xblzbjs&amp;#39; &amp;gt;&amp;gt;&amp;gt; id(name)	# 身份 2016648094384 &amp;gt;&amp;gt;&amp;gt; type(name)	# 类型 &amp;lt;class &amp;#39;str&amp;#39;&amp;gt;  可变类型：在Python中，按更新对象的方式，可以将对象分为2大类：可变对象与不可变对象。
+  可变对象： 列表(list)、字典(dict)、集合(set)。所谓可变指可变对象的值可变，身份是不变的。
+&amp;gt;&amp;gt;&amp;gt; l1 = [1,2,3] &amp;gt;&amp;gt;&amp;gt; id(l1) 2016648193280 &amp;gt;&amp;gt;&amp;gt; l1 = [1,2] &amp;gt;&amp;gt;&amp;gt; id(l1) 2016648214464 &amp;gt;&amp;gt;&amp;gt; l1[0]=3 &amp;gt;&amp;gt;&amp;gt; l1 [3, 2] &amp;gt;&amp;gt;&amp;gt; id(l1) 2016648214464   不可变对象：数字、字符串(str)、元组(tuple)。不可变对象指对象的身份和值都不可变。新创建的对象被关联到原来的变量名，旧对象被丢弃，垃圾回收器会在适当的时机回收这些对象。
+&amp;gt;&amp;gt;&amp;gt; num = 4 &amp;gt;&amp;gt;&amp;gt; id(num) 140710421604224 &amp;gt;&amp;gt;&amp;gt; num = 5 &amp;gt;&amp;gt;&amp;gt; id(num) 140710421604256     引用：在Python程序中，每个对象都会在内存中申请开辟一块空间来保存该对象，该对象在内存中所在位置的地址被称为引用。在开发程序时，所定义的变量名实际就对象的地址引用。引用实际就是内存中的一个数字地址编号，在使用对象时，只要知道这个对象的地址，就可以操作这个对象，但是因为这个数字地址不方便在开发时使用和记忆，所以使用变量名的形式来代替对象的数字地址。</description>
+    </item>
+    
+    <item>
+      <title>Git｜diff</title>
+      <link>https://xblzbjs.cn/posts/git/gitdiff/</link>
+      <pubDate>Tue, 23 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/git/gitdiff/</guid>
+      <description>假设你的仓库下有两个分支main和dev    场景一：
+比较工作区    # 显示头和工作目录之间的差异。 git diff HEAD #  比较文件    # 比较工作区与最后一次commit提交的仓库的共同文件 git diff # 显示暂存区(已add但未commit文件)和最后一次commit(HEAD)之间的所有不相同文件的增删改 git diff --cached 比较分支    # 显示main和dev有差异的文件(显示更改代码) git diff main dev # 显示main和dev有差异的文件(不显示更改代码) git diff main dev --stat </description>
+    </item>
+    
+    <item>
+      <title>Django｜编码规范</title>
+      <link>https://xblzbjs.cn/posts/django/django%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/</link>
+      <pubDate>Sat, 20 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/django/django%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/</guid>
+      <description>1.编码风格 Coding Style    1.1 代码可读性    6个忠告:
+➤ 避免缩写变量名
+➤ 写函数参数名。
+➤ 解释类和方法。
+➤ 对代码进行注释
+➤ 将重复的代码行重构为可重用的功能或方法
+➤ 保持函数和方法简短。不应该滚动阅读整个函数或方法
+1.2 PEP8(Python Enhancement Proposals)    PEP8文档
+PEP8中文翻译文档
+1.3 Python import 格式(以Django为例)    # future from __future__ import unicode_literals # 标准包 from math import sqrt from os.path import abspath # Django from django.db import models from django.utils.translation import ugettext_lazy as _ # 第三方包 from django_extensions.</description>
+    </item>
+    
+    <item>
+      <title>Django｜项目布局</title>
+      <link>https://xblzbjs.cn/posts/django/django%E9%A1%B9%E7%9B%AE%E5%B8%83%E5%B1%80/</link>
+      <pubDate>Sat, 20 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/django/django%E9%A1%B9%E7%9B%AE%E5%B8%83%E5%B1%80/</guid>
+      <description>有许多项目模板可以启动Django项目。这里有两个链接，可使用时，我们引导一个项目:
+  cookiecutter-django
+  Django包
+  默认的项目布局和更好的项目布局    # 默认项目布局  &amp;lt;django_project_root&amp;gt; # 更好的项目布局 &amp;lt;repository_root&amp;gt;/ ├── &amp;lt;configuration_root&amp;gt;/ ├── &amp;lt;django_project_root&amp;gt;/ 仓库根目录 repository_root    &amp;lt;repository_root&amp;gt;目录是项目的绝对根目录. 除了&amp;lt;django_project_root&amp;gt; 和 &amp;lt;configuration_root&amp;gt;, 我们还包括其他关键组件像README.md, docs/ directory, manage.py, .gitignore, requirements.txt 文件和其他高级文件部署和运行项目所需的。
+ 一些开发人员喜欢将&amp;lt;django_project_root&amp;gt;合并到项目的&amp;lt;repository_root&amp;gt;中。
+ Django项目根目录 django_project_root    如果使用 django-admin.py startproject，它生成的Django项目将成为项目根目录。
+mysite/ ├── manage.py ├── my_app │ ├── __init__.py │ ├── admin.py │ ├── apps.py │ ├── migrations │ │ └── __init__.</description>
+    </item>
+    
+    <item>
+      <title>Go &amp; Python｜创建型设计模式</title>
+      <link>https://xblzbjs.cn/posts/design-patterns/go-python%E5%88%9B%E5%BB%BA%E5%9E%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Sat, 20 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/design-patterns/go-python%E5%88%9B%E5%BB%BA%E5%9E%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</guid>
+      <description>常见创建型设计模式     工厂模式（Factory）：解决对象创建问题 构造模式（Builder）：控制复杂对象的创建 原型模式（Prototype）：通过原型的克隆创建新的实例 单例（Borg/Singleton）：一个类只能创建同一个对象 对象池模式（Pool）：预先分配同一类型的一组实例 惰性计算模式（Lazy Evaluation）：延迟计算（python的property）  1.工厂模式    解决了什么问题：
+ 解决对象创建问题 解耦对象的创建和使用 包括工厂方法和抽象工厂  # 工厂方法 class DogToy: def speak(self): print(&amp;#34;wang wang&amp;#34;) class CatToy: def speak(self): print(&amp;#34;miao miao&amp;#34;) def toy_factory(toy_type): if toy_type == &amp;#39;dog&amp;#39;: return DogToy() elif toy_type == &amp;#39;cat&amp;#39;: return CatToy() 2.构造模式    什么是构造模式：
+ 用来控制复杂对象的构造 创建和表示分离。比如你要买电脑，工厂模式直接给你需要的电脑 但是构造模式允许你自己定义电脑的配置，组装完成后给你  3.原型模式    什么是原型模式：
+ 通过克隆原型来创建新的实例 可以通过相同的原型，通过修改部分属性来创建新的实例 用途：对于一些创建实例开销比较高的地方可以用原型模式  4.</description>
+    </item>
+    
+    <item>
+      <title>Go &amp; Python｜结构型设计模式</title>
+      <link>https://xblzbjs.cn/posts/design-patterns/go-python%E7%BB%93%E6%9E%84%E5%9E%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Sat, 20 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/design-patterns/go-python%E7%BB%93%E6%9E%84%E5%9E%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</guid>
+      <description>结构型模式    常见的结构型设计模式：
+ 工厂模式（Factory）：解决对象创建问题 构造模式（Builder）：控制复杂对象的创建 原型模式（Prototype）：通过原型的克隆创建新的实例 单例（Borg/Singleton）：一个类只能创建同一个对象 对象池模式（Pool）：预先分配同一类型的一组实例 惰性计算模式（Lazy Evaluation）：延迟计算（python的property）  装饰器模式    什么是装饰器（Decorator）
+ Python中一切皆对象，函数也可以当作参数传递 装饰器是接受函数作为参数，添加功能后返回一个新函数的函数（类） 通过@使用装饰器  import time def log_time(func): # 接受一个函数作为参数 def _log(*args, **kwargs): beg = time.time() res = func(*args, **kwargs) print(&amp;#39;use time:{}&amp;#39;.format(time.time()-beg)) return res return _log @log_time # @:装饰器语法糖 def mysleep(): time.sleep(1) newsleep = log_time(mysleep) # 等价于mysleep() newsleep() mysleep() import time # 装饰器类实现 class LogTime: def __init__(self, use_int=False): self.use_int = use_int # 增加参数 def __call__(self,func): def _log(*args, **kwargs): beg = time.</description>
+    </item>
+    
+    <item>
+      <title>Go &amp; Python｜行为型设计模式</title>
+      <link>https://xblzbjs.cn/posts/design-patterns/go-python%E8%A1%8C%E4%B8%BA%E5%9E%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Sat, 20 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/design-patterns/go-python%E8%A1%8C%E4%B8%BA%E5%9E%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</guid>
+      <description>常见学习行为型设计模式     迭代器模式（Iterator）：通过统一的接口迭代对象 观察者模式（Observer）：对象发生改变的时候，观察者执行相应动作 策略模式（Strategy）：针对不同规模输入使用不同的策略  迭代器模式     Python内置对迭代器模式的支持 可用for遍历各种Iterable的数据类型 可以实现__next__和__iter__实现迭代器  class Stack(object): # 使用组合的例子 def __init__(self): self._deque = deque() def push(self, value): return self._deque.append(value) def pop(self): return self._deque.pop() def empty(self): return len(self._deque) == 0 def __iter__(self): res = [] for i in self._deque: res.append(i) for i in reversed(res): yield i s = Stack() s.push(1) s.push(2) for i in s: print(i) 观察者模式     发布订阅是一种最常用的实现方式 发布订阅用于解耦逻辑 可以通过回调等方式实现，当发生事件，执行回调函数  ==TODO：代码实现==</description>
+    </item>
+    
+    <item>
+      <title>Git｜merge</title>
+      <link>https://xblzbjs.cn/posts/git/gitmerge/</link>
+      <pubDate>Fri, 19 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/git/gitmerge/</guid>
+      <description>首先查看当前项目有哪些分支git branch -a等同于 git branch -all
+git branch -a 输入后会看到当前项目的所有分支（其中带*的分支为当前分支）
+dev *main 假设你需要在dev分支上进行开发，则需要切换到该分支
+git checkout dev 这个时候再使用git branch -a命令就会发现当前分支为dev分支
+*dev main 在dev分支上进行开发，提交测试没有问题想合并到main分支上，需要进行以下几步:
+  查看当前分支的状态并
+git status   添加更改文件push到当前分支上
+git add . &amp;amp;&amp;amp; git commit -m &amp;#34;update&amp;#34;   将dev分支合并到main分支
+git merge dev   检查main分支是否和dev分支的区别（当前处于div分支）
+git diff main   </description>
+    </item>
+    
+    <item>
+      <title>Git｜基本概念</title>
+      <link>https://xblzbjs.cn/posts/git/git%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</link>
+      <pubDate>Fri, 19 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/git/git%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</guid>
+      <description>git 术语    Repository(仓库)    Working Directory(工作区)    Staging area(暂存区)    Revision(修订)    Tags(标记)    Push(推送)    Pull(拉取)    Indev(索引)    Commit(提交)    Conflict(冲突)    Merge(合并)    Branch(分支)    HEAD(头)    Checkout(检出)    commit(提交)    diff(差异)    fetch(获取)    main/master(主干)    merge request(合并请求)    git文件有四种状态分别是:</description>
+    </item>
+    
+    <item>
+      <title>zsh｜主题</title>
+      <link>https://xblzbjs.cn/posts/linux/zsh%E4%B8%BB%E9%A2%98/</link>
+      <pubDate>Fri, 19 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/linux/zsh%E4%B8%BB%E9%A2%98/</guid>
+      <description>所有主题    我喜欢的自带主题    agnoster    amuse    awesomepanda    clean    crcandy    frisk    jonathan    linuxonly（只能运行在linux）    nanotech    philips    pmcgee    xiong-chiamiov    额外的主题    powerlevel10k    spaceship-prompt    </description>
+    </item>
+    
+    <item>
+      <title>CentOS7 | 安装Python虚拟环境</title>
+      <link>https://xblzbjs.cn/posts/linux/centos7-%E5%AE%89%E8%A3%85python%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83/</link>
+      <pubDate>Wed, 17 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/linux/centos7-%E5%AE%89%E8%A3%85python%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83/</guid>
+      <description>virtualenv和virtualenvwrapper安装    pip 3 安装    pip3 install virtualenv -i https://mirrors.aliyun.com/pypi/simple/ 安装virtualenvwrapper工具管理虚拟环境    pip3 install virtualenvwrapper -i https://mirrors.aliyun.com/pypi/simple/ # 报错 [root@centos ~]# pip3 install virtualenvwrapper -i https://mirrors.aliyun.com/pypi/simple/ Looking in indexes: http://mirrors.tencentyun.com/pypi/simple Collecting virtualenvwrapper Downloading http://mirrors.tencentyun.com/pypi/packages/c1/6b/2f05d73b2d2f2410b48b90d3783a0034c26afa534a4a95ad5f1178d61191/virtualenvwrapper-4.8.4.tar.gz (334 kB) |████████████████████████████████| 334 kB 832 kB/s ERROR: Command errored out with exit status 1: command: /usr/local/python3/bin/python3.7 -c &amp;#39;import sys, setuptools, tokenize; sys.argv[0] = &amp;#39;&amp;#34;&amp;#39;&amp;#34;&amp;#39;/tmp/pip-install-f3bmqs9b/virtualenvwrapper_891e91f27f1f44e4b94d4cb51de96c5d/setup.py&amp;#39;&amp;#34;&amp;#39;&amp;#34;&amp;#39;; __file__=&amp;#39;&amp;#34;&amp;#39;&amp;#34;&amp;#39;/tmp/pip-install-f3bmqs9b/virtualenvwrapper_891e91f27f1f44e4b94d4cb51de96c5d/setup.py&amp;#39;&amp;#34;&amp;#39;&amp;#34;&amp;#39;;f=getattr(tokenize, &amp;#39;&amp;#34;&amp;#39;&amp;#34;&amp;#39;open&amp;#39;&amp;#34;&amp;#39;&amp;#34;&amp;#39;, open)(__file__);code=f.read().replace(&amp;#39;&amp;#34;&amp;#39;&amp;#34;&amp;#39;\r\n&amp;#39;&amp;#34;&amp;#39;&amp;#34;&amp;#39;, &amp;#39;&amp;#34;&amp;#39;&amp;#34;&amp;#39;\n&amp;#39;&amp;#34;&amp;#39;&amp;#34;&amp;#39;);f.close();exec(compile(code, __file__, &amp;#39;&amp;#34;&amp;#39;&amp;#34;&amp;#39;exec&amp;#39;&amp;#34;&amp;#39;&amp;#34;&amp;#39;))&amp;#39; egg_info --egg-base /tmp/pip-pip-egg-info-u879bw4z cwd: /tmp/pip-install-f3bmqs9b/virtualenvwrapper_891e91f27f1f44e4b94d4cb51de96c5d/ Complete output (11 lines): Traceback (most recent call last): File &amp;#34;&amp;lt;string&amp;gt;&amp;#34;, line 1, in &amp;lt;module&amp;gt; File &amp;#34;/usr/local/python3/lib/python3.</description>
+    </item>
+    
+    <item>
+      <title>CentOS7 | 配置Python3环境</title>
+      <link>https://xblzbjs.cn/posts/linux/centos7-%E9%85%8D%E7%BD%AEpython3%E7%8E%AF%E5%A2%83/</link>
+      <pubDate>Wed, 17 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/linux/centos7-%E9%85%8D%E7%BD%AEpython3%E7%8E%AF%E5%A2%83/</guid>
+      <description>环境：腾讯云CentOS7.5 64位
+1. 查看Python的位置并安装相关依赖    [root@centos ~]# whereis python python2: /usr/bin/python2 /usr/bin/python2.7 /usr/lib/python2.7 /usr/lib64/python2.7 /usr/include/python2.7 /usr/share/man/man1/python2.1.gz python指向的是python2，python2指向的是python2.7，因此我们可以装个python3，然后将python指向python3，然后python2指向python2.7，那么两个版本的python就能共存了。
+yum install zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gcc make 2. 使用wget下载Python3源码包    wget http://npm.taobao.org/mirrors/python/3.7.9/Python-3.7.9.tar.xz # 如果提示wget未找到命令, 那么就先使用yum安装wget yum -y install wget 3. 编译Python3源码包    #解压 xz -d Python-3.7.9.tar.xz tar -xf Python-3.7.9.tar #进入解压后的目录，依次执行下面命令进行手动编译 cd Python-3.7.9 ./configure prefix=/usr/local/python3 make &amp;amp;&amp;amp; make install # 如果出现can&amp;#39;t decompress data; zlib not available这个错误，则需要安装相关库 #安装依赖zlib、zlib-devel yum install zlib zlib yum install zlib zlib-devel 4.</description>
+    </item>
+    
+    <item>
+      <title>Django｜第三方库</title>
+      <link>https://xblzbjs.cn/posts/django/django%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93/</link>
+      <pubDate>Wed, 17 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/django/django%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93/</guid>
+      <description>模型层（model）      django-model-utils
+  django-extensions
+  Cookiecutter Django’s documentation
+  django-countries
+  django-crispy-forms
+  factory_boy
+  Markdown编辑器     django-mdeditor  用户注册     django-allauth: django-registration  后台管理     django-grappelli simpleui  </description>
+    </item>
+    
+    <item>
+      <title>MongoDB｜CRUD操作</title>
+      <link>https://xblzbjs.cn/posts/database/mongodb/mongodbcrud%E6%93%8D%E4%BD%9C/</link>
+      <pubDate>Wed, 17 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/database/mongodb/mongodbcrud%E6%93%8D%E4%BD%9C/</guid>
+      <description>Create(创建)    insertOne()方法    ### insertOne()方法 # 参数含义 db.collection·insertOne() db.&amp;lt;collection&amp;gt;·insertOne( &amp;lt;document&amp;gt; writeConcern：&amp;lt;document&amp;gt;	# &amp;lt;collection&amp;gt;表示写入的集合 # &amp;lt;document&amp;gt;要替换成要写入的文档本身 # writeConcern：&amp;lt;document&amp;gt;定义了本次文档创建操作的安全写级别 ) # 简单来说，安全写级别用来判断一次数据库写入操作是否成功 安全写级别越高，丢失数据的风险就越低，然而写入操作的延迟也可能更高。如果不提供writeconcern文档，用默认的安全写级别。 # 创建单个文档 &amp;gt; db.accounts.insertOne(	# 虽然没有创建过accounts的集合，但该命令会自动创建相应的集合 ... { ... _id: &amp;#34;account1&amp;#34;, ... name: &amp;#34;alice&amp;#34;, ... balance: 100, ... } ... ) { &amp;#34;acknowledged&amp;#34; : true, &amp;#34;insertedId&amp;#34; : &amp;#34;account1&amp;#34; } # &amp;#34;acknowledged&amp;#34;: true表示安全写级别被启用 # 由于在db.collection.insertone()命令中没有提供writeConcern文档，这里显示的是默认的安全写级别启用状态 # &amp;#34;insertedId&amp;#34;显示了被写入的文档的_id # 重复_id创建一个新文档及相对应的报错信息 &amp;gt; db.accounts.insertOne( ... { ... _id: &amp;#34;account1&amp;#34;, .</description>
+    </item>
+    
+    <item>
+      <title>MongoDB｜介绍与安装</title>
+      <link>https://xblzbjs.cn/posts/database/mongodb/mongodb%E4%BB%8B%E7%BB%8D%E4%B8%8E%E5%AE%89%E8%A3%85/</link>
+      <pubDate>Wed, 17 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/database/mongodb/mongodb%E4%BB%8B%E7%BB%8D%E4%B8%8E%E5%AE%89%E8%A3%85/</guid>
+      <description>MongoDB介绍    MongoDB安装    使用docker安装（推荐）    docker pull mongo # 默认最新 docker pull mongo:4.0 # 指定安装MongoDB4.0版本 # 使用test数据库 &amp;gt; use test switched to db test # 查看test数据库中的集合 &amp;gt; show collections # 现在test数据库里还没有集合 &amp;gt; </description>
+    </item>
+    
+  </channel>
+</rss>

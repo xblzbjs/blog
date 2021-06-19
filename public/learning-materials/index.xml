@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Learning-materials on 行百里者半九十</title>
+    <link>https://xblzbjs.cn/learning-materials/</link>
+    <description>Recent content in Learning-materials on 行百里者半九十</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sun, 30 May 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://xblzbjs.cn/learning-materials/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>DevOps工程师</title>
+      <link>https://xblzbjs.cn/learning-materials/devops/</link>
+      <pubDate>Sun, 30 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/learning-materials/devops/</guid>
+      <description>书籍    《持续交付》 &amp;amp; 《持续交付2.0》    《精益创业》    《Scrum精髓》    《DevOps实践指南》    大会，网站和博客     DEOS ：DevOps 国际峰会，以案例总结著称； DevOpsDays：大名鼎鼎的 DevOpsDays 社区；- - DevOps.com ：综合性网站； Azure DevOps：综合性网站，盛产高质量的电子书； Martin Fowler ：Martin Fowler（一个软件开发方面的著作者和国际知名演说家） 的博客； CloudBees Devops ：Jenkins 背后的公司的博客。  </description>
+    </item>
+    
+    <item>
+      <title>Golang</title>
+      <link>https://xblzbjs.cn/learning-materials/go/</link>
+      <pubDate>Sun, 30 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/learning-materials/go/</guid>
+      <description>书籍    《Go程序设计语言》    经典中的经典，最好看英文版
+《Go语言高级编程》（柴树衫/曹春晖著）    CGO和汇编部分十分不错
+《Go专家编程》(任洪彩著)    收获很多</description>
+    </item>
+    
+    <item>
+      <title>其它</title>
+      <link>https://xblzbjs.cn/learning-materials/other/</link>
+      <pubDate>Sun, 30 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/learning-materials/other/</guid>
+      <description>内功    《程序员修炼之道:通往务实的最高境界》(David Thomas,Andrew Hunt著 云凤译)    对于本科为通信工程的我来说，这本书打开了我的职业大门
+《启示录:打造用户喜爱的产品》(Marty Cagan著)    多年以前的产品经验，现在仍有很多值得借鉴、学习。更主要的，大部分产品经理都做不到这本书对产品经历的要求。
+《软技能:代码之外的生存指南》(John Z.Sonmez著)    不要只会打代码
+《高效程序员的45个习惯:敏捷开发修炼之道》(Andy Hunt/Venkat Subramaniam著)    提升效率</description>
+    </item>
+    
+    <item>
+      <title>Python</title>
+      <link>https://xblzbjs.cn/learning-materials/python/</link>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/learning-materials/python/</guid>
+      <description>入门    《Python编程:从入门到实践》(Eric Matthes著)    入门必读
+《深入理解Python特性》&amp;amp;&amp;amp;《Effective Python 90 Specific Ways to Write Better Python by Brett Slatkin》    前者中文版读的还可以，《Effective Python 90 Specific Ways》写的十分好，收益很多，推荐。
+Django    《Python Django开发实战(视频讲解版)》(张虎著)    结合Django官方文档看，查漏补缺的一本书。注意这本书的项目只是辅助知识点，项目本身比较简陋，
+《Django 3 by Example》(Antonio Mele著)    例子丰富，适合刚有Django基础的人依葫芦画瓢找感觉
+《Two Scoops of Django 3.1》(Daniel Roy Greenfeld,Audrey Roy Greenfeld)    目前为止看到的最好的一本Django书
+《Django 3 Web Development Cookbook Actionable solutions to common problems in Python web development by Aidas Bendoraitis, Jake Kronika》    对得起书名。适合用Django建立复杂项目的朋友看。</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Language" content="zh-cn">
+    <meta name="color-scheme" content="light dark">
+
+    
+      <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests; block-all-mixed-content; default-src 'self'; child-src 'self'; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net/; form-action 'self'; frame-src 'self'; img-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/ https://cdn.jsdelivr.net/; script-src 'self' 'unsafe-inline' https://www.google-analytics.com; prefetch-src 'self'; connect-src 'self' https://www.google-analytics.com;">
+
+    
+
+    <meta name="author" content="行百里者半九十">
+    <meta name="description" content="常见学习行为型设计模式     迭代器模式（Iterator）：通过统一的接口迭代对象 观察者模式（Observer）：对象发生改变的时候，观察者执行相应动作 策略模式（Strategy）：针对不同规模输入使用不同的策略  迭代器模式     Python内置对迭代器模式的支持 可用for遍历各种Iterable的数据类型 可以实现__next__和__iter__实现迭代器  class Stack(object): # 使用组合的例子 def __init__(self): self._deque = deque() def push(self, value): return self._deque.append(value) def pop(self): return self._deque.pop() def empty(self): return len(self._deque) == 0 def __iter__(self): res = [] for i in self._deque: res.append(i) for i in reversed(res): yield i s = Stack() s.push(1) s.push(2) for i in s: print(i) 观察者模式     发布订阅是一种最常用的实现方式 发布订阅用于解耦逻辑 可以通过回调等方式实现，当发生事件，执行回调函数  ==TODO：代码实现==">
+    <meta name="keywords" content="blog,developer,personal">
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Go &amp; Python｜行为型设计模式"/>
+<meta name="twitter:description" content="常见学习行为型设计模式     迭代器模式（Iterator）：通过统一的接口迭代对象 观察者模式（Observer）：对象发生改变的时候，观察者执行相应动作 策略模式（Strategy）：针对不同规模输入使用不同的策略  迭代器模式     Python内置对迭代器模式的支持 可用for遍历各种Iterable的数据类型 可以实现__next__和__iter__实现迭代器  class Stack(object): # 使用组合的例子 def __init__(self): self._deque = deque() def push(self, value): return self._deque.append(value) def pop(self): return self._deque.pop() def empty(self): return len(self._deque) == 0 def __iter__(self): res = [] for i in self._deque: res.append(i) for i in reversed(res): yield i s = Stack() s.push(1) s.push(2) for i in s: print(i) 观察者模式     发布订阅是一种最常用的实现方式 发布订阅用于解耦逻辑 可以通过回调等方式实现，当发生事件，执行回调函数  ==TODO：代码实现=="/>
+
+    <meta property="og:title" content="Go &amp; Python｜行为型设计模式" />
+<meta property="og:description" content="常见学习行为型设计模式     迭代器模式（Iterator）：通过统一的接口迭代对象 观察者模式（Observer）：对象发生改变的时候，观察者执行相应动作 策略模式（Strategy）：针对不同规模输入使用不同的策略  迭代器模式     Python内置对迭代器模式的支持 可用for遍历各种Iterable的数据类型 可以实现__next__和__iter__实现迭代器  class Stack(object): # 使用组合的例子 def __init__(self): self._deque = deque() def push(self, value): return self._deque.append(value) def pop(self): return self._deque.pop() def empty(self): return len(self._deque) == 0 def __iter__(self): res = [] for i in self._deque: res.append(i) for i in reversed(res): yield i s = Stack() s.push(1) s.push(2) for i in s: print(i) 观察者模式     发布订阅是一种最常用的实现方式 发布订阅用于解耦逻辑 可以通过回调等方式实现，当发生事件，执行回调函数  ==TODO：代码实现==" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xblzbjs.cn/posts/design-patterns/go-python%E8%A1%8C%E4%B8%BA%E5%9E%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-03-20T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2021-03-20T00:00:00&#43;00:00" />
+
+
+
+    <title>
+  Go &amp; Python｜行为型设计模式 · 行百里者半九十
+</title>
+
+    
+      <link rel="canonical" href="https://xblzbjs.cn/posts/design-patterns/go-python%E8%A1%8C%E4%B8%BA%E5%9E%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
+    
+
+    <link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
+
+    
+      
+      
+      <link rel="stylesheet" href="/css/coder.min.93c41bf1e522f85ecda7355985f09000f71fc1d64dda9f74051b0fa06210e93f.css" integrity="sha256-k8Qb8eUi&#43;F7NpzVZhfCQAPcfwdZN2p90BRsPoGIQ6T8=" crossorigin="anonymous" media="screen" />
+    
+
+    
+
+    
+      
+        
+        
+        <link rel="stylesheet" href="/css/coder-dark.min.f37febc669ce189201c1918fac1948a254686c8d366a312c2d72b2bb71ad97d1.css" integrity="sha256-83/rxmnOGJIBwZGPrBlIolRobI02ajEsLXKyu3Gtl9E=" crossorigin="anonymous" media="screen" />
+      
+    
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+    
+
+    <meta name="generator" content="Hugo 0.83.1" />
+  </head>
+
+  
+  
+    
+  
+  <body class="preload-transitions colorscheme-auto"
+        onload=""
+  >
+    
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      行百里者半九十
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">随笔</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/archive/">归档</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">关于</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/learning-materials/">学习资料</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="https://xblzbjs.cn/posts/design-patterns/go-python%E8%A1%8C%E4%B8%BA%E5%9E%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
+              Go &amp; Python｜行为型设计模式
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime='2021-03-20T00:00:00Z'>
+                March 20, 2021
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              阅读时间：1 分钟
+            </span>
+          </div>
+          
+          <div class="categories">
+  <i class="fa fa-folder" aria-hidden="true"></i>
+    <a href="/categories/design-patterns/">design-patterns</a></div>
+
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="/tags/go/">go</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/python/">python</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+        <h3 id="常见学习行为型设计模式">
+  常见学习行为型设计模式
+  <a class="heading-link" href="#%e5%b8%b8%e8%a7%81%e5%ad%a6%e4%b9%a0%e8%a1%8c%e4%b8%ba%e5%9e%8b%e8%ae%be%e8%ae%a1%e6%a8%a1%e5%bc%8f">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<ul>
+<li>迭代器模式（Iterator）：通过统一的接口迭代对象</li>
+<li>观察者模式（Observer）：对象发生改变的时候，观察者执行相应动作</li>
+<li>策略模式（Strategy）：针对不同规模输入使用不同的策略</li>
+</ul>
+<h3 id="迭代器模式">
+  迭代器模式
+  <a class="heading-link" href="#%e8%bf%ad%e4%bb%a3%e5%99%a8%e6%a8%a1%e5%bc%8f">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<ul>
+<li>Python内置对迭代器模式的支持</li>
+<li>可用for遍历各种Iterable的数据类型</li>
+<li>可以实现<code>__next__</code>和<code>__iter__</code>实现迭代器</li>
+</ul>
+<div class="highlight"><pre style="color:#8a8a8a;background-color:#1c1c1c;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#5f8700">class</span> <span style="color:#0087ff">Stack</span>(<span style="color:#0087ff">object</span>): <span style="color:#4e4e4e"># 使用组合的例子</span>
+	
+	<span style="color:#5f8700">def</span> __init__(<span style="color:#0087ff">self</span>):
+		<span style="color:#0087ff">self</span>._deque = deque()
+	
+	<span style="color:#5f8700">def</span> <span style="color:#0087ff">push</span>(<span style="color:#0087ff">self</span>, value):
+		<span style="color:#5f8700">return</span> <span style="color:#0087ff">self</span>._deque.append(value)
+		
+	<span style="color:#5f8700">def</span> <span style="color:#0087ff">pop</span>(<span style="color:#0087ff">self</span>):
+		<span style="color:#5f8700">return</span> <span style="color:#0087ff">self</span>._deque.pop()
+	
+	<span style="color:#5f8700">def</span> <span style="color:#0087ff">empty</span>(<span style="color:#0087ff">self</span>):
+		<span style="color:#5f8700">return</span> <span style="color:#0087ff">len</span>(<span style="color:#0087ff">self</span>._deque) == <span style="color:#00afaf">0</span>
+		
+	<span style="color:#5f8700">def</span> __iter__(<span style="color:#0087ff">self</span>):
+		res = []
+		<span style="color:#5f8700">for</span> i <span style="color:#5f8700">in</span> <span style="color:#0087ff">self</span>._deque:
+			res.append(i)
+		<span style="color:#5f8700">for</span> i <span style="color:#5f8700">in</span> <span style="color:#0087ff">reversed</span>(res):
+			<span style="color:#5f8700">yield</span> i 
+s = Stack()
+s.push(<span style="color:#00afaf">1</span>)
+s.push(<span style="color:#00afaf">2</span>)
+<span style="color:#5f8700">for</span> i <span style="color:#5f8700">in</span> s:
+	<span style="color:#5f8700">print</span>(i)
+</code></pre></div><h3 id="观察者模式">
+  观察者模式
+  <a class="heading-link" href="#%e8%a7%82%e5%af%9f%e8%80%85%e6%a8%a1%e5%bc%8f">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<ul>
+<li>发布订阅是一种最常用的实现方式</li>
+<li>发布订阅用于解耦逻辑</li>
+<li>可以通过回调等方式实现，当发生事件，执行回调函数</li>
+</ul>
+<p>==TODO：代码实现==</p>
+<h3 id="策略模式">
+  策略模式
+  <a class="heading-link" href="#%e7%ad%96%e7%95%a5%e6%a8%a1%e5%bc%8f">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<ul>
+<li>根据不同的输入采用不同的策略</li>
+<li>对外暴露统一的接口，内部采用不同的策略计算</li>
+</ul>
+<p>==TODO：代码实现==</p>
+
+      </div>
+
+
+      <footer>
+        
+
+
+        
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+      </div>
+
+      
+
+    </main>
+
+    
+      
+      <script src="/js/coder.min.235666b114443867d43eeb5799d51f6252965e5163f338285e113fa381d3d27e.js" integrity="sha256-I1ZmsRREOGfUPutXmdUfYlKWXlFj8zgoXhE/o4HT0n4="></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-192697137-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-192697137-1');
+</script>
+
+  </body>
+
+</html>

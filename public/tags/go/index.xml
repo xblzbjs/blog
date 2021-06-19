@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>go on 行百里者半九十</title>
+    <link>https://xblzbjs.cn/tags/go/</link>
+    <description>Recent content in go on 行百里者半九十</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Tue, 25 May 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://xblzbjs.cn/tags/go/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go Tips | Map</title>
+      <link>https://xblzbjs.cn/posts/go-tips/go-tips-map/</link>
+      <pubDate>Tue, 25 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/go-tips/go-tips-map/</guid>
+      <description>Tip1 初始化方式    func TestTestInitMap(t *testing.T) { // 方法一（字面量初始化） 	m1 := map[string]int{&amp;#34;Go&amp;#34;: 1, &amp;#34;Java&amp;#34;: 2, &amp;#34;Python&amp;#34;: 3} m2 := map[int]int{} // 方法二（使用内置函数make初始化） 	m3 := make(map[int]int, 10) // 使用len函数打印map的长度, 不能用cap打印容量 	t.Logf(&amp;#34;len m1=%d&amp;#34;, len(m1)) m2[4] = 16 t.Logf(&amp;#34;len m2=%d&amp;#34;, len(m2)) t.Logf(&amp;#34;len m3=%d&amp;#34;, len(m3)) } 以上两者同样是初始化一个Map，有什么不同？
+ 方法二提前分配了Map的容量，减少内存分配的次数，相比方法一而言性能更好，但是可扩展性更差。  Tip2 增删查改（Create、Delete、Read、Update）    func TestMapCRUD(t *testing.T) { m := make(map[string]int, 10) m[&amp;#34;other&amp;#34;] = 0 // Create 	m[&amp;#34;go&amp;#34;] = 1 t.</description>
+    </item>
+    
+    <item>
+      <title>Go Tips | Test</title>
+      <link>https://xblzbjs.cn/posts/go-tips/go-tips-test/</link>
+      <pubDate>Tue, 25 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/go-tips/go-tips-test/</guid>
+      <description>因何而生❓    有时测试程序需要在测试之前或之后进行额外的设置或拆卸。有时测试还需要控制哪些代码在主线程上运行。为了支持这些和其他情况, testing 包提供了 TestMain 函数 :
+func TestMain(m *testing.M) 有什么作用🤔    如果测试文件中包含该函数，那么生成的测试将调用 TestMain(m)，而不是直接运行测试。TestMain 运行在主 goroutine 中 , 可以在调用 m.Run 前后做任何设置和拆卸。m. Run将返回可能传递给的退出代码操作系统退出. 如果TestMain返回，测试包装器将m.Run的结果传递给操作系统退出它自己
+调用TestMain时，flag.解析尚未运行。如果TestMain依赖于命令行标志，包括测试包的标志，那么它应该调用flag.解析明确地。命令行标志总是由运行的时间测试或基准函数来解析
+因此，当您需要为测试执行一些全局设置/删除时，这可能会很方便
+举个🌰    简单    // file name: demo_test.go package tests import ( &amp;#34;testing&amp;#34; &amp;#34;os&amp;#34; ) func TestMain(m *testing.M) { log.Println(&amp;#34;Do stuff BEFORE the tests!&amp;#34;) exitVal := m.Run() log.Println(&amp;#34;Do stuff AFTER the tests!&amp;#34;) os.Exit(exitVal) } func TestA(t *testing.</description>
+    </item>
+    
+    <item>
+      <title>Go &amp; Python｜深拷贝与浅拷贝</title>
+      <link>https://xblzbjs.cn/posts/design-patterns/go-python%E6%B7%B1%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B5%85%E6%8B%B7%E8%B4%9D/</link>
+      <pubDate>Wed, 24 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/design-patterns/go-python%E6%B7%B1%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B5%85%E6%8B%B7%E8%B4%9D/</guid>
+      <description>背景：    在开发中，经常涉及到数据的传递。在数据传递使用过程中，可能会发生数据被修改的问题。为了防止数据被修改，就需要再传递一个副本，即使副本被修改，也不会影响原数据的使用。为了生成这个副本，就产生了拷贝。
+概念：    Python拷贝会涉及到Python中对象、可变类型、引用3个概念，下面一一介绍
+ 对象：Python对象都拥有三个属性：身份、类型、值。  &amp;gt;&amp;gt;&amp;gt; name = &amp;#34;xblzbjs&amp;#34;	# name对象，值为&amp;#39;xblzbjs&amp;#39; &amp;gt;&amp;gt;&amp;gt; id(name)	# 身份 2016648094384 &amp;gt;&amp;gt;&amp;gt; type(name)	# 类型 &amp;lt;class &amp;#39;str&amp;#39;&amp;gt;  可变类型：在Python中，按更新对象的方式，可以将对象分为2大类：可变对象与不可变对象。
+  可变对象： 列表(list)、字典(dict)、集合(set)。所谓可变指可变对象的值可变，身份是不变的。
+&amp;gt;&amp;gt;&amp;gt; l1 = [1,2,3] &amp;gt;&amp;gt;&amp;gt; id(l1) 2016648193280 &amp;gt;&amp;gt;&amp;gt; l1 = [1,2] &amp;gt;&amp;gt;&amp;gt; id(l1) 2016648214464 &amp;gt;&amp;gt;&amp;gt; l1[0]=3 &amp;gt;&amp;gt;&amp;gt; l1 [3, 2] &amp;gt;&amp;gt;&amp;gt; id(l1) 2016648214464   不可变对象：数字、字符串(str)、元组(tuple)。不可变对象指对象的身份和值都不可变。新创建的对象被关联到原来的变量名，旧对象被丢弃，垃圾回收器会在适当的时机回收这些对象。
+&amp;gt;&amp;gt;&amp;gt; num = 4 &amp;gt;&amp;gt;&amp;gt; id(num) 140710421604224 &amp;gt;&amp;gt;&amp;gt; num = 5 &amp;gt;&amp;gt;&amp;gt; id(num) 140710421604256     引用：在Python程序中，每个对象都会在内存中申请开辟一块空间来保存该对象，该对象在内存中所在位置的地址被称为引用。在开发程序时，所定义的变量名实际就对象的地址引用。引用实际就是内存中的一个数字地址编号，在使用对象时，只要知道这个对象的地址，就可以操作这个对象，但是因为这个数字地址不方便在开发时使用和记忆，所以使用变量名的形式来代替对象的数字地址。</description>
+    </item>
+    
+    <item>
+      <title>Go &amp; Python｜创建型设计模式</title>
+      <link>https://xblzbjs.cn/posts/design-patterns/go-python%E5%88%9B%E5%BB%BA%E5%9E%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Sat, 20 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/design-patterns/go-python%E5%88%9B%E5%BB%BA%E5%9E%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</guid>
+      <description>常见创建型设计模式     工厂模式（Factory）：解决对象创建问题 构造模式（Builder）：控制复杂对象的创建 原型模式（Prototype）：通过原型的克隆创建新的实例 单例（Borg/Singleton）：一个类只能创建同一个对象 对象池模式（Pool）：预先分配同一类型的一组实例 惰性计算模式（Lazy Evaluation）：延迟计算（python的property）  1.工厂模式    解决了什么问题：
+ 解决对象创建问题 解耦对象的创建和使用 包括工厂方法和抽象工厂  # 工厂方法 class DogToy: def speak(self): print(&amp;#34;wang wang&amp;#34;) class CatToy: def speak(self): print(&amp;#34;miao miao&amp;#34;) def toy_factory(toy_type): if toy_type == &amp;#39;dog&amp;#39;: return DogToy() elif toy_type == &amp;#39;cat&amp;#39;: return CatToy() 2.构造模式    什么是构造模式：
+ 用来控制复杂对象的构造 创建和表示分离。比如你要买电脑，工厂模式直接给你需要的电脑 但是构造模式允许你自己定义电脑的配置，组装完成后给你  3.原型模式    什么是原型模式：
+ 通过克隆原型来创建新的实例 可以通过相同的原型，通过修改部分属性来创建新的实例 用途：对于一些创建实例开销比较高的地方可以用原型模式  4.</description>
+    </item>
+    
+    <item>
+      <title>Go &amp; Python｜结构型设计模式</title>
+      <link>https://xblzbjs.cn/posts/design-patterns/go-python%E7%BB%93%E6%9E%84%E5%9E%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Sat, 20 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/design-patterns/go-python%E7%BB%93%E6%9E%84%E5%9E%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</guid>
+      <description>结构型模式    常见的结构型设计模式：
+ 工厂模式（Factory）：解决对象创建问题 构造模式（Builder）：控制复杂对象的创建 原型模式（Prototype）：通过原型的克隆创建新的实例 单例（Borg/Singleton）：一个类只能创建同一个对象 对象池模式（Pool）：预先分配同一类型的一组实例 惰性计算模式（Lazy Evaluation）：延迟计算（python的property）  装饰器模式    什么是装饰器（Decorator）
+ Python中一切皆对象，函数也可以当作参数传递 装饰器是接受函数作为参数，添加功能后返回一个新函数的函数（类） 通过@使用装饰器  import time def log_time(func): # 接受一个函数作为参数 def _log(*args, **kwargs): beg = time.time() res = func(*args, **kwargs) print(&amp;#39;use time:{}&amp;#39;.format(time.time()-beg)) return res return _log @log_time # @:装饰器语法糖 def mysleep(): time.sleep(1) newsleep = log_time(mysleep) # 等价于mysleep() newsleep() mysleep() import time # 装饰器类实现 class LogTime: def __init__(self, use_int=False): self.use_int = use_int # 增加参数 def __call__(self,func): def _log(*args, **kwargs): beg = time.</description>
+    </item>
+    
+    <item>
+      <title>Go &amp; Python｜行为型设计模式</title>
+      <link>https://xblzbjs.cn/posts/design-patterns/go-python%E8%A1%8C%E4%B8%BA%E5%9E%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Sat, 20 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/design-patterns/go-python%E8%A1%8C%E4%B8%BA%E5%9E%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</guid>
+      <description>常见学习行为型设计模式     迭代器模式（Iterator）：通过统一的接口迭代对象 观察者模式（Observer）：对象发生改变的时候，观察者执行相应动作 策略模式（Strategy）：针对不同规模输入使用不同的策略  迭代器模式     Python内置对迭代器模式的支持 可用for遍历各种Iterable的数据类型 可以实现__next__和__iter__实现迭代器  class Stack(object): # 使用组合的例子 def __init__(self): self._deque = deque() def push(self, value): return self._deque.append(value) def pop(self): return self._deque.pop() def empty(self): return len(self._deque) == 0 def __iter__(self): res = [] for i in self._deque: res.append(i) for i in reversed(res): yield i s = Stack() s.push(1) s.push(2) for i in s: print(i) 观察者模式     发布订阅是一种最常用的实现方式 发布订阅用于解耦逻辑 可以通过回调等方式实现，当发生事件，执行回调函数  ==TODO：代码实现==</description>
+    </item>
+    
+  </channel>
+</rss>

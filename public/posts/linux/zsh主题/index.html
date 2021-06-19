@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Language" content="zh-cn">
+    <meta name="color-scheme" content="light dark">
+
+    
+      <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests; block-all-mixed-content; default-src 'self'; child-src 'self'; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net/; form-action 'self'; frame-src 'self'; img-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/ https://cdn.jsdelivr.net/; script-src 'self' 'unsafe-inline' https://www.google-analytics.com; prefetch-src 'self'; connect-src 'self' https://www.google-analytics.com;">
+
+    
+
+    <meta name="author" content="行百里者半九十">
+    <meta name="description" content="所有主题    我喜欢的自带主题    agnoster    amuse    awesomepanda    clean    crcandy    frisk    jonathan    linuxonly（只能运行在linux）    nanotech    philips    pmcgee    xiong-chiamiov    额外的主题    powerlevel10k    spaceship-prompt    ">
+    <meta name="keywords" content="blog,developer,personal">
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="zsh｜主题"/>
+<meta name="twitter:description" content="所有主题    我喜欢的自带主题    agnoster    amuse    awesomepanda    clean    crcandy    frisk    jonathan    linuxonly（只能运行在linux）    nanotech    philips    pmcgee    xiong-chiamiov    额外的主题    powerlevel10k    spaceship-prompt    "/>
+
+    <meta property="og:title" content="zsh｜主题" />
+<meta property="og:description" content="所有主题    我喜欢的自带主题    agnoster    amuse    awesomepanda    clean    crcandy    frisk    jonathan    linuxonly（只能运行在linux）    nanotech    philips    pmcgee    xiong-chiamiov    额外的主题    powerlevel10k    spaceship-prompt    " />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xblzbjs.cn/posts/linux/zsh%E4%B8%BB%E9%A2%98/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-03-19T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2021-03-19T00:00:00&#43;00:00" />
+
+
+
+    <title>
+  zsh｜主题 · 行百里者半九十
+</title>
+
+    
+      <link rel="canonical" href="https://xblzbjs.cn/posts/linux/zsh%E4%B8%BB%E9%A2%98/">
+    
+
+    <link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
+
+    
+      
+      
+      <link rel="stylesheet" href="/css/coder.min.93c41bf1e522f85ecda7355985f09000f71fc1d64dda9f74051b0fa06210e93f.css" integrity="sha256-k8Qb8eUi&#43;F7NpzVZhfCQAPcfwdZN2p90BRsPoGIQ6T8=" crossorigin="anonymous" media="screen" />
+    
+
+    
+
+    
+      
+        
+        
+        <link rel="stylesheet" href="/css/coder-dark.min.f37febc669ce189201c1918fac1948a254686c8d366a312c2d72b2bb71ad97d1.css" integrity="sha256-83/rxmnOGJIBwZGPrBlIolRobI02ajEsLXKyu3Gtl9E=" crossorigin="anonymous" media="screen" />
+      
+    
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+    
+
+    <meta name="generator" content="Hugo 0.83.1" />
+  </head>
+
+  
+  
+    
+  
+  <body class="preload-transitions colorscheme-auto"
+        onload=""
+  >
+    
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      行百里者半九十
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">随笔</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/archive/">归档</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">关于</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/learning-materials/">学习资料</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="https://xblzbjs.cn/posts/linux/zsh%E4%B8%BB%E9%A2%98/">
+              zsh｜主题
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime='2021-03-19T00:00:00Z'>
+                March 19, 2021
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              阅读时间：1 分钟
+            </span>
+          </div>
+          
+          
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="/tags/linux/">linux</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+        <h2 id="所有主题httpsgithubcomohmyzshohmyzshwikithemes">
+  <a href="https://github.com/ohmyzsh/ohmyzsh/wiki/Themes">所有主题</a>
+  <a class="heading-link" href="#%e6%89%80%e6%9c%89%e4%b8%bb%e9%a2%98httpsgithubcomohmyzshohmyzshwikithemes">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<h2 id="我喜欢的自带主题">
+  我喜欢的自带主题
+  <a class="heading-link" href="#%e6%88%91%e5%96%9c%e6%ac%a2%e7%9a%84%e8%87%aa%e5%b8%a6%e4%b8%bb%e9%a2%98">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<h3 id="agnoster">
+  agnoster
+  <a class="heading-link" href="#agnoster">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<p><img src="https://user-images.githubusercontent.com/49100982/108254745-777cb400-716c-11eb-800a-a8cfa612253f.jpg" alt="无法显示图片" title="agnoster"></p>
+<h3 id="amuse">
+  amuse
+  <a class="heading-link" href="#amuse">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<p><img src="https://user-images.githubusercontent.com/49100982/108254748-78ade100-716c-11eb-8f61-0a2bec4f671c.jpg" alt="无法显示图片" title="amuse"></p>
+<h3 id="awesomepanda">
+  awesomepanda
+  <a class="heading-link" href="#awesomepanda">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<p><img src="https://user-images.githubusercontent.com/49100982/108254758-79df0e00-716c-11eb-8990-62f456ddd785.jpg" alt="无法显示图片" title="awesomepanda"></p>
+<h3 id="clean">
+  clean
+  <a class="heading-link" href="#clean">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<p><img src="https://user-images.githubusercontent.com/49100982/108254772-7ba8d180-716c-11eb-9d96-f54d13acde5b.jpg" alt="无法显示图片" title="clean"></p>
+<h3 id="crcandy">
+  crcandy
+  <a class="heading-link" href="#crcandy">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<p><img src="https://user-images.githubusercontent.com/49100982/108254775-7c416800-716c-11eb-8e54-fa40ccb0d519.jpg" alt="无法显示图片" title="crcandy"></p>
+<h3 id="frisk">
+  frisk
+  <a class="heading-link" href="#frisk">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<p><img src="https://user-images.githubusercontent.com/49100982/108254820-8499a300-716c-11eb-922d-5cc6ffa08fc1.jpg" alt="无法显示图片" title="frisk"></p>
+<h3 id="jonathan">
+  jonathan
+  <a class="heading-link" href="#jonathan">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<p><img src="https://user-images.githubusercontent.com/49100982/108254860-8c594780-716c-11eb-8f8b-be04d4943216.jpg" alt="无法显示图片" title="jonathan"></p>
+<h3 id="linuxonly只能运行在linux">
+  linuxonly（只能运行在linux）
+  <a class="heading-link" href="#linuxonly%e5%8f%aa%e8%83%bd%e8%bf%90%e8%a1%8c%e5%9c%a8linux">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<p><img src="https://user-images.githubusercontent.com/49100982/108254886-90856500-716c-11eb-81e8-8ba2b7ea922f.jpg" alt="无法显示图片" title="linuxonly"></p>
+<h3 id="nanotech">
+  nanotech
+  <a class="heading-link" href="#nanotech">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<p><img src="https://user-images.githubusercontent.com/49100982/108254907-954a1900-716c-11eb-8be4-d8accb5a2a44.jpg" alt="无法显示图片" title="nanotech"></p>
+<h3 id="philips">
+  philips
+  <a class="heading-link" href="#philips">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<p><img src="https://user-images.githubusercontent.com/49100982/108254919-97ac7300-716c-11eb-9338-cb7009d3a5ea.jpg" alt="无法显示图片" title="philips"></p>
+<h3 id="pmcgee">
+  pmcgee
+  <a class="heading-link" href="#pmcgee">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<p><img src="https://user-images.githubusercontent.com/49100982/108254920-97ac7300-716c-11eb-80d5-301ba10cf969.jpg" alt="无法显示图片" title="pmcgee"></p>
+<h3 id="xiong-chiamiov">
+  xiong-chiamiov
+  <a class="heading-link" href="#xiong-chiamiov">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<p><img src="https://user-images.githubusercontent.com/49100982/108255786-bcedb100-716d-11eb-9f4d-540b75cc62c2.jpg" alt="无法显示图片" title="xiong-chiamiov"></p>
+<h2 id="额外的主题">
+  额外的主题
+  <a class="heading-link" href="#%e9%a2%9d%e5%a4%96%e7%9a%84%e4%b8%bb%e9%a2%98">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<h3 id="powerlevel10khttpsgithubcomromkatvpowerlevel10koh-my-zsh">
+  <a href="https://github.com/romkatv/powerlevel10k#oh-my-zsh">powerlevel10k</a>
+  <a class="heading-link" href="#powerlevel10khttpsgithubcomromkatvpowerlevel10koh-my-zsh">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<p><img src="https://raw.githubusercontent.com/romkatv/powerlevel10k-media/master/other-theme-emulation.gif" alt="无法显示图片" title="powerlevel10k"></p>
+<h3 id="spaceship-prompthttpsgithubcomdenysdovhanspaceship-prompt">
+  <a href="https://github.com/denysdovhan/spaceship-prompt">spaceship-prompt</a>
+  <a class="heading-link" href="#spaceship-prompthttpsgithubcomdenysdovhanspaceship-prompt">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<p><img src="https://user-images.githubusercontent.com/10276208/36086434-5de52ace-0ff2-11e8-8299-c67f9ab4e9bd.gif" alt="无法显示图片" title="spaceship-prompt"></p>
+
+      </div>
+
+
+      <footer>
+        
+
+
+        
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+      </div>
+
+      
+
+    </main>
+
+    
+      
+      <script src="/js/coder.min.235666b114443867d43eeb5799d51f6252965e5163f338285e113fa381d3d27e.js" integrity="sha256-I1ZmsRREOGfUPutXmdUfYlKWXlFj8zgoXhE/o4HT0n4="></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-192697137-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-192697137-1');
+</script>
+
+  </body>
+
+</html>

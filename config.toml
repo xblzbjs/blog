@@ -16,10 +16,9 @@ author = "行百里者半九十"
 colorScheme = "auto"
 dateFormat = "January 2, 2006"
 description = "xblzbjs的个人博客"
-footerContent = "Enter a text here."
 hideCopyright = false
 hideCredits = false
-hideFooter = false
+hideFooter = true
 info = "詩云：『行百里者半於九十。』此言末路之難也。"
 keywords = "blog,developer,personal"
 rtl = false
@@ -31,7 +30,7 @@ maxSeeAlsoItems = 5
 # Enable Twemoji
 enableTwemoji = false
 # Custom CSS
-customCSS = ["syntax.css"]
+customCSS = []
 # Custom SCSS
 customSCSS = []
 # Custom JS
@@ -73,16 +72,10 @@ url = "https://github.com/xblzbjs/"
 weight = 1
 
 [[params.social]]
-icon = "fa fa-gitlab"
-name = "Gitlab"
-url = "https://gitlab.com/xblzbjs/"
-weight = 2
-
-[[params.social]]
 icon = "fa fa-linkedin"
 name = "LinkedIn"
 url = "https://www.linkedin.com/in/xblzbjs/"
-weight = 3
+weight = 2
 
 [[params.social]]
 icon = "fa fa-rss"
@@ -90,7 +83,7 @@ name = "RSS"
 rel = "alternate"
 type = "application/rss+xml"
 url = "https://xblzbjs.cn/index.xml"
-weight = 4
+weight = 3
 
 [[languages.zh-cn.menu.main]]
 name = "随笔"

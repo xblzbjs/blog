@@ -13,7 +13,7 @@ tags = [
 
 在[A successful Git branching model](http://nvie.com/posts/a-successful-git-branching-model/)文中有一图展示了常见的分支管理规范
 
-![img](/Users/xblzbjs/Desktop/Go Tips/Git | 分支规范.assets/git-model@2x.png)
+![无法显示图片](/img/git-model.png)
 
 从上图（自右向左）分别为
 
@@ -80,4 +80,4 @@ tags = [
 
 - [Using Git Commit Message Templates to Write Better Commit Messages](https://gist.github.com/lisawolderiksen/a7b99d94c92c6671181611be1641c733)
 - [another git commit message template](https://gist.github.com/zakkak/7e06725ebd1336bfebebe254de3de825)
-- [How to Write a Git Commit Message](
+- [How to Write a Git Commit Message](https://chris.beams.io/posts/git-commit/)

@@ -35,7 +35,9 @@ customCSS = []
 customSCSS = []
 # Custom JS
 customJS = []
+staticDir = ["static"]
 
+disqusShortname = "xblzbjs"
 [params.googleTagManager]
 id = "UA-192697137-1"
 
@@ -85,30 +87,31 @@ type = "application/rss+xml"
 url = "https://xblzbjs.cn/index.xml"
 weight = 3
 
+[languages.zh-cn]
+languageName = ":简体中文:"
+
 [[languages.zh-cn.menu.main]]
 name = "随笔"
 weight = 1
 url = "posts/"
 
 [[languages.zh-cn.menu.main]]
-name = "归档"
+name = "分类"
 weight = 2
-url = "archive/"
+url = "categories/"
 
 [[languages.zh-cn.menu.main]]
-name = "关于"
+name = "标签"
 weight = 3
-url = "about/"
+url = "tags/"
+
+# [[languages.zh-cn.menu.main]]
+# name = "关于"
+# weight = 4
+# url = "about/"
 
 [[languages.zh-cn.menu.main]]
 name = "学习资料"
-weight = 4
+weight = 5
 url = "learning-materials/"
-
-
-[page_not_found]
-other = "Page Not Found"
-
-[page_does_not_exist]
-other = "Sorry, this page does not exist."
 

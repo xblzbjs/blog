@@ -1,10 +1,10 @@
 +++
-title = "Django｜项目布局"
+title = "Django｜设计"
 date = "2021-03-20"
 author = "xblzbjs"
 tags = [
-    "django",
-    "python",
+    "Django",
+    "Python",
 ]
 +++
 
@@ -169,3 +169,61 @@ myproject_website
 │       └── manage.py*
 └── venv/
 ```
+
+## App 设计
+
+> “The art of creating and maintaining a good Django app is that it should follow the
+>
+> truncated Unix philosophy according to Douglas McIlroy: ‘Write programs that do one
+>
+> thing and do it well.”
+
+每个应用程序都应该专注于自己的任务
+
+## App命名
+
+> 不要太担心让应用程序设计完美。 这是一门艺术，而不是一门科学。 有时候你得重写它们或者把它们拆散。 没关系的。
+
+
+
+如果您希望站点的博客出现在http://www.example.com/weblog/，那么考虑应用程序命名为weblog，而不是blog、posts或blogposts。更容易看到哪个应用程序对应于站点的哪个部分。
+
+使用有效的、符合PEP8的、可导入的Python包名：短的、所有小写的名称，没有数字、破折号、句点、空格或特殊字符。 如果需要可读性，可以使用下划线来分隔单词，尽管不鼓励使用下划线
+
+这是99%的Django应用程序中常见的模块。以斜杠（‘/’）结尾的任何模块都表示Python包，它可以包含一个或多个模块。
+
+```python 
+# Common modules
+scoops/
+├── __init__.py
+├── admin.py
+├── forms.py
+├── management/
+├── migrations/
+├── models.py
+├── templatetags/
+├── tests/
+├── urls.py
+├── views.py
+```
+
+```python
+# uncommon modules
+scoops/
+├── api/		
+├── behaviors.py
+├── constants.py
+├── context_processors.py
+├── decorators.py
+├── db/
+├── exceptions.py
+├── fields.py
+├── factories.py
+├── helpers.py
+├── managers.py
+├── middleware.py
+├── signals.py
+├── utils.py
+├── viewmixins.py
+```
+

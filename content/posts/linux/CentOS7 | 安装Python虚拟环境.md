@@ -3,7 +3,8 @@ title = "CentOS7 | 安装Python虚拟环境"
 date = "2021-03-17"
 author = "xblzbjs"
 tags = [
-  "linux",
+  "Linux",
+  "CentOS",
 ]
 +++
 

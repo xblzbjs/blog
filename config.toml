@@ -1,45 +1,14 @@
 baseurl = "https://xblzbjs.cn"
-title = "行百里者半九十"
+title = "xblzbjs"
 theme = "hugo-coder"
 languageCode = "zh-cn"
 defaultContentLanguage = "zh-cn"
-paginate = 20
+paginate = 25
 
+pygmentsStyle = "solarized-dark"
 enableEmoji = true
 pygmentsCodeFences = true
 pygmentsCodeFencesGuessSyntax = true
-pygmentsStyle = "solarized-dark256"
-
-[params]
-author = "行百里者半九十"
-# avatarURL = "images/avatar.jpg"
-colorScheme = "auto"
-dateFormat = "January 2, 2006"
-description = "xblzbjs的个人博客"
-hideCopyright = false
-hideCredits = false
-hideFooter = true
-info = "詩云：『行百里者半於九十。』此言末路之難也。"
-keywords = "blog,developer,personal"
-rtl = false
-since = 2020
-# Hide the toggle button, along with the associated vertical divider
-hideColorSchemeToggle = false
-# Series see also post count
-maxSeeAlsoItems = 5
-# Enable Twemoji
-enableTwemoji = false
-# Custom CSS
-customCSS = []
-# Custom SCSS
-customSCSS = []
-# Custom JS
-customJS = []
-staticDir = ["static"]
-
-disqusShortname = "xblzbjs"
-[params.googleTagManager]
-id = "UA-192697137-1"
 
 [taxonomies]
 author = "authors"
@@ -48,6 +17,62 @@ series = "series"
 tag = "tags"
 
 
+[languages.zh-cn]
+languageName = ":cn:"
+
+[[languages.zh-cn.menu.main]]
+name = "随笔"
+weight = 1
+url = "posts/"
+
+[[languages.zh-cn.menu.main]]
+name = "分类"
+weight = 2
+url = "categories/"
+
+[[languages.zh-cn.menu.main]]
+name = "标签"
+weight = 3
+url = "tags/"
+
+[[languages.zh-cn.menu.main]]
+name = "关于"
+weight = 4
+url = "about/"
+
+[[languages.zh-cn.menu.main]]
+name = "学习资料"
+weight = 5
+url = "learning-materials/"
+
+
+
+[params]
+author = "xblzbjs"
+description = "xblzbjs的个人博客"
+keywords = "blog,developer,personal"
+info = "詩云：『行百里者半於九十。』此言末路之難也。"
+avatarURL = "img/avatar.png"
+favicon_16 = "/img/favicon-16x16.png"
+colorScheme = "auto"
+dateFormat = "January 2, 2006"
+hideCopyright = false
+hideCredits = true
+hideFooter = false
+footerContent = "粤ICP备2021007187号-1"
+rtl = false
+since = 2021
+hideColorSchemeToggle = false
+# Series see also post count
+maxSeeAlsoItems = 5
+enableTwemoji = true
+staticDir = ["static"]
+
+disqusShortname = "xblzbjs"
+[params.googleTagManager]
+id = "G-QYYHFCMJHS"
+
+# Content Security Policy
 [params.csp]
 childsrc = ["'self'"]
 fontsrc = ["'self'", "https://fonts.gstatic.com", "https://cdn.jsdelivr.net/"]
@@ -56,10 +81,10 @@ framesrc = ["'self'"]
 imgsrc = ["'self'"]
 objectsrc = ["'none'"]
 stylesrc = [
-  "'self'",
-  "'unsafe-inline'",
-  "https://fonts.googleapis.com/",
-  "https://cdn.jsdelivr.net/"
+    "'self'",
+    "'unsafe-inline'",
+    "https://fonts.googleapis.com/",
+    "https://cdn.jsdelivr.net/"
 ]
 scriptsrc = ["'self'", "'unsafe-inline'", "https://www.google-analytics.com"]
 prefetchsrc = ["'self'"]
@@ -86,32 +111,3 @@ rel = "alternate"
 type = "application/rss+xml"
 url = "https://xblzbjs.cn/index.xml"
 weight = 3
-
-[languages.zh-cn]
-languageName = ":简体中文:"
-
-[[languages.zh-cn.menu.main]]
-name = "随笔"
-weight = 1
-url = "posts/"
-
-[[languages.zh-cn.menu.main]]
-name = "分类"
-weight = 2
-url = "categories/"
-
-[[languages.zh-cn.menu.main]]
-name = "标签"
-weight = 3
-url = "tags/"
-
-# [[languages.zh-cn.menu.main]]
-# name = "关于"
-# weight = 4
-# url = "about/"
-
-[[languages.zh-cn.menu.main]]
-name = "学习资料"
-weight = 5
-url = "learning-materials/"
-

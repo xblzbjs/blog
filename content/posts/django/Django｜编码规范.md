@@ -3,8 +3,8 @@ title = "Django｜编码规范"
 date = "2021-03-20"
 author = "xblzbjs"
 tags = [
-    "django",
-    "python",
+    "Django",
+    "Python",
 ]
 +++
 

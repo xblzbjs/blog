@@ -3,7 +3,7 @@ title = "HTTP | 常见的返回状态码"
 date = "2021-05-23"
 author = "xblzbjs"
 tags = [
-    "http",
+    "Web",
 ]
 +++
 

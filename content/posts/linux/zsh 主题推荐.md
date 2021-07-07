@@ -1,9 +1,9 @@
 +++
-title = "zsh｜主题"
+title = "zsh 主题推荐"
 date = "2021-03-19"
 author =  "xblzbjs"
 tags = [
-    "linux",
+    "Linux",
 ]
 +++
 

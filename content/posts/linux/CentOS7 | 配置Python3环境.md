@@ -3,7 +3,7 @@ title = "CentOS7 | 配置Python3环境"
 date = "2021-03-17"
 author = "xblzbjs"
 tags = [
-  "linux",
+  "Linux",
 ]
 +++
 

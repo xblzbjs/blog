@@ -3,13 +3,14 @@ title = "Go & Python｜结构型设计模式"
 date = "2021-03-20"
 author = "xblzbjs"
 categories = [
-    "design-patterns",
+    "设计模式",
 ]
 tags = [
-  "go",
-  "python",
+  "Go",
+  "Python",
 ]
 +++
+
 
 ## 结构型模式
 

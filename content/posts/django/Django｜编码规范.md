@@ -8,9 +8,9 @@ tags = [
 ]
 +++
 
-## 1.编码风格 Coding Style
+## 编码风格 Coding Style
 
-### 1.1 代码可读性
+### 代码可读性
 
 6个忠告:
 
@@ -26,13 +26,13 @@ tags = [
 
 ➤ 保持函数和方法简短。不应该滚动阅读整个函数或方法
 
-### 1.2 PEP8(**Python Enhancement Proposals**)
+### PEP8(**Python Enhancement Proposals**)
 
 [PEP8文档](https://www.python.org/dev/peps/pep-0008/)
 
 [PEP8中文翻译文档](https://blog.csdn.net/ratsniper/article/details/78954852)
 
-### 1.3 Python import 格式(以Django为例)
+### Python import 格式(以Django为例)
 
 ``` python
 # future
@@ -75,7 +75,7 @@ class Example:
 
 https://docs.djangoproject.com/en/3.0/internals/
 
-### 1.4 使用显式的相对导入
+### 使用显式的相对导入
 
 不要使用硬编码方式导入包，例如下面这种：
 
@@ -111,7 +111,7 @@ class WaffleConeCreateView(FoodMixin, CreateView):
     form_class = WaffleConeForm
 ```
 
-### 1.5 避免使用import *与包冲突
+### 避免使用import *与包冲突
 
 ```python
 # 不好的例子
@@ -138,9 +138,9 @@ from django.db.models import CharField as ModelCharField
 from django.forms import CharField as FormCharField
 ```
 
-### 1.6 JS,HTML,CSS编码风格(扩展)
+### JS,HTML,CSS编码风格(扩展)
 
-#### 1.6.1 JavaScript 编码风格
+#### JavaScript 编码风格
 
 不像Python有一个官方的风格指南，没有官方的JavaScript风格指南。相反，许多非官方的JS风格指南已经由不同的个人和/或公司创建:
 
@@ -154,7 +154,7 @@ from django.forms import CharField as FormCharField
 
 > ESLint ((<https://eslint.org/)是检查JavaScript和JSX代码样式的工具。它有几个样式指南的JS样式规则的预置，包括上面列出的一些。还有用于各种文本编辑器的ESLint插件和用于各种JavaScript工具的ESLint任务，如Webpack>, Gulp，和Grunt。
 
-#### 1.6.2 HTML 和 CSS 编码风格
+#### HTML 和 CSS 编码风格
 
 http://codeguide.co
 

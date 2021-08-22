@@ -3,7 +3,7 @@ title = "Git｜工作流设计"
 date = "2021-06-19"
 author = "xblzbjs"
 tags = [
-    "git",
+    "Git",
 ]
 +++
 
@@ -201,8 +201,6 @@ git tag -a v1.0.0 -m "add <your feature description>" # master 分支打 tag
 开源项目中最常用到的工作流，例如 Kubernetes、Docker 等项目。fork 操作是在个人远程仓库新建一份目标远程仓库的副本，比如在 GitHub 上操作时，在项目的主页点击 fork 按钮（页面右上角），即可拷贝该目标远程仓库。示例图如下：
 
 ![无法显示图片](/img/git/forking-workflow.png)
-
-![Forking Workflow — RhodeCode Enterprise 4.25.2 4.25.2 documentation](https://docs.rhodecode.com/RhodeCode-Enterprise/_images/fork-flow.png)
 
 #### 举个例子
 

@@ -3,7 +3,7 @@ title = "Git｜diff"
 date = "2021-03-23"
 author = "xblzbjs"
 tags = [
-    "git",
+    "Git",
 ]
 +++
 

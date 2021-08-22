@@ -1,5 +1,5 @@
 +++
-title = "优雅的查看文件内容"
+title = "Linux | 优雅的查看文件内容"
 date = "2021-07-06"
 author = "xblzbjs"
 tags = [

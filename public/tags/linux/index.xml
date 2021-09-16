@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux on xblzbjs</title>
+    <link>https://xblzbjs.cn/tags/linux/</link>
+    <description>Recent content in Linux on xblzbjs</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Tue, 06 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://xblzbjs.cn/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Linux | 优雅的查看文件内容</title>
+      <link>https://xblzbjs.cn/posts/linux/linux-%E4%BC%98%E9%9B%85%E7%9A%84%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9/</link>
+      <pubDate>Tue, 06 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/linux/linux-%E4%BC%98%E9%9B%85%E7%9A%84%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9/</guid>
+      <description>Linux 下查阅文件内容，可以根据不同场景选择不同的指令。
+cat    当文件较小时，比如一个配置文件，想要快速浏览这个文件，可以用cat指令。下面 cat 指令帮助我们快速查看/etc/hosts文件。cat指令将文件连接到标准输出流并打印到屏幕上。
+cat /etc/hosts	标准输出流（Standard Output）也是一种文件，进程可以将要输出的内容写入标准输出流文件，这样就可以在屏幕中打印。
+如果用cat查看大文件，比如一个线上的日志文件，因为动辄有几个 G，控制台打印出所有的内容就要非常久，而且刷屏显示看不到东西。
+而且如果在线上进行查看大文件的操作，会带来不必要的麻烦：
+ 需要把文件拷贝到输入输出流，这需要花费很长时间，这个过程会占用机器资源； 本身文件会读取到内存中，这时内存被大量占用，很危险，这可能导致其他应用内存不足。因此我们需要一些不用加载整个文件，就能查看文件内容的指令。  more    more可以帮助我们读取文件，但不需要读取整个文件到内存中。本身more的定位是一个阅读过滤器，比如你在more里除了可以向下翻页，还可以输入一段文本进行搜索。
+more &amp;lt;file&amp;gt; less    less是一个和more功能差不多的工具，打开man能够看到less的介绍上写着自己是more的反义词（opposite of more）。less支持向上翻页，这个功能more是做不到的。所以现在less用得更多一些。
+head/tail    head和tail是一组，它们用来读取一个文件的头部 N 行或者尾部 N 行。比如一个线上的大日志文件，当线上出了 bug，服务暂停的时候，我们就可以用
+tail -n 1000	去查看最后的 1000 行日志文件，寻找导致服务异常的原因。
+另一个比较重要的用法是，如果你想看一个实时的nginx日志，可以使用
+tail -f &amp;lt;filename&amp;gt;	# -f 代表follow:文件追加的内容会跟随输出到标准输出流。 这样你会看到用户的请求不断进来。
+grep    有时候你需要查看一个指定ip的nginx日志，或者查看一段时间内的nginx日志。如果不想用less和more进入文件中去查看，就可以用grep命令。
+grep 这个词，我们分成三段来看，是 g|re|p。
+ g 就是 global，全局； re 就是 regular expression，正则表达式； p 就是 pattern，模式。  所以这个指令的作用是通过正则表达式全局搜索一个文件找到匹配的模式。</description>
+    </item>
+    
+    <item>
+      <title>grep和egrep</title>
+      <link>https://xblzbjs.cn/posts/linux/grep%E5%92%8Cegrep/</link>
+      <pubDate>Sat, 03 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/linux/grep%E5%92%8Cegrep/</guid>
+      <description>语法    第一种形式    grep [option] [pattern] [file, file2...] 第二种形式    command | grep [option] [pattern] 参数选项    必须掌握       选项 含义     -v 不显示匹配航信息   -i 搜索时忽略大小写   -n 显示行号   -r 递归搜索（只适合第二种语法）   -E 支持扩展正则表达式   -F 不按正则表达式匹配，按照字符串字面意思匹配    了解即可       选项 含义     -c 只输出匹配行的数量，不显示具体内容   -w 匹配整词   -x 匹配整行   -l 只列出匹配的文件名，不显示具体匹配行的内容    grep和egrep：     grep默认不支持扩展正则表达式，只支持基础正则表达式 使用grep -E可以支持扩展正则表达式 使用egrep可以支持扩展正则表达式，与grep -E等价  </description>
+    </item>
+    
+    <item>
+      <title>sed</title>
+      <link>https://xblzbjs.cn/posts/linux/sed/</link>
+      <pubDate>Sat, 03 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/linux/sed/</guid>
+      <description>简介    sed（Stream Editor），流编辑器。对标准输出或文件逐行进行处理
+语法    第一种形式    stdout | sed [option] &amp;#34;pattern command&amp;#34; 第二种形式    sed [option] &amp;#34;pattern command&amp;#34; file option选项       选项 含义     -n 只打印模式匹配行   -e 直接在命令行进行sed编辑，默认选线   -f 编辑动作保存在文件中，指定文件执行   -r 支持扩展正则表达式   -i（常用） 直接修改文件内容    pattern匹配模式       匹配模式 含义     10command 匹配到第10行   10,20command 匹配从第10行开始，到第20行结束 (10,20]   10,+5command 匹配从第10行开始，到第16行结束 (10, 15]   /pattern1/command（常用） 匹配到pattern1的行   /pattern1/,/pattern2/command（常用） 匹配到pattern1的行开始，到匹配到pattern2的行结束   10, /pattern1/command 匹配从第10行开始，到匹配到pattern1的行结束   /pattern1/,10command 匹配到pattern1的行开始，到第10行匹配结束    Command编辑命令       类别 命令 含义     查询 p 打印   增加 a 行后增加    i 行前追加    r 外部文件读入，行后追加    w 匹配行写入外部文件   删除 d     </description>
+    </item>
+    
+    <item>
+      <title>Terminator快捷键</title>
+      <link>https://xblzbjs.cn/posts/linux/terminator%E5%BF%AB%E6%8D%B7%E9%94%AE/</link>
+      <pubDate>Fri, 02 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/linux/terminator%E5%BF%AB%E6%8D%B7%E9%94%AE/</guid>
+      <description>Terminator终端常用的快捷键如下
+   命令 含义     Ctrl + Shift + O 水平分割   Ctrl + Shift + E 垂直分割   Ctrl + Shift + S 隐藏/显示滚动条   Ctrl + Shift + F 搜索   Ctrl + Shift + W 关闭当前终端   Ctrl + Shift + Q 退出当前窗口   Ctrl + Tab 移动到下一个终端   Ctrl + Shift + Tab 移动到上一个终端   Ctrl + Shift + T 打开一个新的标签   Ctrl + PageDown 移动到下一个标签   Ctrl + UpDown 移动到上一个标签   Alt + Up/Down/Left/Right 移动到上/下/左/右的终端   Ctrl + Shift + C 复制选中的内容到剪贴板   Ctrl + Shift + Q 粘贴选中的内容到剪贴版   Ctrl + Plus(+) 增大字体   Ctrl + Minus(-) 减小字体   Ctrl + Zero(0) 恢复字体到原始大小   F11 全屏开关Alt    </description>
+    </item>
+    
+    <item>
+      <title>Ubuntu Shell环境配置</title>
+      <link>https://xblzbjs.cn/posts/linux/ubuntu-shell%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Fri, 02 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/linux/ubuntu-shell%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</guid>
+      <description>终端模拟器选择    推荐三个
+1. Gnome Terminal（原生）    2. Terminator（在用）    3. Guake    终端配置（Zsh + Oh My Zsh + PowerLevel10k）    1. 安装Zsh    # apt 打包安装 zsh sudo apt install zsh # 确认 zsh 成功安装 zsh --version # 设置为默认Shell并确认 chsh -s $(which zsh) echo $SHELL 2. 安装Oh My Zsh    # 推荐使用curl安装 sh -c &amp;#34;$(curl -fsSL https://raw.</description>
+    </item>
+    
+    <item>
+      <title>zsh 主题推荐</title>
+      <link>https://xblzbjs.cn/posts/linux/zsh-%E4%B8%BB%E9%A2%98%E6%8E%A8%E8%8D%90/</link>
+      <pubDate>Fri, 19 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/linux/zsh-%E4%B8%BB%E9%A2%98%E6%8E%A8%E8%8D%90/</guid>
+      <description>所有主题    我喜欢的自带主题    agnoster    amuse    awesomepanda    clean    crcandy    frisk    jonathan    linuxonly（只能运行在linux）    nanotech    philips    pmcgee    xiong-chiamiov    额外的主题    powerlevel10k    spaceship-prompt    </description>
+    </item>
+    
+    <item>
+      <title>CentOS7 | 安装Python虚拟环境</title>
+      <link>https://xblzbjs.cn/posts/linux/centos7-%E5%AE%89%E8%A3%85python%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83/</link>
+      <pubDate>Wed, 17 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/linux/centos7-%E5%AE%89%E8%A3%85python%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83/</guid>
+      <description>virtualenv和virtualenvwrapper安装    pip 3 安装    pip3 install virtualenv -i https://mirrors.aliyun.com/pypi/simple/ 安装virtualenvwrapper工具管理虚拟环境    pip3 install virtualenvwrapper -i https://mirrors.aliyun.com/pypi/simple/ # 报错 [root@centos ~]# pip3 install virtualenvwrapper -i https://mirrors.aliyun.com/pypi/simple/ Looking in indexes: http://mirrors.tencentyun.com/pypi/simple Collecting virtualenvwrapper Downloading http://mirrors.tencentyun.com/pypi/packages/c1/6b/2f05d73b2d2f2410b48b90d3783a0034c26afa534a4a95ad5f1178d61191/virtualenvwrapper-4.8.4.tar.gz (334 kB) |████████████████████████████████| 334 kB 832 kB/s ERROR: Command errored out with exit status 1: command: /usr/local/python3/bin/python3.7 -c &amp;#39;import sys, setuptools, tokenize; sys.argv[0] = &amp;#39;&amp;#34;&amp;#39;&amp;#34;&amp;#39;/tmp/pip-install-f3bmqs9b/virtualenvwrapper_891e91f27f1f44e4b94d4cb51de96c5d/setup.py&amp;#39;&amp;#34;&amp;#39;&amp;#34;&amp;#39;; __file__=&amp;#39;&amp;#34;&amp;#39;&amp;#34;&amp;#39;/tmp/pip-install-f3bmqs9b/virtualenvwrapper_891e91f27f1f44e4b94d4cb51de96c5d/setup.py&amp;#39;&amp;#34;&amp;#39;&amp;#34;&amp;#39;;f=getattr(tokenize, &amp;#39;&amp;#34;&amp;#39;&amp;#34;&amp;#39;open&amp;#39;&amp;#34;&amp;#39;&amp;#34;&amp;#39;, open)(__file__);code=f.read().replace(&amp;#39;&amp;#34;&amp;#39;&amp;#34;&amp;#39;\r\n&amp;#39;&amp;#34;&amp;#39;&amp;#34;&amp;#39;, &amp;#39;&amp;#34;&amp;#39;&amp;#34;&amp;#39;\n&amp;#39;&amp;#34;&amp;#39;&amp;#34;&amp;#39;);f.close();exec(compile(code, __file__, &amp;#39;&amp;#34;&amp;#39;&amp;#34;&amp;#39;exec&amp;#39;&amp;#34;&amp;#39;&amp;#34;&amp;#39;))&amp;#39; egg_info --egg-base /tmp/pip-pip-egg-info-u879bw4z cwd: /tmp/pip-install-f3bmqs9b/virtualenvwrapper_891e91f27f1f44e4b94d4cb51de96c5d/ Complete output (11 lines): Traceback (most recent call last): File &amp;#34;&amp;lt;string&amp;gt;&amp;#34;, line 1, in &amp;lt;module&amp;gt; File &amp;#34;/usr/local/python3/lib/python3.</description>
+    </item>
+    
+    <item>
+      <title>CentOS7 | 配置Python3环境</title>
+      <link>https://xblzbjs.cn/posts/linux/centos7-%E9%85%8D%E7%BD%AEpython3%E7%8E%AF%E5%A2%83/</link>
+      <pubDate>Wed, 17 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/linux/centos7-%E9%85%8D%E7%BD%AEpython3%E7%8E%AF%E5%A2%83/</guid>
+      <description>环境：腾讯云CentOS7.5 64位
+1. 查看Python的位置并安装相关依赖    [root@centos ~]# whereis python python2: /usr/bin/python2 /usr/bin/python2.7 /usr/lib/python2.7 /usr/lib64/python2.7 /usr/include/python2.7 /usr/share/man/man1/python2.1.gz python指向的是python2，python2指向的是python2.7，因此我们可以装个python3，然后将python指向python3，然后python2指向python2.7，那么两个版本的python就能共存了。
+yum install zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gcc make 2. 使用wget下载Python3源码包    wget http://npm.taobao.org/mirrors/python/3.7.9/Python-3.7.9.tar.xz # 如果提示wget未找到命令, 那么就先使用yum安装wget yum -y install wget 3. 编译Python3源码包    #解压 xz -d Python-3.7.9.tar.xz tar -xf Python-3.7.9.tar #进入解压后的目录，依次执行下面命令进行手动编译 cd Python-3.7.9 ./configure prefix=/usr/local/python3 make &amp;amp;&amp;amp; make install # 如果出现can&amp;#39;t decompress data; zlib not available这个错误，则需要安装相关库 #安装依赖zlib、zlib-devel yum install zlib zlib yum install zlib zlib-devel 4.</description>
+    </item>
+    
+    <item>
+      <title>Nmap 网络扫描工具常用操作</title>
+      <link>https://xblzbjs.cn/posts/linux/nmap-%E7%BD%91%E7%BB%9C%E6%89%AB%E6%8F%8F%E5%B7%A5%E5%85%B7%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/</link>
+      <pubDate>Wed, 17 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/linux/nmap-%E7%BD%91%E7%BB%9C%E6%89%AB%E6%8F%8F%E5%B7%A5%E5%85%B7%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/</guid>
+      <description>Nmap 是由 Gordon Lyon 创建的免费开源网络扫描工具。
+安装    Debian系列的Linux，例如Ubuntu
+sudo apt-get install nmap Red Hat系列的Linux，例如Centos
+sudo yum install nmap 常用功能    主机扫描    单个主机    nmap baidu.com Starting Nmap 7.80 ( https://nmap.org ) at 2021-06-16 13:56 CST Nmap scan report for baidu.com (220.181.38.148) Host is up (0.046s latency). Other addresses for baidu.com (not scanned): 39.156.69.79 Not shown: 995 filtered ports PORT STATE SERVICE 25/tcp open smtp 80/tcp open http 110/tcp open pop3 143/tcp open imap 443/tcp open https Nmap done: 1 IP address (1 host up) scanned in 5.</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu20.04蓝牙没作用</title>
+      <link>https://xblzbjs.cn/posts/linux/ubuntu20.04%E8%93%9D%E7%89%99%E6%B2%A1%E4%BD%9C%E7%94%A8/</link>
+      <pubDate>Tue, 02 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/linux/ubuntu20.04%E8%93%9D%E7%89%99%E6%B2%A1%E4%BD%9C%E7%94%A8/</guid>
+      <description>前言    我的笔记本电脑是联想小新Air14-2020-AMD版，从Windows转到Ubuntu20.04时发现蓝牙扫描不到周围的设备（特别是耳机）！
+执行了以下命令，蓝牙又重新工作了O(∩_∩)O~~
+sudo rmmod btusb sudo modprobe btusb 参考链接    Ubuntu 20.04 bluetooth not working</description>
+    </item>
+    
+  </channel>
+</rss>

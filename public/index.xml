@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>xblzbjs</title>
+    <link>https://xblzbjs.cn/</link>
+    <description>Recent content on xblzbjs</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Tue, 13 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://xblzbjs.cn/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Django｜FBVs or CBVs</title>
+      <link>https://xblzbjs.cn/posts/django/djangofbvs-or-cbvs/</link>
+      <pubDate>Tue, 13 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/django/djangofbvs-or-cbvs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Linux | 优雅的查看文件内容</title>
+      <link>https://xblzbjs.cn/posts/linux/linux-%E4%BC%98%E9%9B%85%E7%9A%84%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9/</link>
+      <pubDate>Tue, 06 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/linux/linux-%E4%BC%98%E9%9B%85%E7%9A%84%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9/</guid>
+      <description>Linux 下查阅文件内容，可以根据不同场景选择不同的指令。
+cat    当文件较小时，比如一个配置文件，想要快速浏览这个文件，可以用cat指令。下面 cat 指令帮助我们快速查看/etc/hosts文件。cat指令将文件连接到标准输出流并打印到屏幕上。
+cat /etc/hosts	标准输出流（Standard Output）也是一种文件，进程可以将要输出的内容写入标准输出流文件，这样就可以在屏幕中打印。
+如果用cat查看大文件，比如一个线上的日志文件，因为动辄有几个 G，控制台打印出所有的内容就要非常久，而且刷屏显示看不到东西。
+而且如果在线上进行查看大文件的操作，会带来不必要的麻烦：
+ 需要把文件拷贝到输入输出流，这需要花费很长时间，这个过程会占用机器资源； 本身文件会读取到内存中，这时内存被大量占用，很危险，这可能导致其他应用内存不足。因此我们需要一些不用加载整个文件，就能查看文件内容的指令。  more    more可以帮助我们读取文件，但不需要读取整个文件到内存中。本身more的定位是一个阅读过滤器，比如你在more里除了可以向下翻页，还可以输入一段文本进行搜索。
+more &amp;lt;file&amp;gt; less    less是一个和more功能差不多的工具，打开man能够看到less的介绍上写着自己是more的反义词（opposite of more）。less支持向上翻页，这个功能more是做不到的。所以现在less用得更多一些。
+head/tail    head和tail是一组，它们用来读取一个文件的头部 N 行或者尾部 N 行。比如一个线上的大日志文件，当线上出了 bug，服务暂停的时候，我们就可以用
+tail -n 1000	去查看最后的 1000 行日志文件，寻找导致服务异常的原因。
+另一个比较重要的用法是，如果你想看一个实时的nginx日志，可以使用
+tail -f &amp;lt;filename&amp;gt;	# -f 代表follow:文件追加的内容会跟随输出到标准输出流。 这样你会看到用户的请求不断进来。
+grep    有时候你需要查看一个指定ip的nginx日志，或者查看一段时间内的nginx日志。如果不想用less和more进入文件中去查看，就可以用grep命令。
+grep 这个词，我们分成三段来看，是 g|re|p。
+ g 就是 global，全局； re 就是 regular expression，正则表达式； p 就是 pattern，模式。  所以这个指令的作用是通过正则表达式全局搜索一个文件找到匹配的模式。</description>
+    </item>
+    
+    <item>
+      <title>grep和egrep</title>
+      <link>https://xblzbjs.cn/posts/linux/grep%E5%92%8Cegrep/</link>
+      <pubDate>Sat, 03 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/linux/grep%E5%92%8Cegrep/</guid>
+      <description>语法    第一种形式    grep [option] [pattern] [file, file2...] 第二种形式    command | grep [option] [pattern] 参数选项    必须掌握       选项 含义     -v 不显示匹配航信息   -i 搜索时忽略大小写   -n 显示行号   -r 递归搜索（只适合第二种语法）   -E 支持扩展正则表达式   -F 不按正则表达式匹配，按照字符串字面意思匹配    了解即可       选项 含义     -c 只输出匹配行的数量，不显示具体内容   -w 匹配整词   -x 匹配整行   -l 只列出匹配的文件名，不显示具体匹配行的内容    grep和egrep：     grep默认不支持扩展正则表达式，只支持基础正则表达式 使用grep -E可以支持扩展正则表达式 使用egrep可以支持扩展正则表达式，与grep -E等价  </description>
+    </item>
+    
+    <item>
+      <title>sed</title>
+      <link>https://xblzbjs.cn/posts/linux/sed/</link>
+      <pubDate>Sat, 03 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/linux/sed/</guid>
+      <description>简介    sed（Stream Editor），流编辑器。对标准输出或文件逐行进行处理
+语法    第一种形式    stdout | sed [option] &amp;#34;pattern command&amp;#34; 第二种形式    sed [option] &amp;#34;pattern command&amp;#34; file option选项       选项 含义     -n 只打印模式匹配行   -e 直接在命令行进行sed编辑，默认选线   -f 编辑动作保存在文件中，指定文件执行   -r 支持扩展正则表达式   -i（常用） 直接修改文件内容    pattern匹配模式       匹配模式 含义     10command 匹配到第10行   10,20command 匹配从第10行开始，到第20行结束 (10,20]   10,+5command 匹配从第10行开始，到第16行结束 (10, 15]   /pattern1/command（常用） 匹配到pattern1的行   /pattern1/,/pattern2/command（常用） 匹配到pattern1的行开始，到匹配到pattern2的行结束   10, /pattern1/command 匹配从第10行开始，到匹配到pattern1的行结束   /pattern1/,10command 匹配到pattern1的行开始，到第10行匹配结束    Command编辑命令       类别 命令 含义     查询 p 打印   增加 a 行后增加    i 行前追加    r 外部文件读入，行后追加    w 匹配行写入外部文件   删除 d     </description>
+    </item>
+    
+    <item>
+      <title>Terminator快捷键</title>
+      <link>https://xblzbjs.cn/posts/linux/terminator%E5%BF%AB%E6%8D%B7%E9%94%AE/</link>
+      <pubDate>Fri, 02 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/linux/terminator%E5%BF%AB%E6%8D%B7%E9%94%AE/</guid>
+      <description>Terminator终端常用的快捷键如下
+   命令 含义     Ctrl + Shift + O 水平分割   Ctrl + Shift + E 垂直分割   Ctrl + Shift + S 隐藏/显示滚动条   Ctrl + Shift + F 搜索   Ctrl + Shift + W 关闭当前终端   Ctrl + Shift + Q 退出当前窗口   Ctrl + Tab 移动到下一个终端   Ctrl + Shift + Tab 移动到上一个终端   Ctrl + Shift + T 打开一个新的标签   Ctrl + PageDown 移动到下一个标签   Ctrl + UpDown 移动到上一个标签   Alt + Up/Down/Left/Right 移动到上/下/左/右的终端   Ctrl + Shift + C 复制选中的内容到剪贴板   Ctrl + Shift + Q 粘贴选中的内容到剪贴版   Ctrl + Plus(+) 增大字体   Ctrl + Minus(-) 减小字体   Ctrl + Zero(0) 恢复字体到原始大小   F11 全屏开关Alt    </description>
+    </item>
+    
+    <item>
+      <title>Ubuntu Shell环境配置</title>
+      <link>https://xblzbjs.cn/posts/linux/ubuntu-shell%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Fri, 02 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/linux/ubuntu-shell%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</guid>
+      <description>终端模拟器选择    推荐三个
+1. Gnome Terminal（原生）    2. Terminator（在用）    3. Guake    终端配置（Zsh + Oh My Zsh + PowerLevel10k）    1. 安装Zsh    # apt 打包安装 zsh sudo apt install zsh # 确认 zsh 成功安装 zsh --version # 设置为默认Shell并确认 chsh -s $(which zsh) echo $SHELL 2. 安装Oh My Zsh    # 推荐使用curl安装 sh -c &amp;#34;$(curl -fsSL https://raw.</description>
+    </item>
+    
+    <item>
+      <title>Git｜工作流设计</title>
+      <link>https://xblzbjs.cn/posts/git/git%E5%B7%A5%E4%BD%9C%E6%B5%81%E8%AE%BE%E8%AE%A1/</link>
+      <pubDate>Sat, 19 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/git/git%E5%B7%A5%E4%BD%9C%E6%B5%81%E8%AE%BE%E8%AE%A1/</guid>
+      <description>前言    现代软件开发讲究效率和质量，大多依赖于多团队间的协作来实现。不同的软件团队规模也不同：十人、百人甚至千人团队。如果软件架构没有良好的拆分，很有可能出现几百人在一个代码仓库里面工作的情况，而团队也需要根据软件的发布节奏来完成代码提交、审核、集成、测试等工作。因此，如何根据团队规模设计一个合理的工作流是编码之前就要思考的。工作中为规范开发，保持代码提交记录以及 git 分支结构和 commit message 整体清晰易读、方便维护，公司一般都会根据不同的项目规格置顶不同的 Git 工作流。
+常见的工作流    在使用 Git 开发时，有 4 种常用的工作流：集中式工作流（Centralized Workflow）、功能分支工作流（Feature Branch Workflow）、Gitflow 工作流和 Forking 工作流。
+集中式工作流（Centralized Workflow）    开发团队成员在本地都有一份远程仓库的拷贝：本地仓库。在本地的 master 分支开发完代码之后，将修改后的代码 commit 到远程仓库，如果有冲突就先解决本地的冲突再提交。示例图如下：
+举个例子     克隆远程仓库到本地  git clone ssh://user@host/path/to/repo.git 本地开发完后，提交代码  git status	# 查看仓库状态 git add &amp;lt;some file&amp;gt; # git commit -m &amp;#34;...&amp;#34; 优点     代码集成频率快 特性相对独立清晰  缺点     不同开发人员的提交日志混杂在一起，难以定位问题 如果同时开发多个功能，不同功能同时往 master 分支合并，代码之间也会相互影响，从而产生代码冲突 对开发者的提交代码质量要求高  适合场景     团队人数少 开发不频繁 不需要同时维护多个版本的小项目 自动化验收较为成熟的公司  功能分支工作流（Feature Branch Workflow）    在开发新功能时，基于主分支新建一个功能分支，在功能分支上进行开发，而不是直接在本地的主分支开发，开发完成之后合并到主分支。示例图如下：</description>
+    </item>
+    
+    <item>
+      <title>DevOps工程师</title>
+      <link>https://xblzbjs.cn/learning-materials/devops/</link>
+      <pubDate>Sun, 30 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/learning-materials/devops/</guid>
+      <description>书籍    《持续交付》 &amp;amp; 《持续交付2.0》    《精益创业》    《Scrum精髓》    《DevOps实践指南》    大会，网站和博客     DEOS ：DevOps 国际峰会，以案例总结著称； DevOpsDays：大名鼎鼎的 DevOpsDays 社区；- - DevOps.com ：综合性网站； Azure DevOps：综合性网站，盛产高质量的电子书； Martin Fowler ：Martin Fowler（一个软件开发方面的著作者和国际知名演说家） 的博客； CloudBees Devops ：Jenkins 背后的公司的博客。  </description>
+    </item>
+    
+    <item>
+      <title>Golang</title>
+      <link>https://xblzbjs.cn/learning-materials/go/</link>
+      <pubDate>Sun, 30 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/learning-materials/go/</guid>
+      <description>书籍    《Go程序设计语言》    经典中的经典，最好看英文版
+《Go语言高级编程》（柴树衫/曹春晖著）    CGO和汇编部分十分不错
+《Go专家编程》(任洪彩著)    收获很多</description>
+    </item>
+    
+    <item>
+      <title>其它</title>
+      <link>https://xblzbjs.cn/learning-materials/other/</link>
+      <pubDate>Sun, 30 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/learning-materials/other/</guid>
+      <description>内功    《程序员修炼之道:通往务实的最高境界》(David Thomas,Andrew Hunt著 云凤译)    对于本科为通信工程的我来说，这本书打开了我的职业大门
+《启示录:打造用户喜爱的产品》(Marty Cagan著)    多年以前的产品经验，现在仍有很多值得借鉴、学习。更主要的，大部分产品经理都做不到这本书对产品经历的要求。
+《软技能:代码之外的生存指南》(John Z.Sonmez著)    不要只会打代码
+《高效程序员的45个习惯:敏捷开发修炼之道》(Andy Hunt/Venkat Subramaniam著)    提升效率</description>
+    </item>
+    
+    <item>
+      <title>Go Tips | Map</title>
+      <link>https://xblzbjs.cn/posts/go-tips/go-tips-map/</link>
+      <pubDate>Tue, 25 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/go-tips/go-tips-map/</guid>
+      <description>Tip1 初始化方式    func TestTestInitMap(t *testing.T) { // 方法一（字面量初始化） 	m1 := map[string]int{&amp;#34;Go&amp;#34;: 1, &amp;#34;Java&amp;#34;: 2, &amp;#34;Python&amp;#34;: 3} m2 := map[int]int{} // 方法二（使用内置函数make初始化） 	m3 := make(map[int]int, 10) // 使用len函数打印map的长度, 不能用cap打印容量 	t.Logf(&amp;#34;len m1=%d&amp;#34;, len(m1)) m2[4] = 16 t.Logf(&amp;#34;len m2=%d&amp;#34;, len(m2)) t.Logf(&amp;#34;len m3=%d&amp;#34;, len(m3)) } 以上两者同样是初始化一个Map，有什么不同？
+ 方法二提前分配了Map的容量，减少内存分配的次数，相比方法一而言性能更好，但是可扩展性更差。  Tip2 增删查改（Create、Delete、Read、Update）    func TestMapCRUD(t *testing.T) { m := make(map[string]int, 10) m[&amp;#34;other&amp;#34;] = 0 // Create 	m[&amp;#34;go&amp;#34;] = 1 t.</description>
+    </item>
+    
+    <item>
+      <title>Go Tips | Test</title>
+      <link>https://xblzbjs.cn/posts/go-tips/go-tips-test/</link>
+      <pubDate>Tue, 25 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/go-tips/go-tips-test/</guid>
+      <description>因何而生❓    有时测试程序需要在测试之前或之后进行额外的设置或拆卸。有时测试还需要控制哪些代码在主线程上运行。为了支持这些和其他情况, testing 包提供了 TestMain 函数 :
+func TestMain(m *testing.M) 有什么作用🤔    如果测试文件中包含该函数，那么生成的测试将调用 TestMain(m)，而不是直接运行测试。TestMain 运行在主 goroutine 中 , 可以在调用 m.Run 前后做任何设置和拆卸。m. Run将返回可能传递给的退出代码操作系统退出. 如果TestMain返回，测试包装器将m.Run的结果传递给操作系统退出它自己
+调用TestMain时，flag.解析尚未运行。如果TestMain依赖于命令行标志，包括测试包的标志，那么它应该调用flag.解析明确地。命令行标志总是由运行的时间测试或基准函数来解析
+因此，当您需要为测试执行一些全局设置/删除时，这可能会很方便
+举个🌰    简单    // file name: demo_test.go package tests import ( &amp;#34;testing&amp;#34; &amp;#34;os&amp;#34; ) func TestMain(m *testing.M) { log.Println(&amp;#34;Do stuff BEFORE the tests!&amp;#34;) exitVal := m.Run() log.Println(&amp;#34;Do stuff AFTER the tests!&amp;#34;) os.Exit(exitVal) } func TestA(t *testing.</description>
+    </item>
+    
+    <item>
+      <title>启示录-打造用户喜爱的产品(产品篇)</title>
+      <link>https://xblzbjs.cn/book-notes/%E5%90%AF%E7%A4%BA%E5%BD%95-%E6%89%93%E9%80%A0%E7%94%A8%E6%88%B7%E5%96%9C%E7%88%B1%E7%9A%84%E4%BA%A7%E5%93%81%E4%BA%A7%E5%93%81%E7%AF%87/</link>
+      <pubDate>Mon, 24 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/book-notes/%E5%90%AF%E7%A4%BA%E5%BD%95-%E6%89%93%E9%80%A0%E7%94%A8%E6%88%B7%E5%96%9C%E7%88%B1%E7%9A%84%E4%BA%A7%E5%93%81%E4%BA%A7%E5%93%81%E7%AF%87/</guid>
+      <description>产品篇    苹果公司值得学习的四点     硬件为软件服务 软件为用户体验服务 用户体验为情感服务 产品为真正的需求服务  提防有特殊要求的产品    客户在描述需求时，习惯提出自己的解决方案，但不一定抓住了需求的本质。产品经理应该与客户一起梳理需求，发现问题的本质，提供更合理的解决方案。多数用户其实不喜欢定制软件，他们更喜欢通用产品，因为通用产品的兼容性、数据移植性更好，改进速度更快，也更容易获得技术支持。
+新瓶装老酒    成功的产品往往不是什么新鲜事物，只是新瓶装老酒，之所以成功，是因为这个“新瓶”做得更好、更方便、更便宜，改变了消费者对“老酒”的印象。
+想在成熟的市场抢占一席之地，精明的公司至少要手握两件“法宝”：
+ 对目标市场了如指掌，对现有产品的缺陷洞若观火。通过产品可用性测试掌握产品情况 跟踪最新的技术趋势。  大众网络服务产品    电子商务、社交网络、搜索引擎、网络游戏
+ 可用性 人物角色 扩展性 持续可用性 客户服务 保护用户隐私 口碑营销 全球化 平滑部署 用户社区管理  最佳实践经验    打造富有创意产品最重要的十个要点
+ 产品管理的职责 用户体验 机会评估 特约用户 产品原则 人物角色 探索产品 使用原型 用户参与原型测试 根据数据改进产品  产品经理的反省清单    出色的产品经理会时刻关注产品的现状与未来。以下是产品经理无时无刻不在思考的问题
+ 产品能吸引目标消费者的关注吗？ 产品的设计是否人性化，是否易于操作？ 产品能在竞争中取胜吗？即使是面对未来风云变化的市场，依旧有取胜的把握吗？ 我了解目标用户吗？产品（不是理想的产品，而是实际开发出来的产品）是否能得到他们的认可？ 产品是否有别于市面上的其他产品？我能在两分钟内向公司高管清楚地阐明这些差别吗？能在一分钟内向客户解释清楚吗？能在半分钟内向经验丰富的行业分析师解释清楚吗？ 产品能正常运行吗？ 产品是否完整？用户对产品的印象如何？销售业绩如何？销售任务能否顺利完成？ 产品的特色是否与目标用户的需求一致？产品特色是否鲜明？ 产品值钱吗？值多少钱？为什么值这么多钱？用户会选择更便宜的产品吗？ 我了解其他团队成员对产品的看法吗？他们觉得产品好在哪里？他们的看法是否与我的观点一致。  </description>
+    </item>
+    
+    <item>
+      <title>启示录-打造用户喜爱的产品(人员篇)</title>
+      <link>https://xblzbjs.cn/book-notes/%E5%90%AF%E7%A4%BA%E5%BD%95-%E6%89%93%E9%80%A0%E7%94%A8%E6%88%B7%E5%96%9C%E7%88%B1%E7%9A%84%E4%BA%A7%E5%93%81%E4%BA%BA%E5%91%98%E7%AF%87/</link>
+      <pubDate>Mon, 24 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/book-notes/%E5%90%AF%E7%A4%BA%E5%BD%95-%E6%89%93%E9%80%A0%E7%94%A8%E6%88%B7%E5%96%9C%E7%88%B1%E7%9A%84%E4%BA%A7%E5%93%81%E4%BA%BA%E5%91%98%E7%AF%87/</guid>
+      <description>关键角色及其职责    1. 产品经理    主要职责
+ 评估产品机会（product opportunity）  产品需求文档(market requirements document, MRD)结合产品原型 机会评估(opportunity assessment)   定义要开发的产品  基本的产品特征和功能 产品的用户的体验 产品的发布标准    2. 用户体验设计师    主要职责
+ 与产品经理密切合作，将功能与设计相结合，满足用户需求，确保产品同时具有可用性和价值  注：产品的用户体验是公司的核心竞争力；交互设计不能外包，质量检验更适合外包
+3. 项目管理人员    主要职责
+ 制定计划 跟踪进度  4. 开发团队    注：IT团队通常指的是为内部员工提供技术支持的团队，而开发团队指的是为外部客户开发和维护产品的团队。
+5. 运维团队    6. 产品营销人员    主要职责
+ 对外发布信息、宣传产品 组织重点营销活动 促进产品销售提供支持  注：不推荐让一个人同时负责产品管理和产品营销</description>
+    </item>
+    
+    <item>
+      <title>启示录-打造用户喜爱的产品(流程篇)</title>
+      <link>https://xblzbjs.cn/book-notes/%E5%90%AF%E7%A4%BA%E5%BD%95-%E6%89%93%E9%80%A0%E7%94%A8%E6%88%B7%E5%96%9C%E7%88%B1%E7%9A%84%E4%BA%A7%E5%93%81%E6%B5%81%E7%A8%8B%E7%AF%87/</link>
+      <pubDate>Mon, 24 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/book-notes/%E5%90%AF%E7%A4%BA%E5%BD%95-%E6%89%93%E9%80%A0%E7%94%A8%E6%88%B7%E5%96%9C%E7%88%B1%E7%9A%84%E4%BA%A7%E5%93%81%E6%B5%81%E7%A8%8B%E7%AF%87/</guid>
+      <description>开发富有创意的产品时反复应用的流程和成功的实践经验
+评估产品机会    确定待解决的问题    产品经理应该能回答如下十个问题
+ 产品要解决什么问题？（产品价值※） 为谁解决这个问题？（目标市场） 成功的机会有多大？（市场规模） 怎样判断产品成功与否？（度量指标或收益指标） 有哪些同类产品？（竞争格局） 为什么我们最适合做这个产品？（竞争优势） 时机合适码？（市场时机） 如何把产品推向市场？（营销组合策略） 成功的必要条件是什么？（解决方案要满足的条件） 根据以上问题，给出评估结论（继续或放弃）  产品探索    定义正确的产品      在探索产品的阶段，产品经理负责分析各种创意，广泛搜集用户需求，了解如何运用新技术，拿出产品原型并加以测试，从全局视角思考产品方向，兼顾短期需求和长期规划。
+  产品经理必须在执行阶段转换工作中心；否则，产品经理自己很可能成为产品上市的最大障碍。
+  采用流水线方式并行开发产品。也就是说，一旦1.0版本的产品进入项目执行阶段，就开始定义2.0的产品。
+  产品原则    产品原则是对团队信仰和价值观的总结，用来指导产品团队作出正确的决策和取舍。
+确定什么最重要     罗列出产品原则，并按原则的重要性排序 切记原则过于空泛 切记将设计原则当成产品原则  解决意见冲突    在做产品决策之前，应该先确定决策要解决什么问题，让大家在以下几个要点上达成共识。
+ 究竟要解决什么问题？ 要为哪类人物角色解决这个问题？ 产品要达到什么目标 每项目标的优先级是什么？  产品评审团    制定决策通常是既耗时又费力的。产品公司需要一套机制让决策者和相关人员及时作出明智的产品决策，成立产品评审团是最好的解决途径之一。</description>
+    </item>
+    
+    <item>
+      <title>HTTP | 常见的返回状态码</title>
+      <link>https://xblzbjs.cn/posts/web/http-%E5%B8%B8%E8%A7%81%E7%9A%84%E8%BF%94%E5%9B%9E%E7%8A%B6%E6%80%81%E7%A0%81/</link>
+      <pubDate>Sun, 23 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/web/http-%E5%B8%B8%E8%A7%81%E7%9A%84%E8%BF%94%E5%9B%9E%E7%8A%B6%E6%80%81%E7%A0%81/</guid>
+      <description>状态码的类别    实际上经常使用的大概只有十几种
+    类别 原因     1XX Informational（信息性状态码） 接收的请求正在处理   2XX Success（成功状态码） 请求正常处理完毕   3XX Redirection（重定向状态码） 需要进行附加操作以完成请求   4XX Client Error（客户端错误状态码） 服务器无法处理请求   5XX Server Error（服务器错误状态码） 服务器处理请求出错    常用2XX状态码（表明请求被正常处理）        说明     200 OK 正常处理   204 No Content 请求处理成功！但没有资源可返回   206 Partial Content 成功执行范围请求，响应报文中包含由 Content-Range 指定范围的实体内容。    常用3XX状态码（表明浏览器需要执行某些特殊的处理以正确处理）        说明     301 Moved Permanently 永久性重定向。当指定资源路径（例如http://example.</description>
+    </item>
+    
+    <item>
+      <title>高效程序员的45个习惯:敏捷开发修炼之道</title>
+      <link>https://xblzbjs.cn/book-notes/%E9%AB%98%E6%95%88%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%8445%E4%B8%AA%E4%B9%A0%E6%83%AF%E6%95%8F%E6%8D%B7%E5%BC%80%E5%8F%91%E4%BF%AE%E7%82%BC%E4%B9%8B%E9%81%93/</link>
+      <pubDate>Fri, 07 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/book-notes/%E9%AB%98%E6%95%88%E7%A8%8B%E5%BA%8F%E5%91%98%E7%9A%8445%E4%B8%AA%E4%B9%A0%E6%83%AF%E6%95%8F%E6%8D%B7%E5%BC%80%E5%8F%91%E4%BF%AE%E7%82%BC%E4%B9%8B%E9%81%93/</guid>
+      <description>有关敏捷       &amp;ldquo;敏捷&amp;quot;是一种把以人为本、团队合作、快速响应变化和可工作的软件作为宗旨的开发方法
+    反馈是敏捷的基础。一旦你意识到走错了方向，就要立即做出决策，改变方向。
+    过程符合标准并不意味结果是正确的。敏捷团队重结果胜于重过程。
+   自我提升       你要不断从自己写的代码中得到反馈，并且使用自动化工具不断地构建（持续集成）和测试系统。在前进过程中，你都会有意识地修改一些代码：在功能不变的情况下，重新设计部分代码，改善代码的质量。这就是所谓的重构，它是软件开发中不可或缺的一部分——编码永远没有真正意义上的“结束”。
+    先难后易。我们首先要解决困难的问题，把简单的问题留到最后.
+    不要孤立地编码(Don’t code in isolation)
+    要专业而不是自我
+    迭代和增量式的学习。每天计划用一段时间来学习新技术，它不需要很长时间，但需要经常进行。记下那些你想学习的东西——当你听到一些不熟悉的术语或者短语时，简要地把它记录下来。然后在计划的时间中深入研究它。
+    跟踪技术变化。你不需要精通所有技术，但需要清楚知道行业的动向，从而规划你的项目和职业生涯。
+    你不可能精通每一项技术，没有必要去做这样的尝试。只要你在某些方面成为专家，就能使用同样的方法，很容易地成为新领域的专家。
+    你要明白为什么需要这项新技术——它试图解决什么样的问题？它可以被用在什么地方？
+    不停地问为什么。不能只满足于别人告诉你的表面现象。要不停地提问直到你明白问题的根源。</description>
+    </item>
+    
+    <item>
+      <title>关于我</title>
+      <link>https://xblzbjs.cn/about/</link>
+      <pubDate>Fri, 23 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/about/</guid>
+      <description>Python &amp;amp; Go 开发者；Ubuntu重度使用者；DevOps 工程师（正在努力中）
+热衷敏捷开发与自动化（实际上就是懒人一个）</description>
+    </item>
+    
+    <item>
+      <title>Python｜深拷贝与浅拷贝</title>
+      <link>https://xblzbjs.cn/posts/design-patterns/python%E6%B7%B1%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B5%85%E6%8B%B7%E8%B4%9D/</link>
+      <pubDate>Wed, 24 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/design-patterns/python%E6%B7%B1%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B5%85%E6%8B%B7%E8%B4%9D/</guid>
+      <description>背景    在开发中，经常涉及到数据的传递。在数据传递使用过程中，可能会发生数据被修改的问题。为了防止数据被修改，就需要再传递一个副本，即使副本被修改，也不会影响原数据的使用。为了生成这个副本，就产生了拷贝。
+概念    Python拷贝会涉及到Python中对象、可变类型、引用3个概念，下面一一介绍
+ 对象：Python对象都拥有三个属性：身份、类型、值。  &amp;gt;&amp;gt;&amp;gt; name = &amp;#34;xblzbjs&amp;#34;	# name对象，值为&amp;#39;xblzbjs&amp;#39; &amp;gt;&amp;gt;&amp;gt; id(name)	# 身份 2016648094384 &amp;gt;&amp;gt;&amp;gt; type(name)	# 类型 &amp;lt;class &amp;#39;str&amp;#39;&amp;gt;  可变类型：在Python中，按更新对象的方式，可以将对象分为2大类：可变对象与不可变对象。
+  可变对象： 列表(list)、字典(dict)、集合(set)。所谓可变指可变对象的值可变，身份是不变的。
+&amp;gt;&amp;gt;&amp;gt; l1 = [1,2,3] &amp;gt;&amp;gt;&amp;gt; id(l1) 2016648193280 &amp;gt;&amp;gt;&amp;gt; l1 = [1,2] &amp;gt;&amp;gt;&amp;gt; id(l1) 2016648214464 &amp;gt;&amp;gt;&amp;gt; l1[0]=3 &amp;gt;&amp;gt;&amp;gt; l1 [3, 2] &amp;gt;&amp;gt;&amp;gt; id(l1) 2016648214464   不可变对象：数字、字符串(str)、元组(tuple)。不可变对象指对象的身份和值都不可变。新创建的对象被关联到原来的变量名，旧对象被丢弃，垃圾回收器会在适当的时机回收这些对象。
+&amp;gt;&amp;gt;&amp;gt; num = 4 &amp;gt;&amp;gt;&amp;gt; id(num) 140710421604224 &amp;gt;&amp;gt;&amp;gt; num = 5 &amp;gt;&amp;gt;&amp;gt; id(num) 140710421604256     引用：在Python程序中，每个对象都会在内存中申请开辟一块空间来保存该对象，该对象在内存中所在位置的地址被称为引用。在开发程序时，所定义的变量名实际就对象的地址引用。引用实际就是内存中的一个数字地址编号，在使用对象时，只要知道这个对象的地址，就可以操作这个对象，但是因为这个数字地址不方便在开发时使用和记忆，所以使用变量名的形式来代替对象的数字地址。</description>
+    </item>
+    
+    <item>
+      <title>Git｜diff</title>
+      <link>https://xblzbjs.cn/posts/git/gitdiff/</link>
+      <pubDate>Tue, 23 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/git/gitdiff/</guid>
+      <description>假设你的仓库下有两个分支main和dev    场景一：
+比较工作区    # 显示头和工作目录之间的差异。 git diff HEAD #  比较文件    # 比较工作区与最后一次commit提交的仓库的共同文件 git diff # 显示暂存区(已add但未commit文件)和最后一次commit(HEAD)之间的所有不相同文件的增删改 git diff --cached 比较分支    # 显示main和dev有差异的文件(显示更改代码) git diff main dev # 显示main和dev有差异的文件(不显示更改代码) git diff main dev --stat </description>
+    </item>
+    
+    <item>
+      <title>Go &amp; Python｜单例模式</title>
+      <link>https://xblzbjs.cn/posts/design-patterns/go-python%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Sun, 21 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/design-patterns/go-python%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</guid>
+      <description>简介    单例模式（Singleton Pattern）是一种创建型设计模式。单例模式保证了在程序的不同位置都可以且仅可以取到同一个对象实例：如果实例不存在，会创建一个实例；如果已存在就会返回这个实例。
+优点     减少内存与性能开销 防止多个实例产生冲突  缺点     在代码中隐藏了程序的依赖项，而不是通过接口公开它们。 违反了单一职责原则 该模式在多线程环境下需要进行特殊处理， 避免多个线程多次创建单例对象。 单例的客户端代码单元测试可能会比较困难， 因为许多测试框架以基于继承的方式创建模拟对象。 由于单例类的构造函数是私有的， 而且绝大部分语言无法重写静态方法， 所以你需要想出仔细考虑模拟单例的方法。  适合场景    因为单例模式保证了实例的全局唯一性，而且只被初始化一次，所以比较适合全局共享一个实例，且只需要被初始化一次的场景。例如
+ 数据库实例配置 全局配置 全局任务池  饿汉方式与懒汉方式    单例模式又分为饿汉方式和懒汉方式。饿汉方式指全局的单例实例在包被加载时创建，而懒汉方式指全局的单例实例在第一次被使用时创建。接下来，我就来分别介绍下这两种方式。
+饿汉方式    饿汉方式指全局的单例实例在包被加载时创建。需要注意，采用饿汉方式初始化耗时，会导致程序加载时间比较长。
+懒汉方式    懒汉方式指全局的单例实例在第一次被使用时创建。
+工程项目中，懒汉方式使用的频率要更多一些。但它的缺点是非并发安全，在实际使用时需要加锁。
+饿汉方式 VS 懒汉方式        自动初始化 是否需要加锁 多线程安全 实现难度     饿汉方式 是 否 是 易   懒汉方式 否 是 是 中    Go最佳实践    饿汉方式    package singleton type singleton struct { } var ins *singleton = &amp;amp;singleton{} func GetInsOr() *singleton { return ins } func init() { GetInsOr() } 懒汉方式    type Singleton struct { data string } var ins *Singleton var once sync.</description>
+    </item>
+    
+    <item>
+      <title>什么是基于令牌的身份认证</title>
+      <link>https://xblzbjs.cn/posts/web/%E4%BB%80%E4%B9%88%E6%98%AF%E5%9F%BA%E4%BA%8E%E4%BB%A4%E7%89%8C%E7%9A%84%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81/</link>
+      <pubDate>Sun, 21 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/web/%E4%BB%80%E4%B9%88%E6%98%AF%E5%9F%BA%E4%BA%8E%E4%BB%A4%E7%89%8C%E7%9A%84%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81/</guid>
+      <description>前言    在讨论Token-Based Authentication（基于令牌的身份认证）之前，先来回顾一下过去是怎么做的。
+我们都知道，HTTP协议是无状态的，也就是说，如果我们已经认证了一个用户，那么他下一次请求的时候，服务器不知道我是谁，我们必须再次认证。过去的做法是将已经认证过的用户信息存储到服务器上，比如Session，用户下次请求的时候带着Session ID。如下图
+基于令牌的身份认证（Token-Based Authentication）    为什么使用    由于基于服务器的身份认证方式存在一些问题：
+ 每次用户认证通过以后，服务器需要创建一条记录保存用户信息，通常是在内存中，随着认证通过的用户越来越多，服务器的在这里的开销就会越来越大。 由于Session是在内存中的，这就带来一些扩展性的问题。 当我们想要扩展我们的应用，让我们的数据被多个移动设备使用时，我们必须考虑跨资源共享问题。 用户很容易受到CSRF攻击。  因此就有基于令牌的身份认证
+工作流程     用户输入他们的用户名和密码以获取允许他们获取特定资源的令牌。 用户就可以向远程站点提供令牌（而不是用户名和密码）——在一段时间内提供对特定资源的访问。  流程图如下：
+换句话说：为身份验证添加一个间接级别——用户不必为每个受保护的资源使用用户名和密码进行身份验证，而是以这种方式进行一次身份验证（在有限持续时间的会话内），作为回报获得一个限时令牌，并在会话期间使用该令牌进行进一步的身份验证。
+优点     Token存储在客户端，完全无状态，扩展性强 Token不是Cookie，每次请求Token都会被发送，由于没有Cookie被发送，有助于防止CSRF攻击。即使你将token存储到客户端的Cookie中，但是这个Cookie只是一个存储体，并不能用作身份认证。 Token在一段时间后会过期，这个时候用户需要重新登录，提高了安全性。  缺点     服务器端失去了对session的掌控权，例如无法注销特定用户的token，直到token自己过期。  </description>
+    </item>
+    
+    <item>
+      <title>Django｜编码规范</title>
+      <link>https://xblzbjs.cn/posts/django/django%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/</link>
+      <pubDate>Sat, 20 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/django/django%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/</guid>
+      <description>编码风格 Coding Style    代码可读性    6个忠告:
+➤ 避免缩写变量名
+➤ 写函数参数名。
+➤ 解释类和方法。
+➤ 对代码进行注释
+➤ 将重复的代码行重构为可重用的功能或方法
+➤ 保持函数和方法简短。不应该滚动阅读整个函数或方法
+PEP8(Python Enhancement Proposals)    PEP8文档
+PEP8中文翻译文档
+Python import 格式(以Django为例)    # future from __future__ import unicode_literals # 标准包 from math import sqrt from os.path import abspath # Django from django.db import models from django.utils.translation import ugettext_lazy as _ # 第三方包 from django_extensions.db.models import TimeStampedModel # 自己写的包 from .</description>
+    </item>
+    
+    <item>
+      <title>Django｜项目布局和App设计</title>
+      <link>https://xblzbjs.cn/posts/django/django%E9%A1%B9%E7%9B%AE%E5%B8%83%E5%B1%80%E5%92%8Capp%E8%AE%BE%E8%AE%A1/</link>
+      <pubDate>Sat, 20 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/django/django%E9%A1%B9%E7%9B%AE%E5%B8%83%E5%B1%80%E5%92%8Capp%E8%AE%BE%E8%AE%A1/</guid>
+      <description>有许多项目模板可以启动Django项目。
+  cookiecutter-django
+  Django包
+  项目布局    默认的项目布局和更好的项目布局    # 默认项目布局  mysite/ ├── manage.py ├── my_app │ ├── __init__.py │ ├── admin.py │ ├── apps.py │ ├── migrations │ │ └── __init__.py │ ├── models.py │ ├── tests.py │ └── views.py └── mysite ├── __init__.py ├── asgi.py ├── settings.py ├── urls.py └── wsgi.py # 更好的项目布局 &amp;lt;repository_root&amp;gt;/ ├── &amp;lt;configuration_root&amp;gt;/ ├── &amp;lt;django_project_root&amp;gt;/ 仓库根目录 repository_root    &amp;lt;repository_root&amp;gt;目录是项目的绝对根目录.</description>
+    </item>
+    
+    <item>
+      <title>Go &amp; Python｜工厂模式</title>
+      <link>https://xblzbjs.cn/posts/design-patterns/go-python%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Sat, 20 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/design-patterns/go-python%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Go &amp; Python｜结构型设计模式</title>
+      <link>https://xblzbjs.cn/posts/design-patterns/go-python%E7%BB%93%E6%9E%84%E5%9E%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Sat, 20 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/design-patterns/go-python%E7%BB%93%E6%9E%84%E5%9E%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</guid>
+      <description>结构型模式    常见的结构型设计模式：
+ 工厂模式（Factory）：解决对象创建问题 构造模式（Builder）：控制复杂对象的创建 原型模式（Prototype）：通过原型的克隆创建新的实例 单例（Borg/Singleton）：一个类只能创建同一个对象 对象池模式（Pool）：预先分配同一类型的一组实例 惰性计算模式（Lazy Evaluation）：延迟计算（python的property）  装饰器模式    什么是装饰器（Decorator）
+ Python中一切皆对象，函数也可以当作参数传递 装饰器是接受函数作为参数，添加功能后返回一个新函数的函数（类） 通过@使用装饰器  import time def log_time(func): # 接受一个函数作为参数 def _log(*args, **kwargs): beg = time.time() res = func(*args, **kwargs) print(&amp;#39;use time:{}&amp;#39;.format(time.time()-beg)) return res return _log @log_time # @:装饰器语法糖 def mysleep(): time.sleep(1) newsleep = log_time(mysleep) # 等价于mysleep() newsleep() mysleep() import time # 装饰器类实现 class LogTime: def __init__(self, use_int=False): self.use_int = use_int # 增加参数 def __call__(self,func): def _log(*args, **kwargs): beg = time.</description>
+    </item>
+    
+    <item>
+      <title>Go &amp; Python｜行为型设计模式</title>
+      <link>https://xblzbjs.cn/posts/design-patterns/go-python%E8%A1%8C%E4%B8%BA%E5%9E%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Sat, 20 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/design-patterns/go-python%E8%A1%8C%E4%B8%BA%E5%9E%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</guid>
+      <description>常见学习行为型设计模式     迭代器模式（Iterator）：通过统一的接口迭代对象 观察者模式（Observer）：对象发生改变的时候，观察者执行相应动作 策略模式（Strategy）：针对不同规模输入使用不同的策略  迭代器模式     Python内置对迭代器模式的支持 可用for遍历各种Iterable的数据类型 可以实现__next__和__iter__实现迭代器  class Stack(object): # 使用组合的例子 def __init__(self): self._deque = deque() def push(self, value): return self._deque.append(value) def pop(self): return self._deque.pop() def empty(self): return len(self._deque) == 0 def __iter__(self): res = [] for i in self._deque: res.append(i) for i in reversed(res): yield i s = Stack() s.push(1) s.push(2) for i in s: print(i) 观察者模式     发布订阅是一种最常用的实现方式 发布订阅用于解耦逻辑 可以通过回调等方式实现，当发生事件，执行回调函数  ==TODO：代码实现==</description>
+    </item>
+    
+    <item>
+      <title>zsh 主题推荐</title>
+      <link>https://xblzbjs.cn/posts/linux/zsh-%E4%B8%BB%E9%A2%98%E6%8E%A8%E8%8D%90/</link>
+      <pubDate>Fri, 19 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/linux/zsh-%E4%B8%BB%E9%A2%98%E6%8E%A8%E8%8D%90/</guid>
+      <description>所有主题    我喜欢的自带主题    agnoster    amuse    awesomepanda    clean    crcandy    frisk    jonathan    linuxonly（只能运行在linux）    nanotech    philips    pmcgee    xiong-chiamiov    额外的主题    powerlevel10k    spaceship-prompt    </description>
+    </item>
+    
+    <item>
+      <title>CentOS7 | 安装Python虚拟环境</title>
+      <link>https://xblzbjs.cn/posts/linux/centos7-%E5%AE%89%E8%A3%85python%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83/</link>
+      <pubDate>Wed, 17 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/linux/centos7-%E5%AE%89%E8%A3%85python%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83/</guid>
+      <description>virtualenv和virtualenvwrapper安装    pip 3 安装    pip3 install virtualenv -i https://mirrors.aliyun.com/pypi/simple/ 安装virtualenvwrapper工具管理虚拟环境    pip3 install virtualenvwrapper -i https://mirrors.aliyun.com/pypi/simple/ # 报错 [root@centos ~]# pip3 install virtualenvwrapper -i https://mirrors.aliyun.com/pypi/simple/ Looking in indexes: http://mirrors.tencentyun.com/pypi/simple Collecting virtualenvwrapper Downloading http://mirrors.tencentyun.com/pypi/packages/c1/6b/2f05d73b2d2f2410b48b90d3783a0034c26afa534a4a95ad5f1178d61191/virtualenvwrapper-4.8.4.tar.gz (334 kB) |████████████████████████████████| 334 kB 832 kB/s ERROR: Command errored out with exit status 1: command: /usr/local/python3/bin/python3.7 -c &amp;#39;import sys, setuptools, tokenize; sys.argv[0] = &amp;#39;&amp;#34;&amp;#39;&amp;#34;&amp;#39;/tmp/pip-install-f3bmqs9b/virtualenvwrapper_891e91f27f1f44e4b94d4cb51de96c5d/setup.py&amp;#39;&amp;#34;&amp;#39;&amp;#34;&amp;#39;; __file__=&amp;#39;&amp;#34;&amp;#39;&amp;#34;&amp;#39;/tmp/pip-install-f3bmqs9b/virtualenvwrapper_891e91f27f1f44e4b94d4cb51de96c5d/setup.py&amp;#39;&amp;#34;&amp;#39;&amp;#34;&amp;#39;;f=getattr(tokenize, &amp;#39;&amp;#34;&amp;#39;&amp;#34;&amp;#39;open&amp;#39;&amp;#34;&amp;#39;&amp;#34;&amp;#39;, open)(__file__);code=f.read().replace(&amp;#39;&amp;#34;&amp;#39;&amp;#34;&amp;#39;\r\n&amp;#39;&amp;#34;&amp;#39;&amp;#34;&amp;#39;, &amp;#39;&amp;#34;&amp;#39;&amp;#34;&amp;#39;\n&amp;#39;&amp;#34;&amp;#39;&amp;#34;&amp;#39;);f.close();exec(compile(code, __file__, &amp;#39;&amp;#34;&amp;#39;&amp;#34;&amp;#39;exec&amp;#39;&amp;#34;&amp;#39;&amp;#34;&amp;#39;))&amp;#39; egg_info --egg-base /tmp/pip-pip-egg-info-u879bw4z cwd: /tmp/pip-install-f3bmqs9b/virtualenvwrapper_891e91f27f1f44e4b94d4cb51de96c5d/ Complete output (11 lines): Traceback (most recent call last): File &amp;#34;&amp;lt;string&amp;gt;&amp;#34;, line 1, in &amp;lt;module&amp;gt; File &amp;#34;/usr/local/python3/lib/python3.</description>
+    </item>
+    
+    <item>
+      <title>CentOS7 | 配置Python3环境</title>
+      <link>https://xblzbjs.cn/posts/linux/centos7-%E9%85%8D%E7%BD%AEpython3%E7%8E%AF%E5%A2%83/</link>
+      <pubDate>Wed, 17 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/linux/centos7-%E9%85%8D%E7%BD%AEpython3%E7%8E%AF%E5%A2%83/</guid>
+      <description>环境：腾讯云CentOS7.5 64位
+1. 查看Python的位置并安装相关依赖    [root@centos ~]# whereis python python2: /usr/bin/python2 /usr/bin/python2.7 /usr/lib/python2.7 /usr/lib64/python2.7 /usr/include/python2.7 /usr/share/man/man1/python2.1.gz python指向的是python2，python2指向的是python2.7，因此我们可以装个python3，然后将python指向python3，然后python2指向python2.7，那么两个版本的python就能共存了。
+yum install zlib-devel libffi-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gcc make 2. 使用wget下载Python3源码包    wget http://npm.taobao.org/mirrors/python/3.7.9/Python-3.7.9.tar.xz # 如果提示wget未找到命令, 那么就先使用yum安装wget yum -y install wget 3. 编译Python3源码包    #解压 xz -d Python-3.7.9.tar.xz tar -xf Python-3.7.9.tar #进入解压后的目录，依次执行下面命令进行手动编译 cd Python-3.7.9 ./configure prefix=/usr/local/python3 make &amp;amp;&amp;amp; make install # 如果出现can&amp;#39;t decompress data; zlib not available这个错误，则需要安装相关库 #安装依赖zlib、zlib-devel yum install zlib zlib yum install zlib zlib-devel 4.</description>
+    </item>
+    
+    <item>
+      <title>MongoDB｜CRUD操作</title>
+      <link>https://xblzbjs.cn/posts/database/mongodb/mongodbcrud%E6%93%8D%E4%BD%9C/</link>
+      <pubDate>Wed, 17 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/database/mongodb/mongodbcrud%E6%93%8D%E4%BD%9C/</guid>
+      <description>Create(创建)    insertOne()方法    ### insertOne()方法 # 参数含义 db.collection·insertOne() db.&amp;lt;collection&amp;gt;·insertOne( &amp;lt;document&amp;gt; writeConcern：&amp;lt;document&amp;gt;	# &amp;lt;collection&amp;gt;表示写入的集合 # &amp;lt;document&amp;gt;要替换成要写入的文档本身 # writeConcern：&amp;lt;document&amp;gt;定义了本次文档创建操作的安全写级别 ) # 简单来说，安全写级别用来判断一次数据库写入操作是否成功 安全写级别越高，丢失数据的风险就越低，然而写入操作的延迟也可能更高。如果不提供writeconcern文档，用默认的安全写级别。 # 创建单个文档 &amp;gt; db.accounts.insertOne(	# 虽然没有创建过accounts的集合，但该命令会自动创建相应的集合 ... { ... _id: &amp;#34;account1&amp;#34;, ... name: &amp;#34;alice&amp;#34;, ... balance: 100, ... } ... ) { &amp;#34;acknowledged&amp;#34; : true, &amp;#34;insertedId&amp;#34; : &amp;#34;account1&amp;#34; } # &amp;#34;acknowledged&amp;#34;: true表示安全写级别被启用 # 由于在db.collection.insertone()命令中没有提供writeConcern文档，这里显示的是默认的安全写级别启用状态 # &amp;#34;insertedId&amp;#34;显示了被写入的文档的_id # 重复_id创建一个新文档及相对应的报错信息 &amp;gt; db.accounts.insertOne( ... { ... _id: &amp;#34;account1&amp;#34;, .</description>
+    </item>
+    
+    <item>
+      <title>MongoDB｜介绍与安装</title>
+      <link>https://xblzbjs.cn/posts/database/mongodb/mongodb%E4%BB%8B%E7%BB%8D%E4%B8%8E%E5%AE%89%E8%A3%85/</link>
+      <pubDate>Wed, 17 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/database/mongodb/mongodb%E4%BB%8B%E7%BB%8D%E4%B8%8E%E5%AE%89%E8%A3%85/</guid>
+      <description>MongoDB介绍    MongoDB安装    使用docker安装（推荐）    docker pull mongo # 默认最新 docker pull mongo:4.0 # 指定安装MongoDB4.0版本 # 使用test数据库 &amp;gt; use test switched to db test # 查看test数据库中的集合 &amp;gt; show collections # 现在test数据库里还没有集合 &amp;gt; </description>
+    </item>
+    
+    <item>
+      <title>Nmap 网络扫描工具常用操作</title>
+      <link>https://xblzbjs.cn/posts/linux/nmap-%E7%BD%91%E7%BB%9C%E6%89%AB%E6%8F%8F%E5%B7%A5%E5%85%B7%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/</link>
+      <pubDate>Wed, 17 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/linux/nmap-%E7%BD%91%E7%BB%9C%E6%89%AB%E6%8F%8F%E5%B7%A5%E5%85%B7%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/</guid>
+      <description>Nmap 是由 Gordon Lyon 创建的免费开源网络扫描工具。
+安装    Debian系列的Linux，例如Ubuntu
+sudo apt-get install nmap Red Hat系列的Linux，例如Centos
+sudo yum install nmap 常用功能    主机扫描    单个主机    nmap baidu.com Starting Nmap 7.80 ( https://nmap.org ) at 2021-06-16 13:56 CST Nmap scan report for baidu.com (220.181.38.148) Host is up (0.046s latency). Other addresses for baidu.com (not scanned): 39.156.69.79 Not shown: 995 filtered ports PORT STATE SERVICE 25/tcp open smtp 80/tcp open http 110/tcp open pop3 143/tcp open imap 443/tcp open https Nmap done: 1 IP address (1 host up) scanned in 5.</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu20.04蓝牙没作用</title>
+      <link>https://xblzbjs.cn/posts/linux/ubuntu20.04%E8%93%9D%E7%89%99%E6%B2%A1%E4%BD%9C%E7%94%A8/</link>
+      <pubDate>Tue, 02 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/linux/ubuntu20.04%E8%93%9D%E7%89%99%E6%B2%A1%E4%BD%9C%E7%94%A8/</guid>
+      <description>前言    我的笔记本电脑是联想小新Air14-2020-AMD版，从Windows转到Ubuntu20.04时发现蓝牙扫描不到周围的设备（特别是耳机）！
+执行了以下命令，蓝牙又重新工作了O(∩_∩)O~~
+sudo rmmod btusb sudo modprobe btusb 参考链接    Ubuntu 20.04 bluetooth not working</description>
+    </item>
+    
+    <item>
+      <title>程序员修炼之道</title>
+      <link>https://xblzbjs.cn/book-notes/%E7%A8%8B%E5%BA%8F%E5%91%98%E4%BF%AE%E7%82%BC%E4%B9%8B%E9%81%93%E7%AC%AC2%E7%89%88/</link>
+      <pubDate>Wed, 27 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/book-notes/%E7%A8%8B%E5%BA%8F%E5%91%98%E4%BF%AE%E7%82%BC%E4%B9%8B%E9%81%93%E7%AC%AC2%E7%89%88/</guid>
+      <description>第一章 务实的哲学    1.不害怕承认无知和错误,不要把问题归咎于他人,不要找借口
+2.承担责任.具体方式:任何你负责的事情应该考虑:
+planA:最优方案;
+planB:通常方案;
+planC:应急方案
+3.做项目,写代码不要得过且过,不拖拉,不放弃(这点吃了大亏,很多时候项目完成一半就不想再做下去).
+4.不要只是因为一些东西非常紧急,就去造成附带伤害.(不要因为某一项模块或者功能很紧急就去破坏另一个模块甚至整个架构)
+5.留意着大局,不要只顾着埋头写代码.
+6.没有十全十美的软件和代码,完成80%功能上线,之后不断完善代码比完成100%功能再上线好.因为只有流量才能慢慢显示出不足,才能接着完善.不要让过度的修饰和精炼侵蚀掉一个完好的程序.
+7.投资知识(重点)
+每年学习一门新语言(最好至少掌握一门动态+一门静态)
+每月读一本技术书
+每个季度读一本非技术书(历史,地理,小说,文学等等)
+每个季度学一门课(完成一个相关技术的项目.B站,慕课网,腾讯课堂,网易云课堂等)
+加入相关技术的QQ群交流(人外有人,群里很多大佬),遇到不懂的问题就在上面问别拖
+与时俱进,关心当前项目不同的技术.
+8.批判性地分析你读到的和听到的东西,简而言之独立思考
+9.寻找基础模型
+10.交流(重点),程序员才不是木讷的!!!
+了解听众的需求,兴趣,和能力
+明白自己想说什么.用最少的话表达自己的意思
+选择合适的时机与他人交流
+适当倾听,懂得让别人参与你的话题
+每个人的性格不同,做事方式不同,灵活调整表达方式.
+不要口臭
+11.非API的注释应只用来讨论其为何存在及其意图,目标.
+第二章 务实的方法    1.信奉ETC（Easier To Change）原则。保存文件时、写测试时、修复Bug时常问自己：“我刚刚做的事情是让整个系统更容易改变还是更难改变？”
+2.DRY原则：在一个系统中，每一处知识都必须单一、明确地表达。DRY针对的是对知识和意图的复制，而不是简单的复制粘贴（因此并非所有的代码重复都是知识的重复）。
+3.不要依赖那些你无法控制的东西！！！！（不要使用超过自己理解的技术，维护起来会很困难）
+4.设计与现实世界的变化有多大程度的解耦？
+5.考虑在体系结构、部署和供应商集成方面保持灵活性
+6.曳光弹式开发（核心思想：即时反馈）
+7.收集需求、设计、编码、发布，这套传统的方法要在知道“需求是什么”的前提下才有效
+8.对一个项目完成时间（模块功能的完成时间等）要有一个估算（时间、技术、突发状况、人员等）
+9.根据代码不断迭代进度表
+第三章 基础工具    1.好记性不如烂笔头（做一个项目最好做思维导图，开发中遇到的困难也记录下来）
+2.定制专属于你的Shell以提高生产力
+3.熟悉2款编辑器的使用，不要多但也不要只会1款
+4.学好git（gitee和github都要回）
+5.去解决问题，而不是责备
+6.学会读那些该死的报错
+7.完成一步，测试一步，再接着走
+8.学会Markdown
+第四章 务实的偏执    1.程序不会说谎，你错就是你错了
+2.程序会崩溃，但别改成垃圾
+3.使用断言去预防不可能的事情
+4.管理好资源（有始有终）
+5**.永远不要进行“太大”的步骤或任务**</description>
+    </item>
+    
+    <item>
+      <title>Python</title>
+      <link>https://xblzbjs.cn/learning-materials/python/</link>
+      <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/learning-materials/python/</guid>
+      <description>入门    《Python编程:从入门到实践》(Eric Matthes著)    入门必读
+《深入理解Python特性》&amp;amp;&amp;amp;《Effective Python 90 Specific Ways to Write Better Python by Brett Slatkin》    前者中文版读的还可以，《Effective Python 90 Specific Ways》写的十分好，收益很多，推荐。
+Django    《Python Django开发实战(视频讲解版)》(张虎著)    结合Django官方文档看，查漏补缺的一本书。注意这本书的项目只是辅助知识点，项目本身比较简陋，
+《Django 3 by Example》(Antonio Mele著)    例子丰富，适合刚有Django基础的人依葫芦画瓢找感觉
+《Two Scoops of Django 3.1》(Daniel Roy Greenfeld,Audrey Roy Greenfeld)    目前为止看到的最好的一本Django书
+《Django 3 Web Development Cookbook Actionable solutions to common problems in Python web development by Aidas Bendoraitis, Jake Kronika》    对得起书名。适合用Django建立复杂项目的朋友看。</description>
+    </item>
+    
+  </channel>
+</rss>

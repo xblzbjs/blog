@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Git on xblzbjs</title>
+    <link>https://xblzbjs.cn/tags/git/</link>
+    <description>Recent content in Git on xblzbjs</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Sat, 19 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://xblzbjs.cn/tags/git/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Git｜工作流设计</title>
+      <link>https://xblzbjs.cn/posts/git/git%E5%B7%A5%E4%BD%9C%E6%B5%81%E8%AE%BE%E8%AE%A1/</link>
+      <pubDate>Sat, 19 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/git/git%E5%B7%A5%E4%BD%9C%E6%B5%81%E8%AE%BE%E8%AE%A1/</guid>
+      <description>前言    现代软件开发讲究效率和质量，大多依赖于多团队间的协作来实现。不同的软件团队规模也不同：十人、百人甚至千人团队。如果软件架构没有良好的拆分，很有可能出现几百人在一个代码仓库里面工作的情况，而团队也需要根据软件的发布节奏来完成代码提交、审核、集成、测试等工作。因此，如何根据团队规模设计一个合理的工作流是编码之前就要思考的。工作中为规范开发，保持代码提交记录以及 git 分支结构和 commit message 整体清晰易读、方便维护，公司一般都会根据不同的项目规格置顶不同的 Git 工作流。
+常见的工作流    在使用 Git 开发时，有 4 种常用的工作流：集中式工作流（Centralized Workflow）、功能分支工作流（Feature Branch Workflow）、Gitflow 工作流和 Forking 工作流。
+集中式工作流（Centralized Workflow）    开发团队成员在本地都有一份远程仓库的拷贝：本地仓库。在本地的 master 分支开发完代码之后，将修改后的代码 commit 到远程仓库，如果有冲突就先解决本地的冲突再提交。示例图如下：
+举个例子     克隆远程仓库到本地  git clone ssh://user@host/path/to/repo.git 本地开发完后，提交代码  git status	# 查看仓库状态 git add &amp;lt;some file&amp;gt; # git commit -m &amp;#34;...&amp;#34; 优点     代码集成频率快 特性相对独立清晰  缺点     不同开发人员的提交日志混杂在一起，难以定位问题 如果同时开发多个功能，不同功能同时往 master 分支合并，代码之间也会相互影响，从而产生代码冲突 对开发者的提交代码质量要求高  适合场景     团队人数少 开发不频繁 不需要同时维护多个版本的小项目 自动化验收较为成熟的公司  功能分支工作流（Feature Branch Workflow）    在开发新功能时，基于主分支新建一个功能分支，在功能分支上进行开发，而不是直接在本地的主分支开发，开发完成之后合并到主分支。示例图如下：</description>
+    </item>
+    
+    <item>
+      <title>Git｜diff</title>
+      <link>https://xblzbjs.cn/posts/git/gitdiff/</link>
+      <pubDate>Tue, 23 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/git/gitdiff/</guid>
+      <description>假设你的仓库下有两个分支main和dev    场景一：
+比较工作区    # 显示头和工作目录之间的差异。 git diff HEAD #  比较文件    # 比较工作区与最后一次commit提交的仓库的共同文件 git diff # 显示暂存区(已add但未commit文件)和最后一次commit(HEAD)之间的所有不相同文件的增删改 git diff --cached 比较分支    # 显示main和dev有差异的文件(显示更改代码) git diff main dev # 显示main和dev有差异的文件(不显示更改代码) git diff main dev --stat </description>
+    </item>
+    
+  </channel>
+</rss>

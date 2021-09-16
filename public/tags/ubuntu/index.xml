@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ubuntu on xblzbjs</title>
+    <link>https://xblzbjs.cn/tags/ubuntu/</link>
+    <description>Recent content in Ubuntu on xblzbjs</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 02 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://xblzbjs.cn/tags/ubuntu/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Ubuntu Shell环境配置</title>
+      <link>https://xblzbjs.cn/posts/linux/ubuntu-shell%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Fri, 02 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/linux/ubuntu-shell%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</guid>
+      <description>终端模拟器选择    推荐三个
+1. Gnome Terminal（原生）    2. Terminator（在用）    3. Guake    终端配置（Zsh + Oh My Zsh + PowerLevel10k）    1. 安装Zsh    # apt 打包安装 zsh sudo apt install zsh # 确认 zsh 成功安装 zsh --version # 设置为默认Shell并确认 chsh -s $(which zsh) echo $SHELL 2. 安装Oh My Zsh    # 推荐使用curl安装 sh -c &amp;#34;$(curl -fsSL https://raw.</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu20.04蓝牙没作用</title>
+      <link>https://xblzbjs.cn/posts/linux/ubuntu20.04%E8%93%9D%E7%89%99%E6%B2%A1%E4%BD%9C%E7%94%A8/</link>
+      <pubDate>Tue, 02 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/linux/ubuntu20.04%E8%93%9D%E7%89%99%E6%B2%A1%E4%BD%9C%E7%94%A8/</guid>
+      <description>前言    我的笔记本电脑是联想小新Air14-2020-AMD版，从Windows转到Ubuntu20.04时发现蓝牙扫描不到周围的设备（特别是耳机）！
+执行了以下命令，蓝牙又重新工作了O(∩_∩)O~~
+sudo rmmod btusb sudo modprobe btusb 参考链接    Ubuntu 20.04 bluetooth not working</description>
+    </item>
+    
+  </channel>
+</rss>

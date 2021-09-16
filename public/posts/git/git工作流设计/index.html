@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Language" content="zh-cn">
+    <meta name="color-scheme" content="light dark">
+
+    
+      <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests; block-all-mixed-content; default-src 'self'; child-src 'self'; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net/; form-action 'self'; frame-src 'self'; img-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/ https://cdn.jsdelivr.net/; script-src 'self' 'unsafe-inline' https://www.google-analytics.com; prefetch-src 'self'; connect-src 'self' https://www.google-analytics.com;">
+
+    
+
+    <meta name="author" content="xblzbjs">
+    <meta name="description" content="前言    现代软件开发讲究效率和质量，大多依赖于多团队间的协作来实现。不同的软件团队规模也不同：十人、百人甚至千人团队。如果软件架构没有良好的拆分，很有可能出现几百人在一个代码仓库里面工作的情况，而团队也需要根据软件的发布节奏来完成代码提交、审核、集成、测试等工作。因此，如何根据团队规模设计一个合理的工作流是编码之前就要思考的。工作中为规范开发，保持代码提交记录以及 git 分支结构和 commit message 整体清晰易读、方便维护，公司一般都会根据不同的项目规格置顶不同的 Git 工作流。
+常见的工作流    在使用 Git 开发时，有 4 种常用的工作流：集中式工作流（Centralized Workflow）、功能分支工作流（Feature Branch Workflow）、Gitflow 工作流和 Forking 工作流。
+集中式工作流（Centralized Workflow）    开发团队成员在本地都有一份远程仓库的拷贝：本地仓库。在本地的 master 分支开发完代码之后，将修改后的代码 commit 到远程仓库，如果有冲突就先解决本地的冲突再提交。示例图如下：
+举个例子     克隆远程仓库到本地  git clone ssh://user@host/path/to/repo.git 本地开发完后，提交代码  git status	# 查看仓库状态 git add &lt;some file&gt; # git commit -m &#34;...&#34; 优点     代码集成频率快 特性相对独立清晰  缺点     不同开发人员的提交日志混杂在一起，难以定位问题 如果同时开发多个功能，不同功能同时往 master 分支合并，代码之间也会相互影响，从而产生代码冲突 对开发者的提交代码质量要求高  适合场景     团队人数少 开发不频繁 不需要同时维护多个版本的小项目 自动化验收较为成熟的公司  功能分支工作流（Feature Branch Workflow）    在开发新功能时，基于主分支新建一个功能分支，在功能分支上进行开发，而不是直接在本地的主分支开发，开发完成之后合并到主分支。示例图如下：">
+    <meta name="keywords" content="blog,developer,personal">
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Git｜工作流设计"/>
+<meta name="twitter:description" content="前言    现代软件开发讲究效率和质量，大多依赖于多团队间的协作来实现。不同的软件团队规模也不同：十人、百人甚至千人团队。如果软件架构没有良好的拆分，很有可能出现几百人在一个代码仓库里面工作的情况，而团队也需要根据软件的发布节奏来完成代码提交、审核、集成、测试等工作。因此，如何根据团队规模设计一个合理的工作流是编码之前就要思考的。工作中为规范开发，保持代码提交记录以及 git 分支结构和 commit message 整体清晰易读、方便维护，公司一般都会根据不同的项目规格置顶不同的 Git 工作流。
+常见的工作流    在使用 Git 开发时，有 4 种常用的工作流：集中式工作流（Centralized Workflow）、功能分支工作流（Feature Branch Workflow）、Gitflow 工作流和 Forking 工作流。
+集中式工作流（Centralized Workflow）    开发团队成员在本地都有一份远程仓库的拷贝：本地仓库。在本地的 master 分支开发完代码之后，将修改后的代码 commit 到远程仓库，如果有冲突就先解决本地的冲突再提交。示例图如下：
+举个例子     克隆远程仓库到本地  git clone ssh://user@host/path/to/repo.git 本地开发完后，提交代码  git status	# 查看仓库状态 git add &lt;some file&gt; # git commit -m &#34;...&#34; 优点     代码集成频率快 特性相对独立清晰  缺点     不同开发人员的提交日志混杂在一起，难以定位问题 如果同时开发多个功能，不同功能同时往 master 分支合并，代码之间也会相互影响，从而产生代码冲突 对开发者的提交代码质量要求高  适合场景     团队人数少 开发不频繁 不需要同时维护多个版本的小项目 自动化验收较为成熟的公司  功能分支工作流（Feature Branch Workflow）    在开发新功能时，基于主分支新建一个功能分支，在功能分支上进行开发，而不是直接在本地的主分支开发，开发完成之后合并到主分支。示例图如下："/>
+
+    <meta property="og:title" content="Git｜工作流设计" />
+<meta property="og:description" content="前言    现代软件开发讲究效率和质量，大多依赖于多团队间的协作来实现。不同的软件团队规模也不同：十人、百人甚至千人团队。如果软件架构没有良好的拆分，很有可能出现几百人在一个代码仓库里面工作的情况，而团队也需要根据软件的发布节奏来完成代码提交、审核、集成、测试等工作。因此，如何根据团队规模设计一个合理的工作流是编码之前就要思考的。工作中为规范开发，保持代码提交记录以及 git 分支结构和 commit message 整体清晰易读、方便维护，公司一般都会根据不同的项目规格置顶不同的 Git 工作流。
+常见的工作流    在使用 Git 开发时，有 4 种常用的工作流：集中式工作流（Centralized Workflow）、功能分支工作流（Feature Branch Workflow）、Gitflow 工作流和 Forking 工作流。
+集中式工作流（Centralized Workflow）    开发团队成员在本地都有一份远程仓库的拷贝：本地仓库。在本地的 master 分支开发完代码之后，将修改后的代码 commit 到远程仓库，如果有冲突就先解决本地的冲突再提交。示例图如下：
+举个例子     克隆远程仓库到本地  git clone ssh://user@host/path/to/repo.git 本地开发完后，提交代码  git status	# 查看仓库状态 git add &lt;some file&gt; # git commit -m &#34;...&#34; 优点     代码集成频率快 特性相对独立清晰  缺点     不同开发人员的提交日志混杂在一起，难以定位问题 如果同时开发多个功能，不同功能同时往 master 分支合并，代码之间也会相互影响，从而产生代码冲突 对开发者的提交代码质量要求高  适合场景     团队人数少 开发不频繁 不需要同时维护多个版本的小项目 自动化验收较为成熟的公司  功能分支工作流（Feature Branch Workflow）    在开发新功能时，基于主分支新建一个功能分支，在功能分支上进行开发，而不是直接在本地的主分支开发，开发完成之后合并到主分支。示例图如下：" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xblzbjs.cn/posts/git/git%E5%B7%A5%E4%BD%9C%E6%B5%81%E8%AE%BE%E8%AE%A1/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-06-19T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2021-06-19T00:00:00&#43;00:00" />
+
+
+
+    <title>
+  Git｜工作流设计 · xblzbjs
+</title>
+
+    
+      <link rel="canonical" href="https://xblzbjs.cn/posts/git/git%E5%B7%A5%E4%BD%9C%E6%B5%81%E8%AE%BE%E8%AE%A1/">
+    
+
+    <link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
+
+    
+      
+      
+      <link rel="stylesheet" href="/css/coder.min.93c41bf1e522f85ecda7355985f09000f71fc1d64dda9f74051b0fa06210e93f.css" integrity="sha256-k8Qb8eUi&#43;F7NpzVZhfCQAPcfwdZN2p90BRsPoGIQ6T8=" crossorigin="anonymous" media="screen" />
+    
+
+    
+
+    
+      
+        
+        
+        <link rel="stylesheet" href="/css/coder-dark.min.f37febc669ce189201c1918fac1948a254686c8d366a312c2d72b2bb71ad97d1.css" integrity="sha256-83/rxmnOGJIBwZGPrBlIolRobI02ajEsLXKyu3Gtl9E=" crossorigin="anonymous" media="screen" />
+      
+    
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16">
+
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+    
+      <script defer src="https://twemoji.maxcdn.com/v/13.0.2/twemoji.min.js"
+        integrity="sha384-wyB/MspSJ/r2bT2kCj44qtsYRYlpzO2oAPhRj5myrWD63dt6qWv4x8AZe7Fl3K3b" crossorigin="anonymous"></script>
+    
+
+    <meta name="generator" content="Hugo 0.83.1" />
+  </head>
+
+  
+  
+    
+  
+  <body class="preload-transitions colorscheme-auto"
+        onload=" twemoji.parse(document.body); "
+  >
+    
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      xblzbjs
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">随笔</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/categories/">分类</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/tags/">标签</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">关于</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/learning-materials/">学习资料</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="https://xblzbjs.cn/posts/git/git%E5%B7%A5%E4%BD%9C%E6%B5%81%E8%AE%BE%E8%AE%A1/">
+              Git｜工作流设计
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime='2021-06-19T00:00:00Z'>
+                June 19, 2021
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              阅读时间：3 分钟
+            </span>
+          </div>
+          
+          
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="/tags/git/">Git</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+        <h2 id="前言">
+  前言
+  <a class="heading-link" href="#%e5%89%8d%e8%a8%80">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>现代软件开发讲究效率和质量，大多依赖于多团队间的协作来实现。不同的软件团队规模也不同：十人、百人甚至千人团队。如果软件架构没有良好的拆分，很有可能出现几百人在一个代码仓库里面工作的情况，而团队也需要根据软件的发布节奏来完成代码提交、审核、集成、测试等工作。因此，如何<strong>根据团队规模设计一个合理的工作流</strong>是编码之前就要思考的。工作中为规范开发，保持代码提交记录以及 git 分支结构和 commit message 整体清晰易读、方便维护，公司一般都会根据不同的项目规格置顶不同的 Git 工作流。</p>
+<h2 id="常见的工作流">
+  常见的工作流
+  <a class="heading-link" href="#%e5%b8%b8%e8%a7%81%e7%9a%84%e5%b7%a5%e4%bd%9c%e6%b5%81">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>在使用 Git 开发时，有 4 种常用的工作流：集中式工作流（Centralized Workflow）、功能分支工作流（Feature Branch Workflow）、Gitflow 工作流和 Forking 工作流。</p>
+<h3 id="集中式工作流centralized-workflow">
+  集中式工作流（Centralized Workflow）
+  <a class="heading-link" href="#%e9%9b%86%e4%b8%ad%e5%bc%8f%e5%b7%a5%e4%bd%9c%e6%b5%81centralized-workflow">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<p>开发团队成员在本地都有一份远程仓库的拷贝：本地仓库。在本地的 master 分支开发完代码之后，将修改后的代码 commit 到远程仓库，如果有冲突就先解决本地的冲突再提交。示例图如下：</p>
+<p><img src="/img/git/centralized-workflow.png" alt="无法显示图片"></p>
+<h4 id="举个例子">
+  举个例子
+  <a class="heading-link" href="#%e4%b8%be%e4%b8%aa%e4%be%8b%e5%ad%90">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h4>
+<ol>
+<li>克隆远程仓库到本地</li>
+</ol>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git clone ssh://user@host/path/to/repo.git
+</code></pre></div><ol start="2">
+<li>本地开发完后，提交代码</li>
+</ol>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git status	<span style="color:#586e75"># 查看仓库状态</span>
+git add &lt;some file&gt; <span style="color:#586e75">#</span>
+git commit -m <span style="color:#2aa198">&#34;...&#34;</span>
+</code></pre></div><h4 id="优点">
+  优点
+  <a class="heading-link" href="#%e4%bc%98%e7%82%b9">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h4>
+<ul>
+<li>代码集成频率快</li>
+<li>特性相对独立清晰</li>
+</ul>
+<h4 id="缺点">
+  缺点
+  <a class="heading-link" href="#%e7%bc%ba%e7%82%b9">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h4>
+<ul>
+<li>不同开发人员的提交日志混杂在一起，难以定位问题</li>
+<li>如果同时开发多个功能，不同功能同时往 master 分支合并，代码之间也会相互影响，从而产生代码冲突</li>
+<li>对开发者的提交代码质量要求高</li>
+</ul>
+<h4 id="适合场景">
+  适合场景
+  <a class="heading-link" href="#%e9%80%82%e5%90%88%e5%9c%ba%e6%99%af">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h4>
+<ul>
+<li>团队人数少</li>
+<li>开发不频繁</li>
+<li>不需要同时维护多个版本的小项目</li>
+<li>自动化验收较为成熟的公司</li>
+</ul>
+<h3 id="功能分支工作流feature-branch-workflow">
+  功能分支工作流（Feature Branch Workflow）
+  <a class="heading-link" href="#%e5%8a%9f%e8%83%bd%e5%88%86%e6%94%af%e5%b7%a5%e4%bd%9c%e6%b5%81feature-branch-workflow">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<p>在开发新功能时，基于主分支新建一个功能分支，在功能分支上进行开发，而不是直接在本地的主分支开发，开发完成之后合并到主分支。示例图如下：</p>
+<p><img src="/img/git/feature-branch-workflow.png" alt="无法显示图片"></p>
+<p>需要注意的是，在合并到主分支时，可以根据需要提交 PR（pull request），而不是直接将代码 merge 到主分支。PR 流程可以把分支代码提供给团队其他开发人员进行 CR（Code Review），还可以在 PR 页面讨论。这样代码更加健壮，质量更高并且提供了一个历史回顾的途径。</p>
+<h4 id="举个例子-1">
+  举个例子
+  <a class="heading-link" href="#%e4%b8%be%e4%b8%aa%e4%be%8b%e5%ad%90-1">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h4>
+<ol>
+<li>基于主分支新建一个功能分支</li>
+</ol>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git checkout -b feature-user
+</code></pre></div><ol start="2">
+<li>在功能分支上进行代码开发，开发完成后 commit 到功能分支</li>
+</ol>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git add &lt;some file&gt;
+git commit -m <span style="color:#2aa198">&#34;add some file&#34;</span>
+</code></pre></div><ol start="3">
+<li>将本地功能分支代码 push 到远程仓库</li>
+</ol>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git push origin feature-user
+</code></pre></div><ol start="4">
+<li>（可选）在远程仓库上创建 PR</li>
+<li>（可选）代码管理员或其他同时收到 PR 后，CR 代码</li>
+<li><strong>Merge pull request</strong>将功能分支合并到主分支</li>
+</ol>
+<h4 id="优点-1">
+  优点
+  <a class="heading-link" href="#%e4%bc%98%e7%82%b9-1">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h4>
+<ul>
+<li>分支开发相对独立，不会因为并行导致互相干扰</li>
+<li>以功能为粒度进行发布的模式</li>
+</ul>
+<h4 id="缺点-1">
+  缺点
+  <a class="heading-link" href="#%e7%bc%ba%e7%82%b9-1">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h4>
+<ul>
+<li>考研团队功能拆分的能力，<strong>一般来说分支存活的周期一般不要超过一周</strong></li>
+<li>功能分支的命名规范要求很高。由于大量功能分支的拉出，整个代码仓库会显得非常乱。面对一大堆分支，谁也说不清到底哪个还活着，哪个已经没用了。所以，如果能够跟<strong>变更管理系统</strong>打通，<strong>自动化创建分支</strong>就最好了。</li>
+</ul>
+<h4 id="适合场景-1">
+  适合场景
+  <a class="heading-link" href="#%e9%80%82%e5%90%88%e5%9c%ba%e6%99%af-1">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h4>
+<ul>
+<li>开发团队相对固定</li>
+<li>中小规模的项目</li>
+<li>已经拥有强大的测试环境和自动化的特性管理工具作支撑的团队</li>
+</ul>
+<h3 id="gitflow-工作流gitflow-workflow">
+  Gitflow 工作流（Gitflow Workflow）
+  <a class="heading-link" href="#gitflow-%e5%b7%a5%e4%bd%9c%e6%b5%81gitflow-workflow">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<p>非开源项目中最常用到的工作流。</p>
+<p>在<a href="http://nvie.com/posts/a-successful-git-branching-model/">A successful Git branching model</a>文中有一图形象展示了该工作流</p>
+<p><img src="/img/git/gitflow-workflow.png" alt="无法显示图片"></p>
+<p>从上图（自右向左）分别为</p>
+<ul>
+<li><code>master</code>：主分支。负责管理发布的状态，提交时使用标签记录发布版本号。</li>
+<li><code>hotfix-修复的问题</code>：紧急修复分支。发布的产品需要紧急修正时，就直接从 master 主分支切出一个分支紧急修改，通常会加上<code>hotfix-</code>前缀，改好后再合并到 master 分支和 develop 分支上。</li>
+<li><code>release-版本</code>：预发布分支。开发人员在 develop 分支开发到了感觉可以发布的状态会创建 release 分支，为 release 做最后的 bug 修正。当感觉 release 分支上没有问题时，就会将 release 分支合并到 master 分支上正式发布。通常一个项目会有多个 release 分支，例如<code>release-1.0</code>，<code>release-2.0</code>等</li>
+<li><code>develop</code>：开发分支。开发人员的日常开发分支。</li>
+<li><code>feature-功能</code>：功能分支。从 develop 分支分叉出来的针对新功能的开发分支，通常会有多个 feature 分支并行开发。完成功能的开发后就把分支合并回 develop 分支（通常来说，feature 分支大多会保留，并不会 merge 之后就删除原分支）</li>
+</ul>
+<h4 id="举个例子-2">
+  举个例子
+  <a class="heading-link" href="#%e4%b8%be%e4%b8%aa%e4%be%8b%e5%ad%90-2">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h4>
+<ol>
+<li>基于 develop 分支，新建一个功能分支</li>
+</ol>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git checkout -b feature-&lt;your name&gt; <span style="color:#586e75"># or feature/&lt;your name&gt;</span>
+</code></pre></div><ol start="2">
+<li>在功能分支上开发</li>
+<li>紧急修复 Bug</li>
+</ol>
+<p>假设我们正处于新功能的开发中，突然线上代码发现了一个 Bug，我们要立即停止手上的工作，修复线上的 Bug</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git stash <span style="color:#586e75"># 1. 开发工作只完成了一半，还不想提交，可以临时保存修改至堆栈区</span>
+git checkout -b hotfix/print-error master <span style="color:#586e75"># 2. 从 master 建立 hotfix 分支</span>
+vi main.go <span style="color:#586e75"># 3. 修复 bug，callmainfunction -&gt; call main function</span>
+git commit -a -m <span style="color:#2aa198">&#39;fix print message error bug&#39;</span> <span style="color:#586e75"># 4. 提交修复</span>
+git checkout develop <span style="color:#586e75"># 5. 切换到 develop 分支</span>
+git merge --no-ff hotfix/print-error <span style="color:#586e75"># 6. 把 hotfix 分支合并到 develop 分支</span>
+git checkout master <span style="color:#586e75"># 7. 切换到 master 分支</span>
+git merge --no-ff hotfix/print-error <span style="color:#586e75"># 8. 把 hotfix 分支合并到 master</span>
+git tag -a v0.9.1 -m <span style="color:#2aa198">&#34;fix log bug&#34;</span> <span style="color:#586e75"># 9. master 分支打 tag</span>
+go build -v . <span style="color:#586e75"># 10. 编译代码，并将编译好的二进制更新到生产环境</span>
+git branch -d hotfix/print-error <span style="color:#586e75"># 11. 修复好后，删除 hotfix/xxx 分支</span>
+git checkout feature/print-hello-world <span style="color:#586e75"># 12. 切换到开发分支下</span>
+git merge --no-ff develop <span style="color:#586e75"># 13. 因为 develop 有更新，这里最好同步更新下</span>
+git stash pop <span style="color:#586e75"># 14. 恢复到修复前的工作状态</span>
+</code></pre></div><ol start="4">
+<li>继续开发，完成后提交代码到功能分支上</li>
+<li>在功能分支上做 CR</li>
+<li>CR 通过后，由代码仓库 matainer 将功能分支合并到 develop 分支上</li>
+</ol>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git checkout develop
+git merge --no-ff feature-&lt;your name&gt;
+</code></pre></div><ol start="7">
+<li>基于 develop 分支，创建 release 分支，测试代码</li>
+</ol>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git checkout -b release-&lt;版本号&gt; develop
+</code></pre></div><ol start="8">
+<li>测试失败的话，直接在 release 分支上修改代码，修改完成后，提交并编译部署。</li>
+</ol>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git commit -a -m <span style="color:#2aa198">&#34;fix bug&#34;</span>
+go build -v .
+</code></pre></div><ol start="9">
+<li>测试通过后，将功能分支合并到主分支和 develop 分支</li>
+</ol>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git checkout develop
+git merge --no-ff release-&lt;版本号&gt;
+git checkout master
+git merge --no-ff release-&lt;版本号&gt;
+git tag -a v1.0.0 -m <span style="color:#2aa198">&#34;add &lt;your feature description&gt;&#34;</span> <span style="color:#586e75"># master 分支打 tag</span>
+</code></pre></div><ol start="10">
+<li>删除原本的功能分支，也可以选择性删除对应的 release 分支</li>
+</ol>
+<h4 id="优点-2">
+  优点
+  <a class="heading-link" href="#%e4%bc%98%e7%82%b9-2">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h4>
+<ul>
+<li>每个分支分工明确，可并行开发多个功能</li>
+</ul>
+<h4 id="缺点-2">
+  缺点
+  <a class="heading-link" href="#%e7%bc%ba%e7%82%b9-2">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h4>
+<ul>
+<li>有一定的上手难度</li>
+</ul>
+<h4 id="适合场景-2">
+  适合场景
+  <a class="heading-link" href="#%e9%80%82%e5%90%88%e5%9c%ba%e6%99%af-2">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h4>
+<ul>
+<li>迭代速度快的大型项目</li>
+</ul>
+<h3 id="forking-工作流forking-workflow">
+  Forking 工作流（Forking Workflow）
+  <a class="heading-link" href="#forking-%e5%b7%a5%e4%bd%9c%e6%b5%81forking-workflow">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<p>开源项目中最常用到的工作流，例如 Kubernetes、Docker 等项目。fork 操作是在个人远程仓库新建一份目标远程仓库的副本，比如在 GitHub 上操作时，在项目的主页点击 fork 按钮（页面右上角），即可拷贝该目标远程仓库。示例图如下：</p>
+<p><img src="/img/git/forking-workflow.png" alt="无法显示图片"></p>
+<h4 id="举个例子-3">
+  举个例子
+  <a class="heading-link" href="#%e4%b8%be%e4%b8%aa%e4%be%8b%e5%ad%90-3">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h4>
+<p>以 Github 为例</p>
+<ol>
+<li>Fork 远程仓库到自己的账号下</li>
+<li>克隆 fork 的仓库到本地</li>
+<li>创建功能分支</li>
+<li>提交 commit</li>
+<li>push 功能分支到个人远程仓库</li>
+<li>个人远程仓库页面创建 pull request</li>
+</ol>
+<h4 id="优点-3">
+  优点
+  <a class="heading-link" href="#%e4%bc%98%e7%82%b9-3">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h4>
+<ul>
+<li>项目远程仓库和开发者远程仓库完全独立，避免授予开发者项目远程仓库的权限，从而提高安全性</li>
+<li>任意开发者都可以参与项目的开发</li>
+</ul>
+<h4 id="缺点-3">
+  缺点
+  <a class="heading-link" href="#%e7%bc%ba%e7%82%b9-3">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h4>
+<ul>
+<li>迭代速度慢</li>
+<li>开发者沟通困难</li>
+</ul>
+<h4 id="适用场景">
+  适用场景
+  <a class="heading-link" href="#%e9%80%82%e7%94%a8%e5%9c%ba%e6%99%af">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h4>
+<ul>
+<li>开源项目</li>
+<li>开发者不固定，可能是任意一个能访问到项目的开发者</li>
+<li>有项目衍生版的需求</li>
+</ul>
+<h2 id="总结">
+  总结
+  <a class="heading-link" href="#%e6%80%bb%e7%bb%93">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<ul>
+<li>集中式工作流：开发者直接在本地 master 分支开发代码，开发完成后 push 到远端仓库 master 分支。</li>
+<li>功能分支工作流：开发者基于 master 分支创建一个新分支，在新分支进行开发，开发完成后合并到远端仓库 master 分支。</li>
+<li>Git Flow 工作流：Git Flow 工作流为不同的分支分配一个明确的角色，并定义分支之间什么时候、如何进行交互，比较适合大型项目的开发。</li>
+<li>Forking 工作流：开发者先 fork 项目到个人仓库，在个人仓库完成开发后，提交 pull request 到目标远程仓库，远程仓库 review 后，合并 pull request 到 master 分支。</li>
+</ul>
+<p>总的来说，在选择工作流时，推荐如下：</p>
+<ul>
+<li>非开源项目采用 Git Flow 工作流。</li>
+<li>开源项目采用 Forking 工作流</li>
+</ul>
+<p>不同类型、规模、行业的软件项目采用的 Git 工作流可能都不尽相同，同时，发布频率、软件架构、基础设施能力、人员能力水平等因素也在制约着工作流的应用效果。所以，很难说有一种通用的工作流可以满足所有场景的需求，找到适合当前团队的工作流是最重要的。</p>
+<h2 id="附录">
+  附录
+  <a class="heading-link" href="#%e9%99%84%e5%bd%95">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<h3 id="git-commit-规范">
+  Git Commit 规范
+  <a class="heading-link" href="#git-commit-%e8%a7%84%e8%8c%83">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<blockquote>
+<p>在一个团队协作的项目中，开发人员需要经常提交一些代码去修复 bug 或者实现新的 feature。而项目中的文件和实现什么功能、解决什么问题都会渐渐淡忘，最后需要浪费时间去阅读代码。但是好的日志规范 commit messages 编写有帮助到我们，它也反映了一个开发人员是否是良好的协作者。</p>
+</blockquote>
+<p><strong>编写良好的 Commit messages 的好处：</strong></p>
+<ul>
+<li>加快 review 的流程</li>
+<li>编写良好的版本发布日志</li>
+<li>让之后的维护者了解代码里出现特定变化和 feature 被添加的原因</li>
+</ul>
+<p>当前业界应用的比较广泛的是 <a href="https://github.com/angular/angular/blob/master/CONTRIBUTING.md#-commit-message-guidelines">Angular Git Commit Template</a></p>
+<p>具体格式为:</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">&lt;type&gt;(&lt;scope&gt;): &lt;subject&gt;
+
+&lt;body&gt;
+
+&lt;footer&gt;
+复制代码
+</code></pre></div><ul>
+<li>type: 本次 commit 的类型
+<ul>
+<li>feat: 添加新特性</li>
+<li>fix: 修复 bug</li>
+<li>docs: 仅仅修改了文档</li>
+<li>style: 仅仅修改了空格、格式缩进、都好等等，不改变代码逻辑</li>
+<li>refactor: 代码重构，没有加新功能或者修复 bug</li>
+<li>perf: 增加代码进行性能测试</li>
+<li>test: 增加测试用例</li>
+<li>chore: 改变构建流程、或者增加依赖库、工具等</li>
+</ul>
+</li>
+<li>scope: 本次 commit 波及的范围，例如 Compiler, ElementInjector 等。</li>
+<li>subject: 简明扼要的阐述下本次 commit 的主旨。</li>
+<li>body: 包括改变的动机，并将其与以前的行为进行对比。</li>
+<li>footer: 描述下与之关联的 issue 或 break change。</li>
+</ul>
+<h4 id="commit-messages-格式要求">
+  Commit messages 格式要求
+  <a class="heading-link" href="#commit-messages-%e6%a0%bc%e5%bc%8f%e8%a6%81%e6%b1%82">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h4>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback"># 标题行：50个字符以内，描述主要变更内容
+#
+# 主体内容：更详细的说明文本，建议72个字符以内。 需要描述的信息包括:
+#
+# * 为什么这个变更是必须的? 它可能是用来修复一个bug，增加一个feature，提升性能、可靠性、稳定性等等
+# * 他如何解决这个问题? 具体描述解决问题的步骤
+# * 是否存在副作用、风险?
+#
+# 如果需要的化可以添加一个链接到issue地址或者其它文档
+</code></pre></div><h4 id="其他-commit-messages-模板">
+  其他 Commit Messages 模板
+  <a class="heading-link" href="#%e5%85%b6%e4%bb%96-commit-messages-%e6%a8%a1%e6%9d%bf">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h4>
+<ul>
+<li><a href="https://gist.github.com/lisawolderiksen/a7b99d94c92c6671181611be1641c733">Using Git Commit Message Templates to Write Better Commit Messages</a></li>
+<li><a href="https://gist.github.com/zakkak/7e06725ebd1336bfebebe254de3de825">another git commit message template</a></li>
+<li><a href="https://chris.beams.io/posts/git-commit/">How to Write a Git Commit Message</a></li>
+</ul>
+
+      </div>
+
+
+      <footer>
+        
+
+
+        
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+      </div>
+
+      
+  <footer class="footer">
+    <section class="container">
+      
+        <p>粤ICP备2021007187号</p>
+      
+      
+        ©
+        
+        2021
+         xblzbjs 
+      
+      
+      
+    </section>
+  </footer>
+
+
+    </main>
+
+    
+      
+      <script src="/js/coder.min.03b17769f4f91ae35667e1f2a1ca8c16f50562576cf90ff32b3179926914daa5.js" integrity="sha256-A7F3afT5GuNWZ&#43;HyocqMFvUFYlds&#43;Q/zKzF5kmkU2qU="></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QYYHFCMJHS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QYYHFCMJHS');
+</script>
+
+  </body>
+
+</html>

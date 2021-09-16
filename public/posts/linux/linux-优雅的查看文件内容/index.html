@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Language" content="zh-cn">
+    <meta name="color-scheme" content="light dark">
+
+    
+      <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests; block-all-mixed-content; default-src 'self'; child-src 'self'; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net/; form-action 'self'; frame-src 'self'; img-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/ https://cdn.jsdelivr.net/; script-src 'self' 'unsafe-inline' https://www.google-analytics.com; prefetch-src 'self'; connect-src 'self' https://www.google-analytics.com;">
+
+    
+
+    <meta name="author" content="xblzbjs">
+    <meta name="description" content="Linux 下查阅文件内容，可以根据不同场景选择不同的指令。
+cat    当文件较小时，比如一个配置文件，想要快速浏览这个文件，可以用cat指令。下面 cat 指令帮助我们快速查看/etc/hosts文件。cat指令将文件连接到标准输出流并打印到屏幕上。
+cat /etc/hosts	标准输出流（Standard Output）也是一种文件，进程可以将要输出的内容写入标准输出流文件，这样就可以在屏幕中打印。
+如果用cat查看大文件，比如一个线上的日志文件，因为动辄有几个 G，控制台打印出所有的内容就要非常久，而且刷屏显示看不到东西。
+而且如果在线上进行查看大文件的操作，会带来不必要的麻烦：
+ 需要把文件拷贝到输入输出流，这需要花费很长时间，这个过程会占用机器资源； 本身文件会读取到内存中，这时内存被大量占用，很危险，这可能导致其他应用内存不足。因此我们需要一些不用加载整个文件，就能查看文件内容的指令。  more    more可以帮助我们读取文件，但不需要读取整个文件到内存中。本身more的定位是一个阅读过滤器，比如你在more里除了可以向下翻页，还可以输入一段文本进行搜索。
+more &lt;file&gt; less    less是一个和more功能差不多的工具，打开man能够看到less的介绍上写着自己是more的反义词（opposite of more）。less支持向上翻页，这个功能more是做不到的。所以现在less用得更多一些。
+head/tail    head和tail是一组，它们用来读取一个文件的头部 N 行或者尾部 N 行。比如一个线上的大日志文件，当线上出了 bug，服务暂停的时候，我们就可以用
+tail -n 1000	去查看最后的 1000 行日志文件，寻找导致服务异常的原因。
+另一个比较重要的用法是，如果你想看一个实时的nginx日志，可以使用
+tail -f &lt;filename&gt;	# -f 代表follow:文件追加的内容会跟随输出到标准输出流。 这样你会看到用户的请求不断进来。
+grep    有时候你需要查看一个指定ip的nginx日志，或者查看一段时间内的nginx日志。如果不想用less和more进入文件中去查看，就可以用grep命令。
+grep 这个词，我们分成三段来看，是 g|re|p。
+ g 就是 global，全局； re 就是 regular expression，正则表达式； p 就是 pattern，模式。  所以这个指令的作用是通过正则表达式全局搜索一个文件找到匹配的模式。">
+    <meta name="keywords" content="blog,developer,personal">
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linux | 优雅的查看文件内容"/>
+<meta name="twitter:description" content="Linux 下查阅文件内容，可以根据不同场景选择不同的指令。
+cat    当文件较小时，比如一个配置文件，想要快速浏览这个文件，可以用cat指令。下面 cat 指令帮助我们快速查看/etc/hosts文件。cat指令将文件连接到标准输出流并打印到屏幕上。
+cat /etc/hosts	标准输出流（Standard Output）也是一种文件，进程可以将要输出的内容写入标准输出流文件，这样就可以在屏幕中打印。
+如果用cat查看大文件，比如一个线上的日志文件，因为动辄有几个 G，控制台打印出所有的内容就要非常久，而且刷屏显示看不到东西。
+而且如果在线上进行查看大文件的操作，会带来不必要的麻烦：
+ 需要把文件拷贝到输入输出流，这需要花费很长时间，这个过程会占用机器资源； 本身文件会读取到内存中，这时内存被大量占用，很危险，这可能导致其他应用内存不足。因此我们需要一些不用加载整个文件，就能查看文件内容的指令。  more    more可以帮助我们读取文件，但不需要读取整个文件到内存中。本身more的定位是一个阅读过滤器，比如你在more里除了可以向下翻页，还可以输入一段文本进行搜索。
+more &lt;file&gt; less    less是一个和more功能差不多的工具，打开man能够看到less的介绍上写着自己是more的反义词（opposite of more）。less支持向上翻页，这个功能more是做不到的。所以现在less用得更多一些。
+head/tail    head和tail是一组，它们用来读取一个文件的头部 N 行或者尾部 N 行。比如一个线上的大日志文件，当线上出了 bug，服务暂停的时候，我们就可以用
+tail -n 1000	去查看最后的 1000 行日志文件，寻找导致服务异常的原因。
+另一个比较重要的用法是，如果你想看一个实时的nginx日志，可以使用
+tail -f &lt;filename&gt;	# -f 代表follow:文件追加的内容会跟随输出到标准输出流。 这样你会看到用户的请求不断进来。
+grep    有时候你需要查看一个指定ip的nginx日志，或者查看一段时间内的nginx日志。如果不想用less和more进入文件中去查看，就可以用grep命令。
+grep 这个词，我们分成三段来看，是 g|re|p。
+ g 就是 global，全局； re 就是 regular expression，正则表达式； p 就是 pattern，模式。  所以这个指令的作用是通过正则表达式全局搜索一个文件找到匹配的模式。"/>
+
+    <meta property="og:title" content="Linux | 优雅的查看文件内容" />
+<meta property="og:description" content="Linux 下查阅文件内容，可以根据不同场景选择不同的指令。
+cat    当文件较小时，比如一个配置文件，想要快速浏览这个文件，可以用cat指令。下面 cat 指令帮助我们快速查看/etc/hosts文件。cat指令将文件连接到标准输出流并打印到屏幕上。
+cat /etc/hosts	标准输出流（Standard Output）也是一种文件，进程可以将要输出的内容写入标准输出流文件，这样就可以在屏幕中打印。
+如果用cat查看大文件，比如一个线上的日志文件，因为动辄有几个 G，控制台打印出所有的内容就要非常久，而且刷屏显示看不到东西。
+而且如果在线上进行查看大文件的操作，会带来不必要的麻烦：
+ 需要把文件拷贝到输入输出流，这需要花费很长时间，这个过程会占用机器资源； 本身文件会读取到内存中，这时内存被大量占用，很危险，这可能导致其他应用内存不足。因此我们需要一些不用加载整个文件，就能查看文件内容的指令。  more    more可以帮助我们读取文件，但不需要读取整个文件到内存中。本身more的定位是一个阅读过滤器，比如你在more里除了可以向下翻页，还可以输入一段文本进行搜索。
+more &lt;file&gt; less    less是一个和more功能差不多的工具，打开man能够看到less的介绍上写着自己是more的反义词（opposite of more）。less支持向上翻页，这个功能more是做不到的。所以现在less用得更多一些。
+head/tail    head和tail是一组，它们用来读取一个文件的头部 N 行或者尾部 N 行。比如一个线上的大日志文件，当线上出了 bug，服务暂停的时候，我们就可以用
+tail -n 1000	去查看最后的 1000 行日志文件，寻找导致服务异常的原因。
+另一个比较重要的用法是，如果你想看一个实时的nginx日志，可以使用
+tail -f &lt;filename&gt;	# -f 代表follow:文件追加的内容会跟随输出到标准输出流。 这样你会看到用户的请求不断进来。
+grep    有时候你需要查看一个指定ip的nginx日志，或者查看一段时间内的nginx日志。如果不想用less和more进入文件中去查看，就可以用grep命令。
+grep 这个词，我们分成三段来看，是 g|re|p。
+ g 就是 global，全局； re 就是 regular expression，正则表达式； p 就是 pattern，模式。  所以这个指令的作用是通过正则表达式全局搜索一个文件找到匹配的模式。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xblzbjs.cn/posts/linux/linux-%E4%BC%98%E9%9B%85%E7%9A%84%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-07-06T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2021-07-06T00:00:00&#43;00:00" />
+
+
+
+    <title>
+  Linux | 优雅的查看文件内容 · xblzbjs
+</title>
+
+    
+      <link rel="canonical" href="https://xblzbjs.cn/posts/linux/linux-%E4%BC%98%E9%9B%85%E7%9A%84%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9/">
+    
+
+    <link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
+
+    
+      
+      
+      <link rel="stylesheet" href="/css/coder.min.93c41bf1e522f85ecda7355985f09000f71fc1d64dda9f74051b0fa06210e93f.css" integrity="sha256-k8Qb8eUi&#43;F7NpzVZhfCQAPcfwdZN2p90BRsPoGIQ6T8=" crossorigin="anonymous" media="screen" />
+    
+
+    
+
+    
+      
+        
+        
+        <link rel="stylesheet" href="/css/coder-dark.min.f37febc669ce189201c1918fac1948a254686c8d366a312c2d72b2bb71ad97d1.css" integrity="sha256-83/rxmnOGJIBwZGPrBlIolRobI02ajEsLXKyu3Gtl9E=" crossorigin="anonymous" media="screen" />
+      
+    
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16">
+
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+    
+      <script defer src="https://twemoji.maxcdn.com/v/13.0.2/twemoji.min.js"
+        integrity="sha384-wyB/MspSJ/r2bT2kCj44qtsYRYlpzO2oAPhRj5myrWD63dt6qWv4x8AZe7Fl3K3b" crossorigin="anonymous"></script>
+    
+
+    <meta name="generator" content="Hugo 0.83.1" />
+  </head>
+
+  
+  
+    
+  
+  <body class="preload-transitions colorscheme-auto"
+        onload=" twemoji.parse(document.body); "
+  >
+    
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      xblzbjs
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">随笔</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/categories/">分类</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/tags/">标签</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">关于</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/learning-materials/">学习资料</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="https://xblzbjs.cn/posts/linux/linux-%E4%BC%98%E9%9B%85%E7%9A%84%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9/">
+              Linux | 优雅的查看文件内容
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime='2021-07-06T00:00:00Z'>
+                July 6, 2021
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              阅读时间：1 分钟
+            </span>
+          </div>
+          
+          
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="/tags/linux/">Linux</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+        <p>Linux 下查阅文件内容，可以根据不同场景选择不同的指令。</p>
+<h3 id="cat">
+  cat
+  <a class="heading-link" href="#cat">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<p>当文件较小时，比如一个配置文件，想要快速浏览这个文件，可以用cat指令。下面 cat 指令帮助我们快速查看/etc/hosts文件。cat指令将文件连接到标准输出流并打印到屏幕上。</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cat /etc/hosts	
+</code></pre></div><p>标准输出流（Standard Output）也是一种文件，进程可以将要输出的内容写入标准输出流文件，这样就可以在屏幕中打印。</p>
+<p>如果用cat查看大文件，比如一个线上的日志文件，因为动辄有几个 G，控制台打印出所有的内容就要非常久，而且刷屏显示看不到东西。</p>
+<p>而且如果在线上进行查看大文件的操作，会带来不必要的麻烦：</p>
+<ul>
+<li>需要把文件拷贝到输入输出流，这需要花费很长时间，这个过程会占用机器资源；</li>
+<li>本身文件会读取到内存中，这时内存被大量占用，很危险，这可能导致其他应用内存不足。因此我们需要一些不用加载整个文件，就能查看文件内容的指令。</li>
+</ul>
+<h3 id="more">
+  more
+  <a class="heading-link" href="#more">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<p>more可以帮助我们读取文件，但不需要读取整个文件到内存中。本身more的定位是一个阅读过滤器，比如你在more里除了可以向下翻页，还可以输入一段文本进行搜索。</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">more &lt;file&gt;
+</code></pre></div><h3 id="less">
+  less
+  <a class="heading-link" href="#less">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<p>less是一个和more功能差不多的工具，打开man能够看到less的介绍上写着自己是more的反义词（opposite of more）。less支持向上翻页，这个功能more是做不到的。所以现在less用得更多一些。</p>
+<h3 id="headtail">
+  head/tail
+  <a class="heading-link" href="#headtail">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<p>head和tail是一组，它们用来读取一个文件的头部 N 行或者尾部 N 行。比如一个线上的大日志文件，当线上出了 bug，服务暂停的时候，我们就可以用</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">tail -n 1000	
+</code></pre></div><p>去查看最后的 1000 行日志文件，寻找导致服务异常的原因。</p>
+<p>另一个比较重要的用法是，如果你想看一个实时的nginx日志，可以使用</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">tail -f &lt;filename&gt;	<span style="color:#586e75"># -f 代表follow:文件追加的内容会跟随输出到标准输出流。</span>
+</code></pre></div><p>这样你会看到用户的请求不断进来。</p>
+<h3 id="grep">
+  grep
+  <a class="heading-link" href="#grep">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<p>有时候你需要查看一个指定ip的nginx日志，或者查看一段时间内的nginx日志。如果不想用less和more进入文件中去查看，就可以用grep命令。</p>
+<p>grep 这个词，我们分成三段来看，是 g|re|p。</p>
+<ul>
+<li>g 就是 global，全局；</li>
+<li>re 就是 regular expression，正则表达式；</li>
+<li>p 就是 pattern，模式。</li>
+</ul>
+<p>所以这个指令的作用是通过正则表达式全局搜索一个文件找到匹配的模式。</p>
+<p>下面我们举两个例子看看 grep 的用法：</p>
+<p>例 1：通过nginx日志查找 ip 地址</p>
+<p>可以通过grep命令定位某个ip地址的用户都做了什么事情，如下图所示：</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">grep &lt;ip&gt; &lt;nginx log file&gt;
+</code></pre></div><p>例 2：通过nginx查找时间段的日志</p>
+<p>可以通过 grep 命令查找某个时间段内用户都做了什么事情。</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">grep 09/May/2021:10:20 &lt;nginx log file&gt; <span style="color:#586e75"># 查看2021-05-09:10.20 五分钟内所有用户的访问情况</span>
+</code></pre></div>
+      </div>
+
+
+      <footer>
+        
+
+
+        
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+      </div>
+
+      
+  <footer class="footer">
+    <section class="container">
+      
+        <p>粤ICP备2021007187号</p>
+      
+      
+        ©
+        
+        2021
+         xblzbjs 
+      
+      
+      
+    </section>
+  </footer>
+
+
+    </main>
+
+    
+      
+      <script src="/js/coder.min.03b17769f4f91ae35667e1f2a1ca8c16f50562576cf90ff32b3179926914daa5.js" integrity="sha256-A7F3afT5GuNWZ&#43;HyocqMFvUFYlds&#43;Q/zKzF5kmkU2qU="></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QYYHFCMJHS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QYYHFCMJHS');
+</script>
+
+  </body>
+
+</html>

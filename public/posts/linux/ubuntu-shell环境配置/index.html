@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Language" content="zh-cn">
+    <meta name="color-scheme" content="light dark">
+
+    
+      <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests; block-all-mixed-content; default-src 'self'; child-src 'self'; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net/; form-action 'self'; frame-src 'self'; img-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/ https://cdn.jsdelivr.net/; script-src 'self' 'unsafe-inline' https://www.google-analytics.com; prefetch-src 'self'; connect-src 'self' https://www.google-analytics.com;">
+
+    
+
+    <meta name="author" content="xblzbjs">
+    <meta name="description" content="终端模拟器选择    推荐三个
+1. Gnome Terminal（原生）    2. Terminator（在用）    3. Guake    终端配置（Zsh &#43; Oh My Zsh &#43; PowerLevel10k）    1. 安装Zsh    # apt 打包安装 zsh sudo apt install zsh # 确认 zsh 成功安装 zsh --version # 设置为默认Shell并确认 chsh -s $(which zsh) echo $SHELL 2. 安装Oh My Zsh    # 推荐使用curl安装 sh -c &#34;$(curl -fsSL https://raw.">
+    <meta name="keywords" content="blog,developer,personal">
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Ubuntu Shell环境配置"/>
+<meta name="twitter:description" content="终端模拟器选择    推荐三个
+1. Gnome Terminal（原生）    2. Terminator（在用）    3. Guake    终端配置（Zsh &#43; Oh My Zsh &#43; PowerLevel10k）    1. 安装Zsh    # apt 打包安装 zsh sudo apt install zsh # 确认 zsh 成功安装 zsh --version # 设置为默认Shell并确认 chsh -s $(which zsh) echo $SHELL 2. 安装Oh My Zsh    # 推荐使用curl安装 sh -c &#34;$(curl -fsSL https://raw."/>
+
+    <meta property="og:title" content="Ubuntu Shell环境配置" />
+<meta property="og:description" content="终端模拟器选择    推荐三个
+1. Gnome Terminal（原生）    2. Terminator（在用）    3. Guake    终端配置（Zsh &#43; Oh My Zsh &#43; PowerLevel10k）    1. 安装Zsh    # apt 打包安装 zsh sudo apt install zsh # 确认 zsh 成功安装 zsh --version # 设置为默认Shell并确认 chsh -s $(which zsh) echo $SHELL 2. 安装Oh My Zsh    # 推荐使用curl安装 sh -c &#34;$(curl -fsSL https://raw." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xblzbjs.cn/posts/linux/ubuntu-shell%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-07-02T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2021-07-02T00:00:00&#43;00:00" />
+
+
+
+    <title>
+  Ubuntu Shell环境配置 · xblzbjs
+</title>
+
+    
+      <link rel="canonical" href="https://xblzbjs.cn/posts/linux/ubuntu-shell%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">
+    
+
+    <link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
+
+    
+      
+      
+      <link rel="stylesheet" href="/css/coder.min.93c41bf1e522f85ecda7355985f09000f71fc1d64dda9f74051b0fa06210e93f.css" integrity="sha256-k8Qb8eUi&#43;F7NpzVZhfCQAPcfwdZN2p90BRsPoGIQ6T8=" crossorigin="anonymous" media="screen" />
+    
+
+    
+
+    
+      
+        
+        
+        <link rel="stylesheet" href="/css/coder-dark.min.f37febc669ce189201c1918fac1948a254686c8d366a312c2d72b2bb71ad97d1.css" integrity="sha256-83/rxmnOGJIBwZGPrBlIolRobI02ajEsLXKyu3Gtl9E=" crossorigin="anonymous" media="screen" />
+      
+    
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16">
+
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+    
+      <script defer src="https://twemoji.maxcdn.com/v/13.0.2/twemoji.min.js"
+        integrity="sha384-wyB/MspSJ/r2bT2kCj44qtsYRYlpzO2oAPhRj5myrWD63dt6qWv4x8AZe7Fl3K3b" crossorigin="anonymous"></script>
+    
+
+    <meta name="generator" content="Hugo 0.83.1" />
+  </head>
+
+  
+  
+    
+  
+  <body class="preload-transitions colorscheme-auto"
+        onload=" twemoji.parse(document.body); "
+  >
+    
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      xblzbjs
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">随笔</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/categories/">分类</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/tags/">标签</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">关于</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/learning-materials/">学习资料</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="https://xblzbjs.cn/posts/linux/ubuntu-shell%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">
+              Ubuntu Shell环境配置
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime='2021-07-02T00:00:00Z'>
+                July 2, 2021
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              阅读时间：1 分钟
+            </span>
+          </div>
+          
+          
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="/tags/linux/">Linux</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/ubuntu/">Ubuntu</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+        <h2 id="终端模拟器选择">
+  终端模拟器选择
+  <a class="heading-link" href="#%e7%bb%88%e7%ab%af%e6%a8%a1%e6%8b%9f%e5%99%a8%e9%80%89%e6%8b%a9">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>推荐三个</p>
+<h3 id="1-gnome-terminal原生httpshelpgnomeorgusersgnome-terminalstable">
+  1. <a href="https://help.gnome.org/users/gnome-terminal/stable/">Gnome Terminal（原生）</a>
+  <a class="heading-link" href="#1-gnome-terminal%e5%8e%9f%e7%94%9fhttpshelpgnomeorgusersgnome-terminalstable">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<h3 id="2-terminator在用httpsgnometerminatorblogspotcompintroductionhtml">
+  2. <a href="https://gnometerminator.blogspot.com/p/introduction.html">Terminator（在用）</a>
+  <a class="heading-link" href="#2-terminator%e5%9c%a8%e7%94%a8httpsgnometerminatorblogspotcompintroductionhtml">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<h3 id="3-guakehttpguake-projectorg">
+  3. <a href="http://guake-project.org/">Guake</a>
+  <a class="heading-link" href="#3-guakehttpguake-projectorg">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<h2 id="终端配置zsh--oh-my-zsh--powerlevel10k">
+  终端配置（Zsh + Oh My Zsh + PowerLevel10k）
+  <a class="heading-link" href="#%e7%bb%88%e7%ab%af%e9%85%8d%e7%bd%aezsh--oh-my-zsh--powerlevel10k">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<h3 id="1-安装zshhttpsgithubcomohmyzshohmyzshwikiinstalling-zsh">
+  1. 安装<a href="https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH">Zsh</a>
+  <a class="heading-link" href="#1-%e5%ae%89%e8%a3%85zshhttpsgithubcomohmyzshohmyzshwikiinstalling-zsh">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-zsh" data-lang="zsh"><span style="color:#586e75"># apt 打包安装 zsh</span>
+sudo apt install zsh
+<span style="color:#586e75"># 确认 zsh 成功安装</span>
+zsh --version
+<span style="color:#586e75"># 设置为默认Shell并确认</span>
+chsh -s <span style="color:#719e07">$(</span>which zsh<span style="color:#719e07">)</span>
+<span style="color:#b58900">echo</span> <span style="color:#268bd2">$SHELL</span>
+</code></pre></div><h3 id="2-安装oh-my-zshhttpsgithubcomohmyzshohmyzsh">
+  2. 安装<a href="https://github.com/ohmyzsh/ohmyzsh">Oh My Zsh</a>
+  <a class="heading-link" href="#2-%e5%ae%89%e8%a3%85oh-my-zshhttpsgithubcomohmyzshohmyzsh">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-zsh" data-lang="zsh"><span style="color:#586e75"># 推荐使用curl安装</span>
+sh -c <span style="color:#2aa198">&#34;</span><span style="color:#719e07">$(</span>curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh<span style="color:#719e07">)</span><span style="color:#2aa198">
+</span><span style="color:#2aa198"># 如果没有安装curl，安装一下吧，你会发现它十分强大
+</span><span style="color:#2aa198">sudo apt install zsh
+</span></code></pre></div><h3 id="3-配置zsh主题powerlevel10k">
+  3. 配置Zsh主题(PowerLevel10k)
+  <a class="heading-link" href="#3-%e9%85%8d%e7%bd%aezsh%e4%b8%bb%e9%a2%98powerlevel10k">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<p>Oh My Zsh自带的主题也很不错,你可以参考参考。</p>
+<p>我自己的电脑上设置的主题为 <a href="https://github.com/romkatv/powerlevel10k">Powerlevel10k</a></p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-zsh" data-lang="zsh">git clone --depth<span style="color:#719e07">=</span><span style="color:#2aa198">1</span> https://github.com/romkatv/powerlevel10k.git <span style="color:#2aa198">${</span><span style="color:#268bd2">ZSH_CUSTOM</span><span style="color:#719e07">:-</span>~/.oh-my-zsh/custom<span style="color:#2aa198">}</span>/themes/powerlevel10k
+</code></pre></div><p>安装下面的字体文件:</p>
+<ul>
+<li><a href="https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS">MesloLGS NF Regular.ttf</a></li>
+<li><a href="https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS">MesloLGS NF Bold.ttf</a></li>
+<li><a href="https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS">MesloLGS NF Italic.ttf</a></li>
+<li><a href="https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS">MesloLGS NF Bold Italic.ttf</a></li>
+</ul>
+<p>设置 <code>~/.zshrc</code></p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-zsh" data-lang="zsh">vim ~/.zshrc
+</code></pre></div><p>设置 <code>ZSH_THEME=&quot;powerlevel10k/powerlevel10k&quot;</code>，</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-zsh" data-lang="zsh"><span style="color:#b58900">source</span> ~/.zshrc
+</code></pre></div><h3 id="4-oh-my-zsh插件">
+  4. Oh My Zsh插件
+  <a class="heading-link" href="#4-oh-my-zsh%e6%8f%92%e4%bb%b6">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<p>目前在用的</p>
+<ul>
+<li><a href="https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/git/git.plugin.zsh">git</a></li>
+<li><a href="https://github.com/wting/autojump">autojump</a></li>
+<li><a href="https://github.com/zsh-users/zsh-syntax-highlighting">syntax-highlighting</a></li>
+<li><a href="https://github.com/zsh-users/zsh-autosuggestions">autosuggestions</a></li>
+<li><a href="https://github.com/StackExchange/blackbox">blackbox</a></li>
+</ul>
+<p>更多优秀的插件请参考</p>
+<p><a href="https://project-awesome.org/unixorn/awesome-zsh-plugins">awesome-zsh-plugins</a></p>
+
+      </div>
+
+
+      <footer>
+        
+
+
+        
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+      </div>
+
+      
+  <footer class="footer">
+    <section class="container">
+      
+        <p>粤ICP备2021007187号</p>
+      
+      
+        ©
+        
+        2021
+         xblzbjs 
+      
+      
+      
+    </section>
+  </footer>
+
+
+    </main>
+
+    
+      
+      <script src="/js/coder.min.03b17769f4f91ae35667e1f2a1ca8c16f50562576cf90ff32b3179926914daa5.js" integrity="sha256-A7F3afT5GuNWZ&#43;HyocqMFvUFYlds&#43;Q/zKzF5kmkU2qU="></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QYYHFCMJHS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QYYHFCMJHS');
+</script>
+
+  </body>
+
+</html>

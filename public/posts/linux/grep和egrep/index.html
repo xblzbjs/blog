@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Language" content="zh-cn">
+    <meta name="color-scheme" content="light dark">
+
+    
+      <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests; block-all-mixed-content; default-src 'self'; child-src 'self'; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net/; form-action 'self'; frame-src 'self'; img-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/ https://cdn.jsdelivr.net/; script-src 'self' 'unsafe-inline' https://www.google-analytics.com; prefetch-src 'self'; connect-src 'self' https://www.google-analytics.com;">
+
+    
+
+    <meta name="author" content="xblzbjs">
+    <meta name="description" content="语法    第一种形式    grep [option] [pattern] [file, file2...] 第二种形式    command | grep [option] [pattern] 参数选项    必须掌握       选项 含义     -v 不显示匹配航信息   -i 搜索时忽略大小写   -n 显示行号   -r 递归搜索（只适合第二种语法）   -E 支持扩展正则表达式   -F 不按正则表达式匹配，按照字符串字面意思匹配    了解即可       选项 含义     -c 只输出匹配行的数量，不显示具体内容   -w 匹配整词   -x 匹配整行   -l 只列出匹配的文件名，不显示具体匹配行的内容    grep和egrep：     grep默认不支持扩展正则表达式，只支持基础正则表达式 使用grep -E可以支持扩展正则表达式 使用egrep可以支持扩展正则表达式，与grep -E等价  ">
+    <meta name="keywords" content="blog,developer,personal">
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="grep和egrep"/>
+<meta name="twitter:description" content="语法    第一种形式    grep [option] [pattern] [file, file2...] 第二种形式    command | grep [option] [pattern] 参数选项    必须掌握       选项 含义     -v 不显示匹配航信息   -i 搜索时忽略大小写   -n 显示行号   -r 递归搜索（只适合第二种语法）   -E 支持扩展正则表达式   -F 不按正则表达式匹配，按照字符串字面意思匹配    了解即可       选项 含义     -c 只输出匹配行的数量，不显示具体内容   -w 匹配整词   -x 匹配整行   -l 只列出匹配的文件名，不显示具体匹配行的内容    grep和egrep：     grep默认不支持扩展正则表达式，只支持基础正则表达式 使用grep -E可以支持扩展正则表达式 使用egrep可以支持扩展正则表达式，与grep -E等价  "/>
+
+    <meta property="og:title" content="grep和egrep" />
+<meta property="og:description" content="语法    第一种形式    grep [option] [pattern] [file, file2...] 第二种形式    command | grep [option] [pattern] 参数选项    必须掌握       选项 含义     -v 不显示匹配航信息   -i 搜索时忽略大小写   -n 显示行号   -r 递归搜索（只适合第二种语法）   -E 支持扩展正则表达式   -F 不按正则表达式匹配，按照字符串字面意思匹配    了解即可       选项 含义     -c 只输出匹配行的数量，不显示具体内容   -w 匹配整词   -x 匹配整行   -l 只列出匹配的文件名，不显示具体匹配行的内容    grep和egrep：     grep默认不支持扩展正则表达式，只支持基础正则表达式 使用grep -E可以支持扩展正则表达式 使用egrep可以支持扩展正则表达式，与grep -E等价  " />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xblzbjs.cn/posts/linux/grep%E5%92%8Cegrep/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-07-03T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2021-07-03T00:00:00&#43;00:00" />
+
+
+
+    <title>
+  grep和egrep · xblzbjs
+</title>
+
+    
+      <link rel="canonical" href="https://xblzbjs.cn/posts/linux/grep%E5%92%8Cegrep/">
+    
+
+    <link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
+
+    
+      
+      
+      <link rel="stylesheet" href="/css/coder.min.93c41bf1e522f85ecda7355985f09000f71fc1d64dda9f74051b0fa06210e93f.css" integrity="sha256-k8Qb8eUi&#43;F7NpzVZhfCQAPcfwdZN2p90BRsPoGIQ6T8=" crossorigin="anonymous" media="screen" />
+    
+
+    
+
+    
+      
+        
+        
+        <link rel="stylesheet" href="/css/coder-dark.min.f37febc669ce189201c1918fac1948a254686c8d366a312c2d72b2bb71ad97d1.css" integrity="sha256-83/rxmnOGJIBwZGPrBlIolRobI02ajEsLXKyu3Gtl9E=" crossorigin="anonymous" media="screen" />
+      
+    
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16">
+
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+    
+      <script defer src="https://twemoji.maxcdn.com/v/13.0.2/twemoji.min.js"
+        integrity="sha384-wyB/MspSJ/r2bT2kCj44qtsYRYlpzO2oAPhRj5myrWD63dt6qWv4x8AZe7Fl3K3b" crossorigin="anonymous"></script>
+    
+
+    <meta name="generator" content="Hugo 0.83.1" />
+  </head>
+
+  
+  
+    
+  
+  <body class="preload-transitions colorscheme-auto"
+        onload=" twemoji.parse(document.body); "
+  >
+    
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      xblzbjs
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">随笔</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/categories/">分类</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/tags/">标签</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">关于</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/learning-materials/">学习资料</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="https://xblzbjs.cn/posts/linux/grep%E5%92%8Cegrep/">
+              grep和egrep
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime='2021-07-03T00:00:00Z'>
+                July 3, 2021
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              阅读时间：1 分钟
+            </span>
+          </div>
+          
+          
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="/tags/linux/">Linux</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/shell/">Shell</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+        <h2 id="语法">
+  语法
+  <a class="heading-link" href="#%e8%af%ad%e6%b3%95">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<h3 id="第一种形式">
+  第一种形式
+  <a class="heading-link" href="#%e7%ac%ac%e4%b8%80%e7%a7%8d%e5%bd%a2%e5%bc%8f">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">grep <span style="color:#719e07">[</span>option<span style="color:#719e07">]</span> <span style="color:#719e07">[</span>pattern<span style="color:#719e07">]</span> <span style="color:#719e07">[</span>file, file2...<span style="color:#719e07">]</span>
+</code></pre></div><h3 id="第二种形式">
+  第二种形式
+  <a class="heading-link" href="#%e7%ac%ac%e4%ba%8c%e7%a7%8d%e5%bd%a2%e5%bc%8f">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#b58900">command</span> | grep <span style="color:#719e07">[</span>option<span style="color:#719e07">]</span> <span style="color:#719e07">[</span>pattern<span style="color:#719e07">]</span>
+</code></pre></div><h2 id="参数选项">
+  参数选项
+  <a class="heading-link" href="#%e5%8f%82%e6%95%b0%e9%80%89%e9%a1%b9">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<h3 id="必须掌握">
+  必须掌握
+  <a class="heading-link" href="#%e5%bf%85%e9%a1%bb%e6%8e%8c%e6%8f%a1">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-v</td>
+<td>不显示匹配航信息</td>
+</tr>
+<tr>
+<td>-i</td>
+<td>搜索时忽略大小写</td>
+</tr>
+<tr>
+<td>-n</td>
+<td>显示行号</td>
+</tr>
+<tr>
+<td>-r</td>
+<td>递归搜索（只适合第二种语法）</td>
+</tr>
+<tr>
+<td>-E</td>
+<td>支持扩展正则表达式</td>
+</tr>
+<tr>
+<td>-F</td>
+<td>不按正则表达式匹配，按照字符串字面意思匹配</td>
+</tr>
+</tbody>
+</table>
+<h3 id="了解即可">
+  了解即可
+  <a class="heading-link" href="#%e4%ba%86%e8%a7%a3%e5%8d%b3%e5%8f%af">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-c</td>
+<td>只输出匹配行的数量，不显示具体内容</td>
+</tr>
+<tr>
+<td>-w</td>
+<td>匹配整词</td>
+</tr>
+<tr>
+<td>-x</td>
+<td>匹配整行</td>
+</tr>
+<tr>
+<td>-l</td>
+<td>只列出匹配的文件名，不显示具体匹配行的内容</td>
+</tr>
+</tbody>
+</table>
+<h2 id="grep和egrep">
+  grep和egrep：
+  <a class="heading-link" href="#grep%e5%92%8cegrep">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<ul>
+<li>grep默认不支持扩展正则表达式，只支持基础正则表达式</li>
+<li>使用grep -E可以支持扩展正则表达式</li>
+<li>使用egrep可以支持扩展正则表达式，与grep -E等价</li>
+</ul>
+
+      </div>
+
+
+      <footer>
+        
+
+
+        
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+      </div>
+
+      
+  <footer class="footer">
+    <section class="container">
+      
+        <p>粤ICP备2021007187号</p>
+      
+      
+        ©
+        
+        2021
+         xblzbjs 
+      
+      
+      
+    </section>
+  </footer>
+
+
+    </main>
+
+    
+      
+      <script src="/js/coder.min.03b17769f4f91ae35667e1f2a1ca8c16f50562576cf90ff32b3179926914daa5.js" integrity="sha256-A7F3afT5GuNWZ&#43;HyocqMFvUFYlds&#43;Q/zKzF5kmkU2qU="></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QYYHFCMJHS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QYYHFCMJHS');
+</script>
+
+  </body>
+
+</html>

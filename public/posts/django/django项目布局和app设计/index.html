@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Language" content="zh-cn">
+    <meta name="color-scheme" content="light dark">
+
+    
+      <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests; block-all-mixed-content; default-src 'self'; child-src 'self'; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net/; form-action 'self'; frame-src 'self'; img-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/ https://cdn.jsdelivr.net/; script-src 'self' 'unsafe-inline' https://www.google-analytics.com; prefetch-src 'self'; connect-src 'self' https://www.google-analytics.com;">
+
+    
+
+    <meta name="author" content="xblzbjs">
+    <meta name="description" content="有许多项目模板可以启动Django项目。
+  cookiecutter-django
+  Django包
+  项目布局    默认的项目布局和更好的项目布局    # 默认项目布局  mysite/ ├── manage.py ├── my_app │ ├── __init__.py │ ├── admin.py │ ├── apps.py │ ├── migrations │ │ └── __init__.py │ ├── models.py │ ├── tests.py │ └── views.py └── mysite ├── __init__.py ├── asgi.py ├── settings.py ├── urls.py └── wsgi.py # 更好的项目布局 &lt;repository_root&gt;/ ├── &lt;configuration_root&gt;/ ├── &lt;django_project_root&gt;/ 仓库根目录 repository_root    &lt;repository_root&gt;目录是项目的绝对根目录.">
+    <meta name="keywords" content="blog,developer,personal">
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Django｜项目布局和App设计"/>
+<meta name="twitter:description" content="有许多项目模板可以启动Django项目。
+  cookiecutter-django
+  Django包
+  项目布局    默认的项目布局和更好的项目布局    # 默认项目布局  mysite/ ├── manage.py ├── my_app │ ├── __init__.py │ ├── admin.py │ ├── apps.py │ ├── migrations │ │ └── __init__.py │ ├── models.py │ ├── tests.py │ └── views.py └── mysite ├── __init__.py ├── asgi.py ├── settings.py ├── urls.py └── wsgi.py # 更好的项目布局 &lt;repository_root&gt;/ ├── &lt;configuration_root&gt;/ ├── &lt;django_project_root&gt;/ 仓库根目录 repository_root    &lt;repository_root&gt;目录是项目的绝对根目录."/>
+
+    <meta property="og:title" content="Django｜项目布局和App设计" />
+<meta property="og:description" content="有许多项目模板可以启动Django项目。
+  cookiecutter-django
+  Django包
+  项目布局    默认的项目布局和更好的项目布局    # 默认项目布局  mysite/ ├── manage.py ├── my_app │ ├── __init__.py │ ├── admin.py │ ├── apps.py │ ├── migrations │ │ └── __init__.py │ ├── models.py │ ├── tests.py │ └── views.py └── mysite ├── __init__.py ├── asgi.py ├── settings.py ├── urls.py └── wsgi.py # 更好的项目布局 &lt;repository_root&gt;/ ├── &lt;configuration_root&gt;/ ├── &lt;django_project_root&gt;/ 仓库根目录 repository_root    &lt;repository_root&gt;目录是项目的绝对根目录." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xblzbjs.cn/posts/django/django%E9%A1%B9%E7%9B%AE%E5%B8%83%E5%B1%80%E5%92%8Capp%E8%AE%BE%E8%AE%A1/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-03-20T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2021-03-20T00:00:00&#43;00:00" />
+
+
+
+    <title>
+  Django｜项目布局和App设计 · xblzbjs
+</title>
+
+    
+      <link rel="canonical" href="https://xblzbjs.cn/posts/django/django%E9%A1%B9%E7%9B%AE%E5%B8%83%E5%B1%80%E5%92%8Capp%E8%AE%BE%E8%AE%A1/">
+    
+
+    <link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
+
+    
+      
+      
+      <link rel="stylesheet" href="/css/coder.min.93c41bf1e522f85ecda7355985f09000f71fc1d64dda9f74051b0fa06210e93f.css" integrity="sha256-k8Qb8eUi&#43;F7NpzVZhfCQAPcfwdZN2p90BRsPoGIQ6T8=" crossorigin="anonymous" media="screen" />
+    
+
+    
+
+    
+      
+        
+        
+        <link rel="stylesheet" href="/css/coder-dark.min.f37febc669ce189201c1918fac1948a254686c8d366a312c2d72b2bb71ad97d1.css" integrity="sha256-83/rxmnOGJIBwZGPrBlIolRobI02ajEsLXKyu3Gtl9E=" crossorigin="anonymous" media="screen" />
+      
+    
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16">
+
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+    
+      <script defer src="https://twemoji.maxcdn.com/v/13.0.2/twemoji.min.js"
+        integrity="sha384-wyB/MspSJ/r2bT2kCj44qtsYRYlpzO2oAPhRj5myrWD63dt6qWv4x8AZe7Fl3K3b" crossorigin="anonymous"></script>
+    
+
+    <meta name="generator" content="Hugo 0.83.1" />
+  </head>
+
+  
+  
+    
+  
+  <body class="preload-transitions colorscheme-auto"
+        onload=" twemoji.parse(document.body); "
+  >
+    
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      xblzbjs
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">随笔</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/categories/">分类</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/tags/">标签</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">关于</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/learning-materials/">学习资料</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="https://xblzbjs.cn/posts/django/django%E9%A1%B9%E7%9B%AE%E5%B8%83%E5%B1%80%E5%92%8Capp%E8%AE%BE%E8%AE%A1/">
+              Django｜项目布局和App设计
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime='2021-03-20T00:00:00Z'>
+                March 20, 2021
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              阅读时间：4 分钟
+            </span>
+          </div>
+          
+          
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="/tags/django/">Django</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/python/">Python</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+        <p>有许多项目模板可以启动Django项目。</p>
+<ul>
+<li>
+<p><a href="https://github.com/pydanny/cookiecutter-django">cookiecutter-django</a></p>
+</li>
+<li>
+<p><a href="https://djangopackages.org/">Django包</a></p>
+</li>
+</ul>
+<h2 id="项目布局">
+  项目布局
+  <a class="heading-link" href="#%e9%a1%b9%e7%9b%ae%e5%b8%83%e5%b1%80">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<h3 id="默认的项目布局和更好的项目布局">
+  默认的项目布局和更好的项目布局
+  <a class="heading-link" href="#%e9%bb%98%e8%ae%a4%e7%9a%84%e9%a1%b9%e7%9b%ae%e5%b8%83%e5%b1%80%e5%92%8c%e6%9b%b4%e5%a5%bd%e7%9a%84%e9%a1%b9%e7%9b%ae%e5%b8%83%e5%b1%80">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#586e75"># 默认项目布局 </span>
+mysite/
+├── manage.py
+├── my_app
+│ ├── __init__.py
+│ ├── admin.py
+│ ├── apps.py
+│ ├── migrations
+│ │ └── __init__.py
+│ ├── models.py
+│ ├── tests.py
+│ └── views.py
+└── mysite
+├── __init__.py
+├── asgi.py
+├── settings.py
+├── urls.py
+└── wsgi.py
+
+<span style="color:#586e75"># 更好的项目布局</span>
+&lt;repository_root&gt;/
+├── &lt;configuration_root&gt;/
+├── &lt;django_project_root&gt;/
+</code></pre></div><h4 id="仓库根目录-repository_root">
+  仓库根目录 repository_root
+  <a class="heading-link" href="#%e4%bb%93%e5%ba%93%e6%a0%b9%e7%9b%ae%e5%bd%95-repository_root">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h4>
+<p><em>&lt;repository_root&gt;<em>目录是项目的绝对根目录. 除了</em>&lt;django_project_root&gt;</em> 和 <em>&lt;configuration_root&gt;</em>, 我们还包括其他像<em>README.md</em>, <em>docs/</em> directory, <em>manage.py</em>, <em>.gitignore</em>, <em>requirements.txt</em> 文件和其他高级文件部署和运行项目所需的。</p>
+<blockquote>
+<p>一些开发人员喜欢将&lt;django_project_root&gt;合并到项目的&lt;repository_root&gt;中。</p>
+</blockquote>
+<h4 id="django项目根目录-django_project_root">
+  Django项目根目录 django_project_root
+  <a class="heading-link" href="#django%e9%a1%b9%e7%9b%ae%e6%a0%b9%e7%9b%ae%e5%bd%95-django_project_root">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h4>
+<p>如果使用 <code>django-admin.py startproject</code>，它生成的Django项目将成为项目根目录。</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">mysite/
+├── manage.py
+├── my_app
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── migrations
+│   │   └── __init__.py
+│   ├── models.py
+│   ├── tests.py
+│   └── views.py
+└── mysite
+    ├── __init__.py
+    ├── settings.py
+    ├── urls.py
+    └── wsgi.py
+</code></pre></div><h4 id="配置根目录-configuration_root">
+  配置根目录 configuration_root
+  <a class="heading-link" href="#%e9%85%8d%e7%bd%ae%e6%a0%b9%e7%9b%ae%e5%bd%95-configuration_root">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h4>
+<p>&lt;configuration_root&gt;目录是放置设置模块和基本URLConf (urls.py)的地方。这必须是一个有效的Python包(包含<code>__init__.py</code>)</p>
+<h3 id="更好的项目布局示例">
+  更好的项目布局示例
+  <a class="heading-link" href="#%e6%9b%b4%e5%a5%bd%e7%9a%84%e9%a1%b9%e7%9b%ae%e5%b8%83%e5%b1%80%e7%a4%ba%e4%be%8b">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">mysite_project
+├── config/
+│   ├── settings/
+|   |   ├── __init__.py
+|   |   ├── base.py
+|   |   ├── local.py
+|   |   ├── staging.py
+|   |   ├── test.py
+|   |   ├── production.py
+│   ├── __init__.py
+|   ├── asgi.py
+│   ├── urls.py
+│   └── wsgi.py
+├── docs/
+├── mysite/
+│   ├── media/ <span style="color:#586e75"># Development only!</span>
+│   ├── products/
+│   ├── profiles/
+│   ├── ratings/
+│   ├── static/
+│   └── templates/
+├── .gitignore
+├── Makefile
+├── README.rst
+├── manage.py
+└── requirements/
+|   ├── base.txt
+|   ├── local.txt
+|   ├── staging.txt
+|   ├── production.txt
+</code></pre></div><table>
+<thead>
+<tr>
+<th>File or Directory</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>.gitignore</td>
+<td>列出Git应该忽略的文件和目录。这个文件对于其他版本控制系统是不同的。例如，如果使用的是Mercurial，则会有一个.hgignore文件。)</td>
+</tr>
+<tr>
+<td>config/</td>
+<td>项目的&lt;configuration_root&gt;，其中包含项目范围的<em>sttings</em>、<em>url</em>和<em>wsgi.py</em>模块</td>
+</tr>
+<tr>
+<td>Makefile</td>
+<td>包含简单的部署任务和宏。</td>
+</tr>
+<tr>
+<td>manage.py</td>
+<td>如果您保留此选项，请不要修改其内容</td>
+</tr>
+<tr>
+<td>README.rst and docs/</td>
+<td>项目文档</td>
+</tr>
+<tr>
+<td>requirements.txt</td>
+<td>项目所需的Python包列表</td>
+</tr>
+<tr>
+<td>mysite/</td>
+<td>项目的&lt;django_project_root&gt;</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>File or Directory</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>media/</td>
+<td>仅用于开发:用户生成的静态媒体资产，如用户上传的照片。对于较大的项目，它将托管在单独的静态媒体服务器上</td>
+</tr>
+<tr>
+<td>products/</td>
+<td>管理和显示应用程序</td>
+</tr>
+<tr>
+<td>profiles/</td>
+<td>管理和显示用户档案的应用程序。</td>
+</tr>
+<tr>
+<td>ratings/</td>
+<td>管理用户评级。</td>
+</tr>
+<tr>
+<td>static/</td>
+<td>非用户生成的静态文件，包括CSS、JavaScript和图像。对于较大的项目，它将托管在单独的静态媒体服务器上</td>
+</tr>
+<tr>
+<td>templates/</td>
+<td>Django模板文件</td>
+</tr>
+</tbody>
+</table>
+<h4 id="setting和requirement文件">
+  Setting和Requirement文件
+  <a class="heading-link" href="#setting%e5%92%8crequirement%e6%96%87%e4%bb%b6">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h4>
+<p>使用一个包含多种环境配置文件的settings/目录，而不是使用一个settings.py文件。</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">settings<span style="color:#719e07">/</span>
+├── __init__<span style="color:#719e07">.</span>py
+├── base<span style="color:#719e07">.</span>py
+├── local<span style="color:#719e07">.</span>py
+├── staging<span style="color:#719e07">.</span>py
+├── test<span style="color:#719e07">.</span>py
+├── production<span style="color:#719e07">.</span>py
+</code></pre></div><table>
+<thead>
+<tr>
+<th>Setting files</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>base.py</td>
+<td>项目通用的设置。</td>
+</tr>
+<tr>
+<td>local.py</td>
+<td>本地处理项目时使用的设置文件。本地特定于开发的设置包括调试模式、日志级别和像django-debug-toolbar这样的开发人员工具</td>
+</tr>
+<tr>
+<td>staging.py</td>
+<td>准备版本，用于在生产服务器上运行站点的半私有版本。这是经理和客户在将您的工作转移到生产环境之前应该注意的地方。</td>
+</tr>
+<tr>
+<td>test.py</td>
+<td>运行测试的设置，包括测试运行程序、内存中的数据库定义和日志设置</td>
+</tr>
+<tr>
+<td>production.py</td>
+<td>这是生产服务器使用的设置文件。此文件仅包含生产级设置。有时被写为prod.py</td>
+</tr>
+</tbody>
+</table>
+<p>大型项目中工作，不同的开发人员需要不同的设置，而与队友共享相同的local.py设置模块是不行的。一个很好的方法是使用多个设置文件，例如local_team1.py和local_team2.py</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#586e75"># 多个设置文件</span>
+settings<span style="color:#719e07">/</span>
+    __init__<span style="color:#719e07">.</span>py
+    base<span style="color:#719e07">.</span>py
+    local_team1<span style="color:#719e07">.</span>py
+    local_team2<span style="color:#719e07">.</span>py
+    local<span style="color:#719e07">.</span>py
+    staging<span style="color:#719e07">.</span>py
+    test<span style="color:#719e07">.</span>py
+    production<span style="color:#719e07">.</span>py
+</code></pre></div><p>首先在&lt;repository_root&gt;中创建一个requirements/目录。然后创建”。与设置目录内容匹配的txt文件。结果应该是这样的:</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">requirements<span style="color:#719e07">/</span>
+├── base<span style="color:#719e07">.</span>txt
+├── local<span style="color:#719e07">.</span>txt
+├── staging<span style="color:#719e07">.</span>txt
+├── production<span style="color:#719e07">.</span>txt
+</code></pre></div><p>除了密码和API密钥之外的所有内容都应该在版本控制中。任何面向实际生产服务器的项目都需要多个设置和需求文件。即使是初学者，也需要进行这种设置/需求文件设置，这是一种好习惯。</p>
+<h3 id="扩展">
+  扩展
+  <a class="heading-link" href="#%e6%89%a9%e5%b1%95">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#586e75"># Django3 Web开发指南书中的例子</span>
+myproject_website
+├── commands/
+├── db_backups/ <span style="color:#586e75">#数据库</span>
+├── mockups/
+├── src/
+│   └── django-myproject/
+│       ├── externals/ <span style="color:#586e75"># 使用pip安装项目所包含外部依赖的externals目录</span>
+│       │   ├── apps/   
+│       │   │   └── README.md 
+│       │   └── libs/
+│       │       └── README.md
+│       ├── locale/  <span style="color:#586e75"># 项目翻译</span>
+│       ├── media/  <span style="color:#586e75"># 媒体文件</span>
+│       ├── myproject/
+│       │   ├── apps/
+│       │   │   ├── core/ <span style="color:#586e75"># 项目内建的Django应用，项目共享功能推荐名为core或utils的应用</span>
+│       │   │   │   ├── __init__.py
+│       │   │   │   └── versioning.py
+│       │   │   └── __init__.py
+│       │   ├── settings/ <span style="color:#586e75">#项目设置</span>
+│       │   │   ├── __init__.py
+│       │   │   ├── _base.py   <span style="color:#586e75"># 基本设置</span>
+│       │   │   ├── dev.py    <span style="color:#586e75"># 开发</span>
+│       │   │   ├── production.py  <span style="color:#586e75"># 生产</span>
+│       │   │   ├── sample_secrets.json <span style="color:#586e75"># 密钥、数据库密码等敏感信息</span>
+│       │   │   ├── secrets.json
+│       │   │   ├── staging.py   <span style="color:#586e75"># 预发布</span>
+│       │   │   └── test.py    <span style="color:#586e75"># 测试</span>
+│       │   ├── site_static/ <span style="color:#586e75"># 项目特有静态文件</span>
+│       │   │   └── site/
+│       │   │       ├── css/ <span style="color:#586e75"># CSS </span>
+│       │   │       │   └── style.css
+│       │   │       ├── img/ <span style="color:#586e75"># 样式图片、favicon和logo</span>
+│       │   │       │   ├── favicon-16x16.png
+│       │   │       │   ├── favicon-32x32.png
+│       │   │       │   └── favicon.ico
+│       │   │       ├── js/  <span style="color:#586e75"># js文件</span>
+│       │   │       │   └── main.js
+│       │   │       └── scss/ <span style="color:#586e75"># Sass文件</span>
+│       │   │           └── style.scss
+│       │   │       └── vendor/ <span style="color:#586e75"># 组合各种类型文件的第三方模块(如TinyMCE富文本编辑器)</span>
+│       │   │           
+│       │   ├── templates/  <span style="color:#586e75"># 项目HTML模板</span>
+│       │   │   ├── base.html <span style="color:#586e75"># 继承模板</span>
+│       │   │   └── index.html <span style="color:#586e75"># 主页</span>
+│       │   ├── __init__.py
+│       │   ├── urls.py   <span style="color:#586e75"># 项目URL配置</span>
+│       │   └── wsgi.py   <span style="color:#586e75"># 项目web服务配</span>
+│       ├── requirements/  
+│       │   ├── _base.txt  <span style="color:#586e75"># 共享</span>
+│       │   ├── dev.txt   <span style="color:#586e75"># 开发 </span>
+│       │   ├── production.txt <span style="color:#586e75"># 生产</span>
+│       │   ├── staging.txt  <span style="color:#586e75"># 预发布</span>
+│       │   └── test.txt  <span style="color:#586e75"># 测试</span>
+│       ├── static/  <span style="color:#586e75"># 存放静态文件</span>
+│       ├── LICENSE  <span style="color:#586e75"># 开源许可证</span>
+│       └── manage.py*
+└── venv/
+</code></pre></div><h2 id="app-设计">
+  App 设计
+  <a class="heading-link" href="#app-%e8%ae%be%e8%ae%a1">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<blockquote>
+<p>“The art of creating and maintaining a good Django app is that it should follow the</p>
+<p>truncated Unix philosophy according to Douglas McIlroy: ‘Write programs that do one</p>
+<p>thing and do it well.”</p>
+</blockquote>
+<p>每个应用程序都应该专注于自己的任务</p>
+<h2 id="app命名">
+  App命名
+  <a class="heading-link" href="#app%e5%91%bd%e5%90%8d">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<blockquote>
+<p>不要太担心让应用程序设计完美。 这是一门艺术，而不是一门科学。 有时候你得重写它们或者把它们拆散。 没关系的。</p>
+</blockquote>
+<p>如果您希望站点的博客出现在http://www.example.com/weblog/，那么考虑应用程序命名为weblog，而不是blog、posts或blogposts。更容易看到哪个应用程序对应于站点的哪个部分。</p>
+<p>使用有效的、符合PEP8的、可导入的Python包名：短的、所有小写的名称，没有数字、破折号、句点、空格或特殊字符。 如果需要可读性，可以使用下划线来分隔单词，尽管不鼓励使用下划线</p>
+<p>这是99%的Django应用程序中常见的模块。以斜杠（‘/’）结尾的任何模块都表示Python包，它可以包含一个或多个模块。</p>
+<h3 id="common-modules">
+  Common modules
+  <a class="heading-link" href="#common-modules">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">scoops/
+├── __init__.py
+├── admin.py
+├── forms.py
+├── management/
+├── migrations/
+├── models.py
+├── templatetags/
+├── tests/
+├── urls.py
+├── views.py
+</code></pre></div><h3 id="uncommon-modules">
+  Uncommon modules
+  <a class="heading-link" href="#uncommon-modules">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">
+scoops/
+├── api/
+├── behaviors.py
+├── constants.py
+├── context_processors.py
+├── decorators.py
+├── db/
+├── exceptions.py
+├── fields.py
+├── factories.py
+├── helpers.py
+├── managers.py
+├── middleware.py
+├── signals.py
+├── utils.py
+├── viewmixins.py
+</code></pre></div><table>
+<thead>
+<tr>
+<th>File or Directory</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>api/</td>
+<td>该app的api模块</td>
+</tr>
+<tr>
+<td>behaviors.py</td>
+<td>该app的model mixin</td>
+</tr>
+<tr>
+<td>constants.py</td>
+<td>该app下的全局变量</td>
+</tr>
+<tr>
+<td>context_processors.py</td>
+<td>上下文处理器</td>
+</tr>
+<tr>
+<td>decorators.py</td>
+<td>该app的装饰器</td>
+</tr>
+<tr>
+<td>db/</td>
+<td>自定义模型字段或组件的包</td>
+</tr>
+<tr>
+<td>exceptions.py</td>
+<td>Django模板文件</td>
+</tr>
+<tr>
+<td>fields.py</td>
+<td>通常用于该app的表单字段</td>
+</tr>
+<tr>
+<td>factories.py</td>
+<td>放置测试数据工厂的地方</td>
+</tr>
+<tr>
+<td>helpers.py</td>
+<td>view层辅助函数</td>
+</tr>
+<tr>
+<td>managers.py</td>
+<td>当models.py变得太大时，一个常见的补救方法是将所有自定义模型管理器移到这个模块中。</td>
+</tr>
+<tr>
+<td>middleware.py</td>
+<td>中间件</td>
+</tr>
+<tr>
+<td>schema.py</td>
+<td>GraphQL api code</td>
+</tr>
+<tr>
+<td>signals.py</td>
+<td>自定义信号</td>
+</tr>
+<tr>
+<td>utils.py</td>
+<td>该app的通用辅助函数</td>
+</tr>
+<tr>
+<td>viewmixins.py</td>
+<td>view层可以通过将任何view mixin移动到这个模块来进行精简。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="core-app">
+  core app
+  <a class="heading-link" href="#core-app">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<p>有时，我们会编写共享类或共享实用程序，这些共享类在任何地方都是通用的，不属于任何特定的app。</p>
+<p>我们处理这些实用程序的方法是将它们放到一个<code>core</code>的app中，<code>core</code>app主要包含用于跨项目使用的函数和对象，例子如下</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">core/
+├── __init__.py
+├── managers.py <span style="color:#586e75"># 包含自定义model管理器</span>
+├── models.py
+├── views.py <span style="color:#586e75"># 包含自定义view mixin(s)</span>
+</code></pre></div><div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#586e75"># Importing From the Core App</span>
+
+<span style="color:#719e07">from</span> core.managers <span style="color:#719e07">import</span> <span style="color:#719e07">&lt;</span>custom_manager<span style="color:#719e07">&gt;</span>
+<span style="color:#719e07">from</span> core.views <span style="color:#719e07">import</span> <span style="color:#719e07">&lt;</span>custom_mixin<span style="color:#719e07">&gt;</span>
+</code></pre></div><p>将逻辑从更复杂的构造移动到放置在孤立模块中的函数的作用是：它变得更容易测试。 隔离意味着它通常是在应用程序中导入的，而不是在应用程序中/项目中导入。 这会减少业务逻辑开销，从而更容易为模块中的逻辑编写测试。</p>
+<h3 id="service-layer">
+  Service layer
+  <a class="heading-link" href="#service-layer">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<p>业务逻辑代码和相关服务也可以通过以下方式设计</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">my_app/
+├── api/
+├── models.py
+├── services.py <span style="color:#586e75"># Service layer location for business logic</span>
+├── selectors.py <span style="color:#586e75"># Service layer location for queries</span>
+├── tests/
+</code></pre></div><h2 id="heading">
+  
+  <a class="heading-link" href="#heading">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+
+      </div>
+
+
+      <footer>
+        
+
+
+        
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+      </div>
+
+      
+  <footer class="footer">
+    <section class="container">
+      
+        <p>粤ICP备2021007187号</p>
+      
+      
+        ©
+        
+        2021
+         xblzbjs 
+      
+      
+      
+    </section>
+  </footer>
+
+
+    </main>
+
+    
+      
+      <script src="/js/coder.min.03b17769f4f91ae35667e1f2a1ca8c16f50562576cf90ff32b3179926914daa5.js" integrity="sha256-A7F3afT5GuNWZ&#43;HyocqMFvUFYlds&#43;Q/zKzF5kmkU2qU="></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QYYHFCMJHS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QYYHFCMJHS');
+</script>
+
+  </body>
+
+</html>

@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Language" content="zh-cn">
+    <meta name="color-scheme" content="light dark">
+
+    
+      <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests; block-all-mixed-content; default-src 'self'; child-src 'self'; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net/; form-action 'self'; frame-src 'self'; img-src 'self'; object-src 'none'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com/ https://cdn.jsdelivr.net/; script-src 'self' 'unsafe-inline' https://www.google-analytics.com; prefetch-src 'self'; connect-src 'self' https://www.google-analytics.com;">
+
+    
+
+    <meta name="author" content="xblzbjs">
+    <meta name="description" content="简介    单例模式（Singleton Pattern）是一种创建型设计模式。单例模式保证了在程序的不同位置都可以且仅可以取到同一个对象实例：如果实例不存在，会创建一个实例；如果已存在就会返回这个实例。
+优点     减少内存与性能开销 防止多个实例产生冲突  缺点     在代码中隐藏了程序的依赖项，而不是通过接口公开它们。 违反了单一职责原则 该模式在多线程环境下需要进行特殊处理， 避免多个线程多次创建单例对象。 单例的客户端代码单元测试可能会比较困难， 因为许多测试框架以基于继承的方式创建模拟对象。 由于单例类的构造函数是私有的， 而且绝大部分语言无法重写静态方法， 所以你需要想出仔细考虑模拟单例的方法。  适合场景    因为单例模式保证了实例的全局唯一性，而且只被初始化一次，所以比较适合全局共享一个实例，且只需要被初始化一次的场景。例如
+ 数据库实例配置 全局配置 全局任务池  饿汉方式与懒汉方式    单例模式又分为饿汉方式和懒汉方式。饿汉方式指全局的单例实例在包被加载时创建，而懒汉方式指全局的单例实例在第一次被使用时创建。接下来，我就来分别介绍下这两种方式。
+饿汉方式    饿汉方式指全局的单例实例在包被加载时创建。需要注意，采用饿汉方式初始化耗时，会导致程序加载时间比较长。
+懒汉方式    懒汉方式指全局的单例实例在第一次被使用时创建。
+工程项目中，懒汉方式使用的频率要更多一些。但它的缺点是非并发安全，在实际使用时需要加锁。
+饿汉方式 VS 懒汉方式        自动初始化 是否需要加锁 多线程安全 实现难度     饿汉方式 是 否 是 易   懒汉方式 否 是 是 中    Go最佳实践    饿汉方式    package singleton type singleton struct { } var ins *singleton = &amp;singleton{} func GetInsOr() *singleton { return ins } func init() { GetInsOr() } 懒汉方式    type Singleton struct { data string } var ins *Singleton var once sync.">
+    <meta name="keywords" content="blog,developer,personal">
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Go &amp; Python｜单例模式"/>
+<meta name="twitter:description" content="简介    单例模式（Singleton Pattern）是一种创建型设计模式。单例模式保证了在程序的不同位置都可以且仅可以取到同一个对象实例：如果实例不存在，会创建一个实例；如果已存在就会返回这个实例。
+优点     减少内存与性能开销 防止多个实例产生冲突  缺点     在代码中隐藏了程序的依赖项，而不是通过接口公开它们。 违反了单一职责原则 该模式在多线程环境下需要进行特殊处理， 避免多个线程多次创建单例对象。 单例的客户端代码单元测试可能会比较困难， 因为许多测试框架以基于继承的方式创建模拟对象。 由于单例类的构造函数是私有的， 而且绝大部分语言无法重写静态方法， 所以你需要想出仔细考虑模拟单例的方法。  适合场景    因为单例模式保证了实例的全局唯一性，而且只被初始化一次，所以比较适合全局共享一个实例，且只需要被初始化一次的场景。例如
+ 数据库实例配置 全局配置 全局任务池  饿汉方式与懒汉方式    单例模式又分为饿汉方式和懒汉方式。饿汉方式指全局的单例实例在包被加载时创建，而懒汉方式指全局的单例实例在第一次被使用时创建。接下来，我就来分别介绍下这两种方式。
+饿汉方式    饿汉方式指全局的单例实例在包被加载时创建。需要注意，采用饿汉方式初始化耗时，会导致程序加载时间比较长。
+懒汉方式    懒汉方式指全局的单例实例在第一次被使用时创建。
+工程项目中，懒汉方式使用的频率要更多一些。但它的缺点是非并发安全，在实际使用时需要加锁。
+饿汉方式 VS 懒汉方式        自动初始化 是否需要加锁 多线程安全 实现难度     饿汉方式 是 否 是 易   懒汉方式 否 是 是 中    Go最佳实践    饿汉方式    package singleton type singleton struct { } var ins *singleton = &amp;singleton{} func GetInsOr() *singleton { return ins } func init() { GetInsOr() } 懒汉方式    type Singleton struct { data string } var ins *Singleton var once sync."/>
+
+    <meta property="og:title" content="Go &amp; Python｜单例模式" />
+<meta property="og:description" content="简介    单例模式（Singleton Pattern）是一种创建型设计模式。单例模式保证了在程序的不同位置都可以且仅可以取到同一个对象实例：如果实例不存在，会创建一个实例；如果已存在就会返回这个实例。
+优点     减少内存与性能开销 防止多个实例产生冲突  缺点     在代码中隐藏了程序的依赖项，而不是通过接口公开它们。 违反了单一职责原则 该模式在多线程环境下需要进行特殊处理， 避免多个线程多次创建单例对象。 单例的客户端代码单元测试可能会比较困难， 因为许多测试框架以基于继承的方式创建模拟对象。 由于单例类的构造函数是私有的， 而且绝大部分语言无法重写静态方法， 所以你需要想出仔细考虑模拟单例的方法。  适合场景    因为单例模式保证了实例的全局唯一性，而且只被初始化一次，所以比较适合全局共享一个实例，且只需要被初始化一次的场景。例如
+ 数据库实例配置 全局配置 全局任务池  饿汉方式与懒汉方式    单例模式又分为饿汉方式和懒汉方式。饿汉方式指全局的单例实例在包被加载时创建，而懒汉方式指全局的单例实例在第一次被使用时创建。接下来，我就来分别介绍下这两种方式。
+饿汉方式    饿汉方式指全局的单例实例在包被加载时创建。需要注意，采用饿汉方式初始化耗时，会导致程序加载时间比较长。
+懒汉方式    懒汉方式指全局的单例实例在第一次被使用时创建。
+工程项目中，懒汉方式使用的频率要更多一些。但它的缺点是非并发安全，在实际使用时需要加锁。
+饿汉方式 VS 懒汉方式        自动初始化 是否需要加锁 多线程安全 实现难度     饿汉方式 是 否 是 易   懒汉方式 否 是 是 中    Go最佳实践    饿汉方式    package singleton type singleton struct { } var ins *singleton = &amp;singleton{} func GetInsOr() *singleton { return ins } func init() { GetInsOr() } 懒汉方式    type Singleton struct { data string } var ins *Singleton var once sync." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://xblzbjs.cn/posts/design-patterns/go-python%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-03-21T00:00:00&#43;00:00" />
+<meta property="article:modified_time" content="2021-03-21T00:00:00&#43;00:00" />
+
+
+
+    <title>
+  Go &amp; Python｜单例模式 · xblzbjs
+</title>
+
+    
+      <link rel="canonical" href="https://xblzbjs.cn/posts/design-patterns/go-python%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">
+    
+
+    <link rel="preload" href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as="font" type="font/woff2" crossorigin>
+
+    
+      
+      
+      <link rel="stylesheet" href="/css/coder.min.93c41bf1e522f85ecda7355985f09000f71fc1d64dda9f74051b0fa06210e93f.css" integrity="sha256-k8Qb8eUi&#43;F7NpzVZhfCQAPcfwdZN2p90BRsPoGIQ6T8=" crossorigin="anonymous" media="screen" />
+    
+
+    
+
+    
+      
+        
+        
+        <link rel="stylesheet" href="/css/coder-dark.min.f37febc669ce189201c1918fac1948a254686c8d366a312c2d72b2bb71ad97d1.css" integrity="sha256-83/rxmnOGJIBwZGPrBlIolRobI02ajEsLXKyu3Gtl9E=" crossorigin="anonymous" media="screen" />
+      
+    
+
+    
+
+    
+
+    <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16">
+
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+    
+      <script defer src="https://twemoji.maxcdn.com/v/13.0.2/twemoji.min.js"
+        integrity="sha384-wyB/MspSJ/r2bT2kCj44qtsYRYlpzO2oAPhRj5myrWD63dt6qWv4x8AZe7Fl3K3b" crossorigin="anonymous"></script>
+    
+
+    <meta name="generator" content="Hugo 0.83.1" />
+  </head>
+
+  
+  
+    
+  
+  <body class="preload-transitions colorscheme-auto"
+        onload=" twemoji.parse(document.body); "
+  >
+    
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="/">
+      xblzbjs
+    </a>
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/posts/">随笔</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/categories/">分类</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/tags/">标签</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/about/">关于</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="/learning-materials/">学习资料</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="https://xblzbjs.cn/posts/design-patterns/go-python%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/">
+              Go &amp; Python｜单例模式
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+              <time datetime='2021-03-21T00:00:00Z'>
+                March 21, 2021
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              阅读时间：1 分钟
+            </span>
+          </div>
+          
+          <div class="categories">
+  <i class="fa fa-folder" aria-hidden="true"></i>
+    <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a></div>
+
+          <div class="tags">
+  <i class="fa fa-tag" aria-hidden="true"></i>
+    <span class="tag">
+      <a href="/tags/go/">Go</a>
+    </span>
+      <span class="separator">•</span>
+    <span class="tag">
+      <a href="/tags/python/">Python</a>
+    </span></div>
+
+        </div>
+      </header>
+
+      <div>
+        
+        <h2 id="简介">
+  简介
+  <a class="heading-link" href="#%e7%ae%80%e4%bb%8b">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>单例模式（Singleton Pattern）是一种创建型设计模式。单例模式保证了在程序的不同位置都<strong>可以且仅可以取到同一个对象实例</strong>：如果实例不存在，会创建一个实例；如果已存在就会返回这个实例。</p>
+<h3 id="优点">
+  优点
+  <a class="heading-link" href="#%e4%bc%98%e7%82%b9">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<ul>
+<li>减少内存与性能开销</li>
+<li>防止多个实例产生冲突</li>
+</ul>
+<h3 id="缺点">
+  缺点
+  <a class="heading-link" href="#%e7%bc%ba%e7%82%b9">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<ul>
+<li>在代码中隐藏了程序的依赖项，而不是通过接口公开它们。</li>
+<li>违反了单一职责原则</li>
+<li>该模式在多线程环境下需要进行特殊处理， 避免多个线程多次创建单例对象。</li>
+<li>单例的客户端代码单元测试可能会比较困难， 因为许多测试框架以基于继承的方式创建模拟对象。 由于单例类的构造函数是私有的， 而且绝大部分语言无法重写静态方法， 所以你需要想出仔细考虑模拟单例的方法。</li>
+</ul>
+<h3 id="适合场景">
+  适合场景
+  <a class="heading-link" href="#%e9%80%82%e5%90%88%e5%9c%ba%e6%99%af">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<p>因为单例模式保证了实例的全局唯一性，而且只被初始化一次，所以比较适合<strong>全局共享一个实例，且只需要被初始化一次</strong>的场景。例如</p>
+<ul>
+<li>数据库实例配置</li>
+<li>全局配置</li>
+<li>全局任务池</li>
+</ul>
+<h3 id="饿汉方式与懒汉方式">
+  饿汉方式与懒汉方式
+  <a class="heading-link" href="#%e9%a5%bf%e6%b1%89%e6%96%b9%e5%bc%8f%e4%b8%8e%e6%87%92%e6%b1%89%e6%96%b9%e5%bc%8f">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<p>单例模式又分为<strong>饿汉方式</strong>和<strong>懒汉方式</strong>。饿汉方式指全局的单例实例在包被加载时创建，而懒汉方式指全局的单例实例在第一次被使用时创建。接下来，我就来分别介绍下这两种方式。</p>
+<h4 id="饿汉方式">
+  饿汉方式
+  <a class="heading-link" href="#%e9%a5%bf%e6%b1%89%e6%96%b9%e5%bc%8f">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h4>
+<p>饿汉方式指全局的单例实例在包被加载时创建。需要注意，采用饿汉方式初始化耗时，会导致程序加载时间比较长。</p>
+<h4 id="懒汉方式">
+  懒汉方式
+  <a class="heading-link" href="#%e6%87%92%e6%b1%89%e6%96%b9%e5%bc%8f">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h4>
+<p>懒汉方式指全局的单例实例在第一次被使用时创建。</p>
+<p>工程项目中，懒汉方式使用的频率要更多一些。但它的缺点是非并发安全，在实际使用时需要加锁。</p>
+<h4 id="饿汉方式-vs-懒汉方式">
+  饿汉方式 VS 懒汉方式
+  <a class="heading-link" href="#%e9%a5%bf%e6%b1%89%e6%96%b9%e5%bc%8f-vs-%e6%87%92%e6%b1%89%e6%96%b9%e5%bc%8f">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h4>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>自动初始化</th>
+<th>是否需要加锁</th>
+<th>多线程安全</th>
+<th>实现难度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>饿汉方式</td>
+<td>是</td>
+<td>否</td>
+<td>是</td>
+<td>易</td>
+</tr>
+<tr>
+<td>懒汉方式</td>
+<td>否</td>
+<td>是</td>
+<td>是</td>
+<td>中</td>
+</tr>
+</tbody>
+</table>
+<h2 id="go最佳实践">
+  Go最佳实践
+  <a class="heading-link" href="#go%e6%9c%80%e4%bd%b3%e5%ae%9e%e8%b7%b5">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<h3 id="饿汉方式-1">
+  饿汉方式
+  <a class="heading-link" href="#%e9%a5%bf%e6%b1%89%e6%96%b9%e5%bc%8f-1">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#719e07">package</span> singleton
+
+<span style="color:#268bd2">type</span> singleton <span style="color:#268bd2">struct</span> {
+}
+
+<span style="color:#268bd2">var</span> ins <span style="color:#719e07">*</span>singleton = <span style="color:#719e07">&amp;</span>singleton{}
+
+<span style="color:#268bd2">func</span> <span style="color:#268bd2">GetInsOr</span>() <span style="color:#719e07">*</span>singleton {
+	<span style="color:#719e07">return</span> ins
+}
+
+<span style="color:#268bd2">func</span> <span style="color:#268bd2">init</span>() {
+	<span style="color:#268bd2">GetInsOr</span>()
+}
+</code></pre></div><h3 id="懒汉方式-1">
+  懒汉方式
+  <a class="heading-link" href="#%e6%87%92%e6%b1%89%e6%96%b9%e5%bc%8f-1">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#268bd2">type</span> Singleton <span style="color:#268bd2">struct</span> {
+	data <span style="color:#dc322f">string</span>
+}
+
+<span style="color:#268bd2">var</span> ins <span style="color:#719e07">*</span>Singleton
+<span style="color:#268bd2">var</span> once sync.Once
+
+<span style="color:#268bd2">func</span> <span style="color:#268bd2">GetSingletonObj</span>() <span style="color:#719e07">*</span>Singleton {
+	once.<span style="color:#268bd2">Do</span>(<span style="color:#268bd2">func</span>() {
+		fmt.<span style="color:#268bd2">Println</span>(<span style="color:#2aa198">&#34;Create a singleton object&#34;</span>)
+		singleInstance = <span style="color:#b58900">new</span>(Singleton)
+	})
+	<span style="color:#719e07">return</span> singleInstance
+}
+</code></pre></div><p>使用<code>once.Do</code>可以确保 <code>ins</code> 实例全局只被创建一次，<code>once.Do </code>函数还可以确保当同时有多个创建动作时，只有一个创建动作在被执行。</p>
+<h2 id="python最佳实践">
+  Python最佳实践
+  <a class="heading-link" href="#python%e6%9c%80%e4%bd%b3%e5%ae%9e%e8%b7%b5">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
+<p>值得一提的是，python的<code>import</code>模块设计上是天然的单例模式。下面使用最常用的<code>__new__</code>方法实现单例模式</p>
+<h3 id="饿汉方式-2">
+  饿汉方式
+  <a class="heading-link" href="#%e9%a5%bf%e6%b1%89%e6%96%b9%e5%bc%8f-2">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#719e07">class</span> <span style="color:#268bd2">Singleton</span>(<span style="color:#b58900">object</span>):
+    <span style="color:#719e07">def</span> __new__(<span style="color:#268bd2">cls</span>, <span style="color:#719e07">*</span>args, <span style="color:#719e07">**</span>kwargs):
+        <span style="color:#719e07">if</span> <span style="color:#719e07">not</span> <span style="color:#b58900">hasattr</span>(<span style="color:#268bd2">cls</span>, <span style="color:#2aa198">&#39;_instance&#39;</span>):
+            <span style="color:#268bd2">cls</span><span style="color:#719e07">.</span>instance <span style="color:#719e07">=</span> <span style="color:#b58900">super</span>()<span style="color:#719e07">.</span>__new__(<span style="color:#268bd2">cls</span>, <span style="color:#719e07">*</span>args, <span style="color:#719e07">**</span>kwargs)
+        <span style="color:#719e07">return</span> <span style="color:#268bd2">cls</span><span style="color:#719e07">.</span>_instance
+ 
+<span style="color:#719e07">class</span> <span style="color:#268bd2">MyClass</span>(Singleton):
+    <span style="color:#719e07">pass</span>
+
+c1 <span style="color:#719e07">=</span> MyClass()
+c2 <span style="color:#719e07">=</span> MyClass()
+<span style="color:#719e07">assert</span> c1 <span style="color:#719e07">is</span> c2 
+</code></pre></div><h3 id="懒汉方式-2">
+  懒汉方式
+  <a class="heading-link" href="#%e6%87%92%e6%b1%89%e6%96%b9%e5%bc%8f-2">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
+<p>使用装饰器（decorator），更pythonic、优雅的方法</p>
+<div class="highlight"><pre style="color:#93a1a1;background-color:#002b36;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#719e07">def</span> <span style="color:#268bd2">singleton</span>(<span style="color:#268bd2">cls</span>, <span style="color:#719e07">*</span>args, <span style="color:#719e07">**</span>kwargs):
+    instances <span style="color:#719e07">=</span> {}
+
+    <span style="color:#719e07">def</span> <span style="color:#268bd2">_singleton</span>():
+        <span style="color:#719e07">if</span> <span style="color:#268bd2">cls</span> <span style="color:#719e07">not</span> <span style="color:#719e07">in</span> instances:
+            instances[<span style="color:#268bd2">cls</span>] <span style="color:#719e07">=</span> <span style="color:#268bd2">cls</span>(<span style="color:#719e07">*</span>args, <span style="color:#719e07">**</span>kw)
+        <span style="color:#719e07">return</span> instances[<span style="color:#268bd2">cls</span>]
+
+    <span style="color:#719e07">return</span> _singleton
+
+<span style="color:#268bd2">@singleton</span>
+<span style="color:#719e07">class</span> <span style="color:#268bd2">MyClass</span>(<span style="color:#b58900">object</span>):
+    a <span style="color:#719e07">=</span> <span style="color:#2aa198">1</span>
+
+    <span style="color:#719e07">def</span> __init__(<span style="color:#268bd2">self</span>, x<span style="color:#719e07">=</span><span style="color:#2aa198">0</span>):
+        <span style="color:#268bd2">self</span><span style="color:#719e07">.</span>x <span style="color:#719e07">=</span> x
+
+
+c1 <span style="color:#719e07">=</span> MyClass()
+c2 <span style="color:#719e07">=</span> MyClass()
+<span style="color:#719e07">assert</span> c1 <span style="color:#719e07">is</span> c2
+</code></pre></div>
+      </div>
+
+
+      <footer>
+        
+
+
+        
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+      </div>
+
+      
+  <footer class="footer">
+    <section class="container">
+      
+        <p>粤ICP备2021007187号</p>
+      
+      
+        ©
+        
+        2021
+         xblzbjs 
+      
+      
+      
+    </section>
+  </footer>
+
+
+    </main>
+
+    
+      
+      <script src="/js/coder.min.03b17769f4f91ae35667e1f2a1ca8c16f50562576cf90ff32b3179926914daa5.js" integrity="sha256-A7F3afT5GuNWZ&#43;HyocqMFvUFYlds&#43;Q/zKzF5kmkU2qU="></script>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QYYHFCMJHS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QYYHFCMJHS');
+</script>
+
+  </body>
+
+</html>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Go on xblzbjs</title>
+    <link>https://xblzbjs.cn/tags/go/</link>
+    <description>Recent content in Go on xblzbjs</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Tue, 25 May 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://xblzbjs.cn/tags/go/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go Tips | Map</title>
+      <link>https://xblzbjs.cn/posts/go-tips/go-tips-map/</link>
+      <pubDate>Tue, 25 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/go-tips/go-tips-map/</guid>
+      <description>Tip1 初始化方式    func TestTestInitMap(t *testing.T) { // 方法一（字面量初始化） 	m1 := map[string]int{&amp;#34;Go&amp;#34;: 1, &amp;#34;Java&amp;#34;: 2, &amp;#34;Python&amp;#34;: 3} m2 := map[int]int{} // 方法二（使用内置函数make初始化） 	m3 := make(map[int]int, 10) // 使用len函数打印map的长度, 不能用cap打印容量 	t.Logf(&amp;#34;len m1=%d&amp;#34;, len(m1)) m2[4] = 16 t.Logf(&amp;#34;len m2=%d&amp;#34;, len(m2)) t.Logf(&amp;#34;len m3=%d&amp;#34;, len(m3)) } 以上两者同样是初始化一个Map，有什么不同？
+ 方法二提前分配了Map的容量，减少内存分配的次数，相比方法一而言性能更好，但是可扩展性更差。  Tip2 增删查改（Create、Delete、Read、Update）    func TestMapCRUD(t *testing.T) { m := make(map[string]int, 10) m[&amp;#34;other&amp;#34;] = 0 // Create 	m[&amp;#34;go&amp;#34;] = 1 t.</description>
+    </item>
+    
+    <item>
+      <title>Go Tips | Test</title>
+      <link>https://xblzbjs.cn/posts/go-tips/go-tips-test/</link>
+      <pubDate>Tue, 25 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/go-tips/go-tips-test/</guid>
+      <description>因何而生❓    有时测试程序需要在测试之前或之后进行额外的设置或拆卸。有时测试还需要控制哪些代码在主线程上运行。为了支持这些和其他情况, testing 包提供了 TestMain 函数 :
+func TestMain(m *testing.M) 有什么作用🤔    如果测试文件中包含该函数，那么生成的测试将调用 TestMain(m)，而不是直接运行测试。TestMain 运行在主 goroutine 中 , 可以在调用 m.Run 前后做任何设置和拆卸。m. Run将返回可能传递给的退出代码操作系统退出. 如果TestMain返回，测试包装器将m.Run的结果传递给操作系统退出它自己
+调用TestMain时，flag.解析尚未运行。如果TestMain依赖于命令行标志，包括测试包的标志，那么它应该调用flag.解析明确地。命令行标志总是由运行的时间测试或基准函数来解析
+因此，当您需要为测试执行一些全局设置/删除时，这可能会很方便
+举个🌰    简单    // file name: demo_test.go package tests import ( &amp;#34;testing&amp;#34; &amp;#34;os&amp;#34; ) func TestMain(m *testing.M) { log.Println(&amp;#34;Do stuff BEFORE the tests!&amp;#34;) exitVal := m.Run() log.Println(&amp;#34;Do stuff AFTER the tests!&amp;#34;) os.Exit(exitVal) } func TestA(t *testing.</description>
+    </item>
+    
+    <item>
+      <title>Go &amp; Python｜单例模式</title>
+      <link>https://xblzbjs.cn/posts/design-patterns/go-python%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Sun, 21 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/design-patterns/go-python%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</guid>
+      <description>简介    单例模式（Singleton Pattern）是一种创建型设计模式。单例模式保证了在程序的不同位置都可以且仅可以取到同一个对象实例：如果实例不存在，会创建一个实例；如果已存在就会返回这个实例。
+优点     减少内存与性能开销 防止多个实例产生冲突  缺点     在代码中隐藏了程序的依赖项，而不是通过接口公开它们。 违反了单一职责原则 该模式在多线程环境下需要进行特殊处理， 避免多个线程多次创建单例对象。 单例的客户端代码单元测试可能会比较困难， 因为许多测试框架以基于继承的方式创建模拟对象。 由于单例类的构造函数是私有的， 而且绝大部分语言无法重写静态方法， 所以你需要想出仔细考虑模拟单例的方法。  适合场景    因为单例模式保证了实例的全局唯一性，而且只被初始化一次，所以比较适合全局共享一个实例，且只需要被初始化一次的场景。例如
+ 数据库实例配置 全局配置 全局任务池  饿汉方式与懒汉方式    单例模式又分为饿汉方式和懒汉方式。饿汉方式指全局的单例实例在包被加载时创建，而懒汉方式指全局的单例实例在第一次被使用时创建。接下来，我就来分别介绍下这两种方式。
+饿汉方式    饿汉方式指全局的单例实例在包被加载时创建。需要注意，采用饿汉方式初始化耗时，会导致程序加载时间比较长。
+懒汉方式    懒汉方式指全局的单例实例在第一次被使用时创建。
+工程项目中，懒汉方式使用的频率要更多一些。但它的缺点是非并发安全，在实际使用时需要加锁。
+饿汉方式 VS 懒汉方式        自动初始化 是否需要加锁 多线程安全 实现难度     饿汉方式 是 否 是 易   懒汉方式 否 是 是 中    Go最佳实践    饿汉方式    package singleton type singleton struct { } var ins *singleton = &amp;amp;singleton{} func GetInsOr() *singleton { return ins } func init() { GetInsOr() } 懒汉方式    type Singleton struct { data string } var ins *Singleton var once sync.</description>
+    </item>
+    
+    <item>
+      <title>Go &amp; Python｜工厂模式</title>
+      <link>https://xblzbjs.cn/posts/design-patterns/go-python%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Sat, 20 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/design-patterns/go-python%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Go &amp; Python｜结构型设计模式</title>
+      <link>https://xblzbjs.cn/posts/design-patterns/go-python%E7%BB%93%E6%9E%84%E5%9E%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Sat, 20 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/design-patterns/go-python%E7%BB%93%E6%9E%84%E5%9E%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</guid>
+      <description>结构型模式    常见的结构型设计模式：
+ 工厂模式（Factory）：解决对象创建问题 构造模式（Builder）：控制复杂对象的创建 原型模式（Prototype）：通过原型的克隆创建新的实例 单例（Borg/Singleton）：一个类只能创建同一个对象 对象池模式（Pool）：预先分配同一类型的一组实例 惰性计算模式（Lazy Evaluation）：延迟计算（python的property）  装饰器模式    什么是装饰器（Decorator）
+ Python中一切皆对象，函数也可以当作参数传递 装饰器是接受函数作为参数，添加功能后返回一个新函数的函数（类） 通过@使用装饰器  import time def log_time(func): # 接受一个函数作为参数 def _log(*args, **kwargs): beg = time.time() res = func(*args, **kwargs) print(&amp;#39;use time:{}&amp;#39;.format(time.time()-beg)) return res return _log @log_time # @:装饰器语法糖 def mysleep(): time.sleep(1) newsleep = log_time(mysleep) # 等价于mysleep() newsleep() mysleep() import time # 装饰器类实现 class LogTime: def __init__(self, use_int=False): self.use_int = use_int # 增加参数 def __call__(self,func): def _log(*args, **kwargs): beg = time.</description>
+    </item>
+    
+    <item>
+      <title>Go &amp; Python｜行为型设计模式</title>
+      <link>https://xblzbjs.cn/posts/design-patterns/go-python%E8%A1%8C%E4%B8%BA%E5%9E%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
+      <pubDate>Sat, 20 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://xblzbjs.cn/posts/design-patterns/go-python%E8%A1%8C%E4%B8%BA%E5%9E%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</guid>
+      <description>常见学习行为型设计模式     迭代器模式（Iterator）：通过统一的接口迭代对象 观察者模式（Observer）：对象发生改变的时候，观察者执行相应动作 策略模式（Strategy）：针对不同规模输入使用不同的策略  迭代器模式     Python内置对迭代器模式的支持 可用for遍历各种Iterable的数据类型 可以实现__next__和__iter__实现迭代器  class Stack(object): # 使用组合的例子 def __init__(self): self._deque = deque() def push(self, value): return self._deque.append(value) def pop(self): return self._deque.pop() def empty(self): return len(self._deque) == 0 def __iter__(self): res = [] for i in self._deque: res.append(i) for i in reversed(res): yield i s = Stack() s.push(1) s.push(2) for i in s: print(i) 观察者模式     发布订阅是一种最常用的实现方式 发布订阅用于解耦逻辑 可以通过回调等方式实现，当发生事件，执行回调函数  ==TODO：代码实现==</description>
+    </item>
+    
+  </channel>
+</rss>

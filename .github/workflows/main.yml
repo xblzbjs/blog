@@ -12,9 +12,9 @@ jobs:
           uses: TencentCloudBase/cloudbase-action@v1.1.1
           with: 
             # 云开发的访问密钥 secretId 和 secretKey
-            secretId: AKIDqVuBCbjaBVYKp30g5ez4sPggPr3zf3B2
-            secretKey: bvykFYbNs63i6D3cuud6IDrEKBn9H9l7
+            secretId: ${{ secrets.SECRET_ID }}
+            secretKey: ${{ secrets.SECRET_KEY }}
             # 云开发的环境id
-            envId: blog-2gcb4g5t61334848
+            envId: ${{ secrets.ENV_ID }}
             # Github 项目静态文件的路径
             staticSrcPath: public

@@ -2,6 +2,7 @@
     "envId": "{{env.ENV_ID}}",
     "$schema": "https://framework-1258016615.tcloudbaseapp.com/schema/latest.json",
     "version": "2.0",
+    "region": "ap-guangzhou",
     "framework": {
         "name": "hugo",
         "plugins": {
@@ -12,7 +13,7 @@
             "buildCommand": "hugo --minify --gc --enableGitInfo",
             "outputPath": "public",
             "cloudPath": "/",
-            "ignore": [".git", ".github", "node_modules", "cloudbaserc.json"]
+            "ignore": [".git", ".github", "node_modules", "cloudbaserc.js"]
             }
         }
         }
